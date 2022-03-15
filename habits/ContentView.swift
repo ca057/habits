@@ -13,25 +13,23 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    
-                }
-                
-                Button {
-                    showingAddHabit = true
-                } label: {
-                    Label("Add new habit", systemImage: "plus.square.on.square")
-                        .labelStyle(IconOnlyLabelStyle())
-                }
-                .padding()
-            }
+            DashboardView()
             .navigationTitle("habits")
             .toolbar {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Label("Settings", systemImage: "gearshape")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Settings", systemImage: "gearshape")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showingAddHabit = true
+                    } label: {
+                        Label("Add new habit", systemImage: "plus")
+                            .labelStyle(IconOnlyLabelStyle())
+                    }
                 }
             }
             .sheet(isPresented: $showingSettings) {

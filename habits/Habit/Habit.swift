@@ -10,15 +10,13 @@ import Foundation
 struct Habit: Identifiable {
     let id = UUID()
     let createdAt: Date
-    let type: HabitType
     var name: String
     
     // TODO
     // target rhythm
 
-    init(name n: String, type t: HabitType) {
-        name = n
-        type = t
-        createdAt = Date.now
+    init(name n: String) {
+        self.name = n
+        self.createdAt = Date.now
     }
 }

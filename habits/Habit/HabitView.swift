@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct HabitView: View {
-    let habit: Habit
-    
+    @StateObject private var viewModel = HabitViewModel()
+
     var body: some View {
-        Text(habit.name)
+        Text(viewModel.habit.name)
     }
 }
 
 struct HabitView_Previews: PreviewProvider {
     static var previews: some View {
-        HabitView(habit: Habit(name: "Preview", type: .Tick))
+        HabitView()
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64341A27E1148C003A74C9 /* DashboardView.swift */; };
 		AADC1CE427BEF547007C47BE /* habitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* habitsApp.swift */; };
 		AADC1CE627BEF547007C47BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* ContentView.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
@@ -20,9 +21,8 @@
 		AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AADC1D1627C01ADD007C47BE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1527C01ADD007C47BE /* Habit.swift */; };
 		AADC1D1727C01ADD007C47BE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1527C01ADD007C47BE /* Habit.swift */; };
-		AADC1D1A27C01BB8007C47BE /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1927C01BB8007C47BE /* Types.swift */; };
-		AADC1D1B27C01BB8007C47BE /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1927C01BB8007C47BE /* Types.swift */; };
 		AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1E27C13ACC007C47BE /* HabitView.swift */; };
+		D22F44750370C2B4FD544F47 /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22F4B245604F563F6556832 /* HabitViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA64341A27E1148C003A74C9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AADC1CE027BEF547007C47BE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CE327BEF547007C47BE /* habitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsApp.swift; sourceTree = "<group>"; };
 		AADC1CE527BEF547007C47BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,8 +57,8 @@
 		AADC1D0F27C01682007C47BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AADC1D1527C01ADD007C47BE /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
-		AADC1D1927C01BB8007C47BE /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
+		D22F4B245604F563F6556832 /* HabitViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA64341827E113D8003A74C9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AADC1D0F27C01682007C47BE /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AA64341927E11479003A74C9 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				AA64341A27E1148C003A74C9 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
 		AADC1CD727BEF547007C47BE = {
 			isa = PBXGroup;
 			children = (
@@ -108,11 +125,11 @@
 		AADC1CE227BEF547007C47BE /* habits */ = {
 			isa = PBXGroup;
 			children = (
+				AA64341927E11479003A74C9 /* Dashboard */,
+				AA64341827E113D8003A74C9 /* Settings */,
 				AADC1D1827C01AED007C47BE /* Habit */,
 				AADC1CE327BEF547007C47BE /* habitsApp.swift */,
 				AADC1CE527BEF547007C47BE /* ContentView.swift */,
-				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
-				AADC1D0F27C01682007C47BE /* SettingsView.swift */,
 				AADC1CE727BEF548007C47BE /* Assets.xcassets */,
 				AADC1CE927BEF548007C47BE /* Preview Content */,
 			);
@@ -147,9 +164,10 @@
 		AADC1D1827C01AED007C47BE /* Habit */ = {
 			isa = PBXGroup;
 			children = (
+				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
 				AADC1D1527C01ADD007C47BE /* Habit.swift */,
-				AADC1D1927C01BB8007C47BE /* Types.swift */,
 				AADC1D1E27C13ACC007C47BE /* HabitView.swift */,
+				D22F4B245604F563F6556832 /* HabitViewModel.swift */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -285,12 +303,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */,
+				AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */,
 				AADC1D1627C01ADD007C47BE /* Habit.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AADC1CE627BEF547007C47BE /* ContentView.swift in Sources */,
 				AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */,
-				AADC1D1A27C01BB8007C47BE /* Types.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* habitsApp.swift in Sources */,
+				D22F44750370C2B4FD544F47 /* HabitViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +318,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AADC1CF527BEF548007C47BE /* habitsTests.swift in Sources */,
-				AADC1D1B27C01BB8007C47BE /* Types.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
 				AADC1D1727C01ADD007C47BE /* Habit.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
