@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct HabitView: View {
-    @StateObject private var viewModel = HabitViewModel()
 
     var body: some View {
-        Text(viewModel.habit.name)
+        Text("...")
     }
 }
 
