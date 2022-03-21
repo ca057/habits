@@ -17,6 +17,9 @@ struct DashboardView: View {
         ]
     ) var habits: FetchedResults<Habit>
     
+    @State private var confirmDeletion = false
+    @State private var habitIndexSetToDelete: IndexSet? = nil
+    
     var body: some View {
         VStack {
             List {
@@ -27,13 +30,28 @@ struct DashboardView: View {
                         // TODO: NavigationLinks to HabitViews
                         Text(habit.name ?? "N/A")
                     }
-                    .onDelete(perform:removeItems)
+                    .onDelete { indexSet in
+                        habitIndexSetToDelete = indexSet
+                        confirmDeletion = true
+                    }
                 }
             }
         }
+        .alert("Delete item?", isPresented: $confirmDeletion) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                if let indexSet = habitIndexSetToDelete {
+                    removeItems(at: indexSet)
+                    habitIndexSetToDelete = nil
+                }
+                confirmDeletion = false
+            }
+        } message: {
+            Text("Do you want to delete the habit: \(getHabitNames(for: habitIndexSetToDelete))?")
+        }
     }
     
-    func removeItems(at offsets: IndexSet) {
+    private func removeItems(at offsets: IndexSet) {
         for offset in offsets {
             // TODO: ask for confirmation
             moc.delete(habits[offset])
@@ -41,6 +59,23 @@ struct DashboardView: View {
         if moc.hasChanges {
             try? moc.save()
         }
+    }
+    
+    private func getHabitNames(for offsets: IndexSet?) -> String {
+        guard let offsets = offsets else {
+            return ""
+        }
+        guard !habits.isEmpty else {
+            return ""
+        }
+
+        var habitList = ""
+        for offset in offsets {
+            let nextHabit = habits[offset].name ?? "N/A"
+            habitList = habitList.count > 0 ? "\(habitList), \(nextHabit)" : nextHabit
+        }
+
+        return habitList
     }
 }
 

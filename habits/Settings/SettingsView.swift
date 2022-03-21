@@ -12,6 +12,8 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.dismiss) var dismissView
     
+    @State private var confirmDeletion = false
+    
     private var showDebugSettings: Bool {
         #if DEBUG
         true
@@ -30,7 +32,7 @@ struct SettingsView: View {
                 if showDebugSettings {
                     Section("Developer Settings") {
                         Button("Delete all data", role: .destructive) {
-                            deleteAllData()
+                            confirmDeletion = true
                         }
                     }
                 }
@@ -39,6 +41,13 @@ struct SettingsView: View {
             .toolbar {
                 Button("Close") {
                     dismissView()
+                }
+            }
+            .alert("Delete all data?", isPresented: $confirmDeletion) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete", role: .destructive) {
+                    deleteAllData()
+                    confirmDeletion = false
                 }
             }
         }

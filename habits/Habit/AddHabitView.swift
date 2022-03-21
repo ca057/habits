@@ -12,6 +12,10 @@ struct AddHabitView: View {
     @Environment(\.managedObjectContext) private var moc
 
     @State private var name = ""
+    
+    private var isValid: Bool {
+        !name.isEmpty
+    }
 
     var body: some View {
         NavigationView {
@@ -20,15 +24,17 @@ struct AddHabitView: View {
             }
             .navigationTitle("Add habit")
             .toolbar {
-                Button("Save") {
-                    saveHabit()
+                Button(isValid ? "Save" : "Cancel") {
+                    if isValid {
+                        saveHabit()
+                    }
                     dismissView()
                 }
             }
         }
     }
     
-    func saveHabit() {
+    private func saveHabit() {
         let habit = Habit(context: moc)
         habit.name = name
         habit.id = UUID()
