@@ -9,6 +9,7 @@ import CoreData
 import SwiftUI
 
 struct DashboardView: View {
+    @Environment(\.managedObjectContext) private var moc
     @FetchRequest(
         sortDescriptors: [
             SortDescriptor(\.createdAt, order: .reverse),
@@ -26,8 +27,19 @@ struct DashboardView: View {
                         // TODO: NavigationLinks to HabitViews
                         Text(habit.name ?? "N/A")
                     }
+                    .onDelete(perform:removeItems)
                 }
             }
+        }
+    }
+    
+    func removeItems(at offsets: IndexSet) {
+        for offset in offsets {
+            // TODO: ask for confirmation
+            moc.delete(habits[offset])
+        }
+        if moc.hasChanges {
+            try? moc.save()
         }
     }
 }
