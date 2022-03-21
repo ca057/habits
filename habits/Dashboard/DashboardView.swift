@@ -47,13 +47,12 @@ struct DashboardView: View {
                 confirmDeletion = false
             }
         } message: {
-            Text("Do you want to delete the habit: \(getHabitNames(for: habitIndexSetToDelete))?")
+            Text("Do you really want to delete \(getHabitNames(for: habitIndexSetToDelete))?")
         }
     }
     
     private func removeItems(at offsets: IndexSet) {
         for offset in offsets {
-            // TODO: ask for confirmation
             moc.delete(habits[offset])
         }
         if moc.hasChanges {
