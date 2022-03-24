@@ -27,8 +27,7 @@ struct DashboardView: View {
                     Text("No habits yet - go and create one!")
                 } else {
                     ForEach(habits) { habit in
-                        // TODO: NavigationLinks to HabitViews
-                        Text(habit.name ?? "N/A")
+                        DashboardItem(habit: habit)
                     }
                     .onDelete { indexSet in
                         habitIndexSetToDelete = indexSet
