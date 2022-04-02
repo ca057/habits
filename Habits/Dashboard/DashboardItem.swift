@@ -11,6 +11,8 @@ struct DayElement: View {
     let day: Date
     let formattedDay: String
     let isInWeekend: Bool
+    let selected: Bool
+    let color: Color
     
     var body: some View {
         Button(action: {
@@ -18,19 +20,29 @@ struct DayElement: View {
         }, label: {
             Text(formattedDay)
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 8)
-                .padding(.vertical)
-                .background(isInWeekend ? .gray : .orange)
-                .clipShape(Capsule())
+                .padding(.horizontal, 4)
+                .padding(.vertical, 20)
+                .background(
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .fill(selected ? color : .clear)
+                        .grayscale(isInWeekend ? 0.75 : 0)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .stroke(color, lineWidth: 4)
+                        .grayscale(isInWeekend ? 0.75 : 0)
+                )
         })
         .buttonStyle(BorderlessButtonStyle())
         .foregroundColor(.primary)
     }
     
-    init(day: Date) {
+    init(day: Date, selected: Bool, color: Color) {
         self.day = day
         self.formattedDay = "\(Calendar.current.dateComponents([.day], from: day).day ?? 0)"
         self.isInWeekend = Calendar.current.isDateInWeekend(day)
+        self.selected = selected
+        self.color = color
     }
 }
 
@@ -59,7 +71,11 @@ struct DashboardItem: View {
                         
             HStack(spacing: 8) {
                 ForEach(0..<elementCount, id: \.self) { index in
-                    DayElement(day: now.getDayWithDistance(by: index - (elementCount - 1)))
+                    DayElement(
+                        day: now.getDayWithDistance(by: index - (elementCount - 1)),
+                        selected: false,
+                        color: .orange
+                    )
                 }
             }
         }
