@@ -17,11 +17,14 @@ struct DayElement: View {
             print(day.description)
         }, label: {
             Text(formattedDay)
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 8)
                 .padding(.vertical)
-                .background(isInWeekend ? .indigo : .orange)
+                .background(isInWeekend ? .gray : .orange)
                 .clipShape(Capsule())
         })
+        .buttonStyle(BorderlessButtonStyle())
+        .foregroundColor(.primary)
     }
     
     init(day: Date) {
@@ -32,10 +35,12 @@ struct DayElement: View {
 }
 
 private extension Date {
-    func getDayBefore(by value: Int) -> Date {
+    func getDayWithDistance(by value: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: value, to: self)!
     }
 }
+
+let elementCount = 7
 
 struct DashboardItem: View {
     var habit: Habit
@@ -52,15 +57,12 @@ struct DashboardItem: View {
                 .font(.caption)
                 .padding(.bottom)
                         
-            HStack {
-                ForEach(0..<7, id: \.self) { index in
-                    DayElement(day: now.getDayBefore(by: index - 6))
-                        .frame(maxWidth: .infinity)
+            HStack(spacing: 8) {
+                ForEach(0..<elementCount, id: \.self) { index in
+                    DayElement(day: now.getDayWithDistance(by: index - (elementCount - 1)))
                 }
-            }.background(.red)
+            }
         }
         .padding(.vertical)
     }
 }
-
-// TODO: add preview again
