@@ -7,10 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @Environment(\.managedObjectContext) private var moc
-    
-    @State private var hackyRefreshId = UUID()
+struct ContentView: View {    
+    @State private var hackyRefreshId = UUID() // FIXME: how can I get rid of that?
     
     @State private var showingSettings = false
     @State private var showingAddHabit = false
@@ -42,16 +40,16 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showingAddHabit) {
                     AddHabitView()
-                        .onDisappear {
-                            hackyRefreshId = UUID()
-                        }
                 }
+                .onChange(of: showingSettings, perform: recreateHackyRefreshId)
+                .onChange(of: showingAddHabit, perform: recreateHackyRefreshId)
         }
     }
+    
+    func recreateHackyRefreshId(showingSheet: Bool) {
+        if showingSheet {
+            return
+        }
+        hackyRefreshId = UUID()
+    }
 }
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}

@@ -9,6 +9,7 @@ import CoreData
 import SwiftUI
 
 struct SettingsView: View {
+    // TODO: move to view model
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.dismiss) var dismissView
     

@@ -10,7 +10,6 @@
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
 		AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64341A27E1148C003A74C9 /* DashboardView.swift */; };
 		AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
-		AAD2E33527E7DB2700389779 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD2E33427E7DB2700389779 /* DataController.swift */; };
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
 		AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* Dashboard.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
@@ -23,6 +22,9 @@
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1E27C13ACC007C47BE /* HabitView.swift */; };
+		AAEC09DC27F8901D00D9B666 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09DB27F8901D00D9B666 /* DataController.swift */; };
+		AAEC09E127F8EA8200D9B666 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */; };
+		AAEC09E327F8F76D00D9B666 /* AddHabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +48,6 @@
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA64341A27E1148C003A74C9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AA64341D27E115FF003A74C9 /* Habit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habit.xcdatamodel; sourceTree = "<group>"; };
-		AAD2E33427E7DB2700389779 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AAD2E33627ECD26C00389779 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AADC1CE027BEF547007C47BE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CE327BEF547007C47BE /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
@@ -61,6 +62,9 @@
 		AADC1D0F27C01682007C47BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
+		AAEC09DB27F8901D00D9B666 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddHabitViewModel.swift; path = Habits/ViewModels/AddHabitViewModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,12 +116,13 @@
 		AADC1CE227BEF547007C47BE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				AAEC09DA27F8900300D9B666 /* Data */,
 				AAEC09D927F87DA500D9B666 /* Views */,
+				AAEC09DF27F8EA6900D9B666 /* ViewModels */,
 				AADC1CE327BEF547007C47BE /* HabitsApp.swift */,
 				AADC1CE727BEF548007C47BE /* Assets.xcassets */,
 				AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */,
 				AADC1CE927BEF548007C47BE /* Preview Content */,
-				AAD2E33427E7DB2700389779 /* DataController.swift */,
 			);
 			path = Habits;
 			sourceTree = "<group>";
@@ -158,6 +163,23 @@
 				AADC1D0F27C01682007C47BE /* SettingsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AAEC09DA27F8900300D9B666 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC09DB27F8901D00D9B666 /* DataController.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AAEC09DF27F8EA6900D9B666 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */,
+				AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,11 +316,13 @@
 				AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
 				AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */,
+				AAEC09E127F8EA8200D9B666 /* DashboardViewModel.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
+				AAEC09DC27F8901D00D9B666 /* DataController.swift in Sources */,
 				AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */,
-				AAD2E33527E7DB2700389779 /* DataController.swift in Sources */,
 				AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
+				AAEC09E327F8F76D00D9B666 /* AddHabitViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

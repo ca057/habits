@@ -9,39 +9,27 @@ import SwiftUI
 
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismissView
-    @Environment(\.managedObjectContext) private var moc
-
-    @State private var name = ""
     
+    @ObservedObject private var viewModel = AddHabitViewModel()
+
     private var isValid: Bool {
-        !name.isEmpty
+        !viewModel.name.isEmpty
     }
 
     var body: some View {
         NavigationView {
             Form {
-                TextField("Name", text: $name)
+                TextField("Name", text: $viewModel.name)
             }
             .navigationTitle("Add habit")
             .toolbar {
                 Button(isValid ? "Save" : "Cancel") {
                     if isValid {
-                        saveHabit()
+                        viewModel.saveHabit()
                     }
                     dismissView()
                 }
             }
-        }
-    }
-    
-    private func saveHabit() {
-        let habit = Habit(context: moc)
-        habit.name = name
-        habit.id = UUID()
-        habit.createdAt = Date()
-        
-        if moc.hasChanges {
-            try? moc.save()
         }
     }
 }

@@ -9,21 +9,15 @@ import CoreData
 import SwiftUI
 
 struct DashboardView: View {
-    @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(
-        sortDescriptors: [
-            SortDescriptor(\.createdAt, order: .reverse),
-            SortDescriptor(\.name),
-        ]
-    ) var habits: FetchedResults<Habit>
+    var viewModel = DashboardViewModel()
 
     var body: some View {
         VStack {
             List {
-                if habits.isEmpty {
+                if viewModel.habits.isEmpty {
                     Text("No habits yet - go and create one!")
                 } else {
-                    ForEach(habits) { habit in
+                    ForEach(viewModel.habits) { habit in
                         DashboardItem(habit: habit)
                     }
                 }

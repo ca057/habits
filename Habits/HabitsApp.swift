@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct habitsApp: App {
-    @StateObject private var dataController = DataController()
-
+    let dataController = DataController.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
