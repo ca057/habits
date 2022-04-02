@@ -50,13 +50,14 @@ struct DashboardItem: View {
                 .bold()
             Text("Started on \(habit.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")")
                 .font(.caption)
-                .padding(.bottom)
+                .padding(.bottom
+                        
             HStack {
                 ForEach(0..<7, id: \.self) { index in
                     DayElement(day: now.getDayBefore(by: index - 6))
                         .frame(maxWidth: .infinity)
                 }
-            }
+            }.background(.red)
         }
         .padding(.vertical)
     }

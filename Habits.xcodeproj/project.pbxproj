@@ -53,9 +53,9 @@
 		AADC1CE527BEF547007C47BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AADC1CE727BEF548007C47BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AADC1CEA27BEF548007C47BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AADC1CF027BEF548007C47BE /* habitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = habitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AADC1CF027BEF548007C47BE /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CF427BEF548007C47BE /* habitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsTests.swift; sourceTree = "<group>"; };
-		AADC1CFA27BEF548007C47BE /* habitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = habitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CFE27BEF548007C47BE /* habitsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsUITests.swift; sourceTree = "<group>"; };
 		AADC1D0027BEF548007C47BE /* habitsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AADC1D0F27C01682007C47BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -109,9 +109,9 @@
 			isa = PBXGroup;
 			children = (
 				AAD2E33627ECD26C00389779 /* README.md */,
-				AADC1CE227BEF547007C47BE /* habits */,
-				AADC1CF327BEF548007C47BE /* habitsTests */,
-				AADC1CFD27BEF548007C47BE /* habitsUITests */,
+				AADC1CE227BEF547007C47BE /* Habits */,
+				AADC1CF327BEF548007C47BE /* HabitsTests */,
+				AADC1CFD27BEF548007C47BE /* HabitsUITests */,
 				AADC1CE127BEF547007C47BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,13 +120,13 @@
 			isa = PBXGroup;
 			children = (
 				AADC1CE027BEF547007C47BE /* Habits.app */,
-				AADC1CF027BEF548007C47BE /* habitsTests.xctest */,
-				AADC1CFA27BEF548007C47BE /* habitsUITests.xctest */,
+				AADC1CF027BEF548007C47BE /* HabitsTests.xctest */,
+				AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AADC1CE227BEF547007C47BE /* habits */ = {
+		AADC1CE227BEF547007C47BE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
 				AA64341927E11479003A74C9 /* Dashboard */,
@@ -139,7 +139,7 @@
 				AADC1CE927BEF548007C47BE /* Preview Content */,
 				AAD2E33427E7DB2700389779 /* DataController.swift */,
 			);
-			path = habits;
+			path = Habits;
 			sourceTree = "<group>";
 		};
 		AADC1CE927BEF548007C47BE /* Preview Content */ = {
@@ -150,21 +150,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		AADC1CF327BEF548007C47BE /* habitsTests */ = {
+		AADC1CF327BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXGroup;
 			children = (
 				AADC1CF427BEF548007C47BE /* habitsTests.swift */,
 			);
-			path = habitsTests;
+			path = HabitsTests;
 			sourceTree = "<group>";
 		};
-		AADC1CFD27BEF548007C47BE /* habitsUITests */ = {
+		AADC1CFD27BEF548007C47BE /* HabitsUITests */ = {
 			isa = PBXGroup;
 			children = (
 				AADC1CFE27BEF548007C47BE /* habitsUITests.swift */,
 				AADC1D0027BEF548007C47BE /* habitsUITestsLaunchTests.swift */,
 			);
-			path = habitsUITests;
+			path = HabitsUITests;
 			sourceTree = "<group>";
 		};
 		AADC1D1827C01AED007C47BE /* Habit */ = {
@@ -179,9 +179,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AADC1CDF27BEF547007C47BE /* habits */ = {
+		AADC1CDF27BEF547007C47BE /* Habits */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AADC1D0427BEF548007C47BE /* Build configuration list for PBXNativeTarget "habits" */;
+			buildConfigurationList = AADC1D0427BEF548007C47BE /* Build configuration list for PBXNativeTarget "Habits" */;
 			buildPhases = (
 				AADC1CDC27BEF547007C47BE /* Sources */,
 				AADC1CDD27BEF547007C47BE /* Frameworks */,
@@ -191,14 +191,14 @@
 			);
 			dependencies = (
 			);
-			name = habits;
+			name = Habits;
 			productName = habits;
 			productReference = AADC1CE027BEF547007C47BE /* Habits.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AADC1CEF27BEF548007C47BE /* habitsTests */ = {
+		AADC1CEF27BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AADC1D0727BEF548007C47BE /* Build configuration list for PBXNativeTarget "habitsTests" */;
+			buildConfigurationList = AADC1D0727BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsTests" */;
 			buildPhases = (
 				AADC1CEC27BEF548007C47BE /* Sources */,
 				AADC1CED27BEF548007C47BE /* Frameworks */,
@@ -209,14 +209,14 @@
 			dependencies = (
 				AADC1CF227BEF548007C47BE /* PBXTargetDependency */,
 			);
-			name = habitsTests;
+			name = HabitsTests;
 			productName = habitsTests;
-			productReference = AADC1CF027BEF548007C47BE /* habitsTests.xctest */;
+			productReference = AADC1CF027BEF548007C47BE /* HabitsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AADC1CF927BEF548007C47BE /* habitsUITests */ = {
+		AADC1CF927BEF548007C47BE /* HabitsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "habitsUITests" */;
+			buildConfigurationList = AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsUITests" */;
 			buildPhases = (
 				AADC1CF627BEF548007C47BE /* Sources */,
 				AADC1CF727BEF548007C47BE /* Frameworks */,
@@ -227,9 +227,9 @@
 			dependencies = (
 				AADC1CFC27BEF548007C47BE /* PBXTargetDependency */,
 			);
-			name = habitsUITests;
+			name = HabitsUITests;
 			productName = habitsUITests;
-			productReference = AADC1CFA27BEF548007C47BE /* habitsUITests.xctest */;
+			productReference = AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -255,7 +255,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AADC1CDB27BEF547007C47BE /* Build configuration list for PBXProject "habits" */;
+			buildConfigurationList = AADC1CDB27BEF547007C47BE /* Build configuration list for PBXProject "Habits" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -268,9 +268,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AADC1CDF27BEF547007C47BE /* habits */,
-				AADC1CEF27BEF548007C47BE /* habitsTests */,
-				AADC1CF927BEF548007C47BE /* habitsUITests */,
+				AADC1CDF27BEF547007C47BE /* Habits */,
+				AADC1CEF27BEF548007C47BE /* HabitsTests */,
+				AADC1CF927BEF548007C47BE /* HabitsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -342,12 +342,12 @@
 /* Begin PBXTargetDependency section */
 		AADC1CF227BEF548007C47BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AADC1CDF27BEF547007C47BE /* habits */;
+			target = AADC1CDF27BEF547007C47BE /* Habits */;
 			targetProxy = AADC1CF127BEF548007C47BE /* PBXContainerItemProxy */;
 		};
 		AADC1CFC27BEF548007C47BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AADC1CDF27BEF547007C47BE /* habits */;
+			target = AADC1CDF27BEF547007C47BE /* Habits */;
 			targetProxy = AADC1CFB27BEF548007C47BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -543,7 +543,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/habits.app/habits";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Habits.app/Habits";
 			};
 			name = Debug;
 		};
@@ -563,7 +563,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/habits.app/habits";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Habits.app/Habits";
 			};
 			name = Release;
 		};
@@ -606,7 +606,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AADC1CDB27BEF547007C47BE /* Build configuration list for PBXProject "habits" */ = {
+		AADC1CDB27BEF547007C47BE /* Build configuration list for PBXProject "Habits" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AADC1D0227BEF548007C47BE /* Debug */,
@@ -615,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AADC1D0427BEF548007C47BE /* Build configuration list for PBXNativeTarget "habits" */ = {
+		AADC1D0427BEF548007C47BE /* Build configuration list for PBXNativeTarget "Habits" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AADC1D0527BEF548007C47BE /* Debug */,
@@ -624,7 +624,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AADC1D0727BEF548007C47BE /* Build configuration list for PBXNativeTarget "habitsTests" */ = {
+		AADC1D0727BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AADC1D0827BEF548007C47BE /* Debug */,
@@ -633,7 +633,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "habitsUITests" */ = {
+		AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AADC1D0B27BEF548007C47BE /* Debug */,
