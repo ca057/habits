@@ -24,8 +24,8 @@ class AddHabitViewModel: ObservableObject {
         self.dataController.addHabit(name: name)
     }
     
-    init () {
-        self.dataController = DataController.shared
+    convenience init () {
+        self.init(dataController: DataController.shared)
     }
     init (dataController: DataController) {
         self.dataController = dataController
