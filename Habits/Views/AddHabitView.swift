@@ -12,10 +12,6 @@ struct AddHabitView: View {
     
     @ObservedObject private var viewModel = AddHabitViewModel()
 
-    private var isValid: Bool {
-        !viewModel.name.isEmpty
-    }
-
     var body: some View {
         NavigationView {
             Form {
@@ -23,8 +19,8 @@ struct AddHabitView: View {
             }
             .navigationTitle("Add habit")
             .toolbar {
-                Button(isValid ? "Save" : "Cancel") {
-                    if isValid {
+                Button(viewModel.isValid ? "Save" : "Cancel") {
+                    if viewModel.isValid {
                         viewModel.saveHabit()
                     }
                     dismissView()

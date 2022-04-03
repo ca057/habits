@@ -8,7 +8,12 @@
 import Foundation
 
 class AddHabitViewModel: ObservableObject {
-    @Published var name = ""
+    @Published var isValid = false
+    @Published var name = "" {
+        didSet {
+            isValid = !name.isEmpty
+        }
+    }
     
     func saveHabit() {
         DataController.shared.addHabit(name: name)
