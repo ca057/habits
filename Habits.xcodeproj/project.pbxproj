@@ -25,6 +25,10 @@
 		AAEC09DC27F8901D00D9B666 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09DB27F8901D00D9B666 /* DataController.swift */; };
 		AAEC09E127F8EA8200D9B666 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */; };
 		AAEC09E327F8F76D00D9B666 /* AddHabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */; };
+		AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */; };
+		AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */; };
+		AAEC09E727F990C300D9B666 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09DB27F8901D00D9B666 /* DataController.swift */; };
+		AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,7 @@
 		AAEC09DB27F8901D00D9B666 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddHabitViewModel.swift; path = Habits/ViewModels/AddHabitViewModel.swift; sourceTree = SOURCE_ROOT; };
+		AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				AADC1CF427BEF548007C47BE /* habitsTests.swift */,
+				AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */,
 			);
 			path = HabitsTests;
 			sourceTree = "<group>";
@@ -330,9 +336,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
 				AADC1CF527BEF548007C47BE /* habitsTests.swift in Sources */,
+				AAEC09E727F990C300D9B666 /* DataController.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
+				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
+				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
