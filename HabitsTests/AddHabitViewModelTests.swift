@@ -10,10 +10,12 @@ import Foundation
 import XCTest
 
 private class MockDataController: DataController {
-    var addHabitCalled = false
+    var addHabitCalledWith = [String: String]()
 
     override func addHabit(name: String) {
-        addHabitCalled = true
+        addHabitCalledWith = [
+            "name": name
+        ]
     }
 }
 
@@ -51,7 +53,7 @@ class AddHabitViewModelTests: XCTestCase {
         viewModel.name = "test"
         viewModel.saveHabit()
         
-        XCTAssertEqual(mockDataController.addHabitCalled, true)
+        XCTAssertEqual(mockDataController.addHabitCalledWith["name"], viewModel.name)
     }
 
     func testSaveHabit_whenIsNotValid() {
@@ -61,7 +63,7 @@ class AddHabitViewModelTests: XCTestCase {
         viewModel.name = ""
         viewModel.saveHabit()
         
-        XCTAssertEqual(mockDataController.addHabitCalled, false)
+        XCTAssertEqual(mockDataController.addHabitCalledWith.isEmpty, true)
 
     }
 }
