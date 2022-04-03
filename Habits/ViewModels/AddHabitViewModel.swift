@@ -8,6 +8,8 @@
 import Foundation
 
 class AddHabitViewModel: ObservableObject {
+    let dataController: DataController
+
     @Published var isValid = false
     @Published var name = "" {
         didSet {
@@ -16,6 +18,16 @@ class AddHabitViewModel: ObservableObject {
     }
     
     func saveHabit() {
-        DataController.shared.addHabit(name: name)
+        if !isValid {
+            return
+        }
+        self.dataController.addHabit(name: name)
+    }
+    
+    init () {
+        self.dataController = DataController.shared
+    }
+    init (dataController: DataController) {
+        self.dataController = dataController
     }
 }
