@@ -17,11 +17,12 @@ class AddHabitViewModel: ObservableObject {
         }
     }
     
-    func saveHabit() {
+    func saveHabit() -> Bool {
         if !isValid {
-            return
+            return false
         }
         self.dataController.addHabit(name: name)
+        return true
     }
     
     convenience init () {

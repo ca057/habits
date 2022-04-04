@@ -19,19 +19,20 @@ struct AddHabitView: View {
             }
             .navigationTitle("Add habit")
             .toolbar {
-                Button(viewModel.isValid ? "Save" : "Cancel") {
-                    if viewModel.isValid {
-                        viewModel.saveHabit()
-                    }
-                    dismissView()
-                }
-//                .id("ahv_add")
+                Button(viewModel.isValid ? "Save" : "Cancel", action: handleSave)
             }
         }
     }
+    
+    func handleSave() {
+        _ = viewModel.saveHabit()
+        // TODO: show error if saving wasn’t successful
+        dismissView()
+    }
 }
 
-struct AddHabitView_Previews: PreviewProvider {
+struct AddHabitView_Previews: PreviewProvider
+{
     static var previews: some View {
         AddHabitView()
     }

@@ -51,9 +51,10 @@ class AddHabitViewModelTests: XCTestCase {
         let viewModel = AddHabitViewModel(dataController: mockDataController)
         
         viewModel.name = "test"
-        viewModel.saveHabit()
+        let success = viewModel.saveHabit()
         
         XCTAssertEqual(mockDataController.addHabitCalledWith["name"], viewModel.name)
+        XCTAssertEqual(success, true)
     }
 
     func testSaveHabit_whenIsNotValid() {
@@ -61,9 +62,9 @@ class AddHabitViewModelTests: XCTestCase {
         let viewModel = AddHabitViewModel(dataController: mockDataController)
         
         viewModel.name = ""
-        viewModel.saveHabit()
+        let success = viewModel.saveHabit()
         
         XCTAssertEqual(mockDataController.addHabitCalledWith.isEmpty, true)
-
+        XCTAssertEqual(success, false)
     }
 }
