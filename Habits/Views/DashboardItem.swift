@@ -79,7 +79,7 @@ struct DashboardItem: View {
 
                     DayElement(
                         date,
-                        selected: hasEntryForDate(date),
+                        selected: habit.hasEntry(for: date),
                         color: .orange,
                         onEntrySelect: { viewModel.addEntry(for: habit, date: $0)}
                     )
@@ -89,14 +89,5 @@ struct DashboardItem: View {
             Text("Entries: \(habit.entry?.count ?? 0)")
         }
         .padding(.vertical)
-    }
-    
-    func hasEntryForDate(_ date: Date) -> Bool {
-        habit.entry?.contains(where: {
-            guard let entryDate = ($0 as? Entry)?.date else {
-                return false
-            }
-            return Calendar.current.isDate(entryDate, equalTo: date, toGranularity: .day)
-        }) ?? false
     }
 }
