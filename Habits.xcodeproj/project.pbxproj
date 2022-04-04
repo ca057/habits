@@ -13,10 +13,6 @@
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
 		AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* Dashboard.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
-		AADC1CEB27BEF548007C47BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CEA27BEF548007C47BE /* Preview Assets.xcassets */; };
-		AADC1CF527BEF548007C47BE /* habitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CF427BEF548007C47BE /* habitsTests.swift */; };
-		AADC1CFF27BEF548007C47BE /* habitsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CFE27BEF548007C47BE /* habitsUITests.swift */; };
-		AADC1D0127BEF548007C47BE /* habitsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D0027BEF548007C47BE /* habitsUITestsLaunchTests.swift */; };
 		AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D0F27C01682007C47BE /* SettingsView.swift */; };
 		AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D0F27C01682007C47BE /* SettingsView.swift */; };
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
@@ -29,17 +25,12 @@
 		AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */; };
 		AAEC09E727F990C300D9B666 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09DB27F8901D00D9B666 /* DataController.swift */; };
 		AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
+		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
+		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		AADC1CF127BEF548007C47BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AADC1CD827BEF547007C47BE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AADC1CDF27BEF547007C47BE;
-			remoteInfo = habits;
-		};
-		AADC1CFB27BEF548007C47BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AADC1CD827BEF547007C47BE /* Project object */;
 			proxyType = 1;
@@ -57,12 +48,7 @@
 		AADC1CE327BEF547007C47BE /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
 		AADC1CE527BEF547007C47BE /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		AADC1CE727BEF548007C47BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AADC1CEA27BEF548007C47BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AADC1CF027BEF548007C47BE /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AADC1CF427BEF548007C47BE /* habitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsTests.swift; sourceTree = "<group>"; };
-		AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AADC1CFE27BEF548007C47BE /* habitsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsUITests.swift; sourceTree = "<group>"; };
-		AADC1D0027BEF548007C47BE /* habitsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AADC1D0F27C01682007C47BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
@@ -70,6 +56,7 @@
 		AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddHabitViewModel.swift; path = Habits/ViewModels/AddHabitViewModel.swift; sourceTree = SOURCE_ROOT; };
 		AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewModelTests.swift; sourceTree = "<group>"; };
+		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,13 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AADC1CF727BEF548007C47BE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +84,8 @@
 				AAD2E33627ECD26C00389779 /* README.md */,
 				AADC1CE227BEF547007C47BE /* Habits */,
 				AADC1CF327BEF548007C47BE /* HabitsTests */,
-				AADC1CFD27BEF548007C47BE /* HabitsUITests */,
 				AADC1CE127BEF547007C47BE /* Products */,
+				AAEC09F227FAD20F00D9B666 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,7 +94,6 @@
 			children = (
 				AADC1CE027BEF547007C47BE /* Habits.app */,
 				AADC1CF027BEF548007C47BE /* HabitsTests.xctest */,
-				AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,35 +107,17 @@
 				AADC1CE327BEF547007C47BE /* HabitsApp.swift */,
 				AADC1CE727BEF548007C47BE /* Assets.xcassets */,
 				AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */,
-				AADC1CE927BEF548007C47BE /* Preview Content */,
 			);
 			path = Habits;
-			sourceTree = "<group>";
-		};
-		AADC1CE927BEF548007C47BE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				AADC1CEA27BEF548007C47BE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		AADC1CF327BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXGroup;
 			children = (
-				AADC1CF427BEF548007C47BE /* habitsTests.swift */,
 				AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */,
+				AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */,
 			);
 			path = HabitsTests;
-			sourceTree = "<group>";
-		};
-		AADC1CFD27BEF548007C47BE /* HabitsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				AADC1CFE27BEF548007C47BE /* habitsUITests.swift */,
-				AADC1D0027BEF548007C47BE /* habitsUITestsLaunchTests.swift */,
-			);
-			path = HabitsUITests;
 			sourceTree = "<group>";
 		};
 		AAEC09D927F87DA500D9B666 /* Views */ = {
@@ -186,6 +148,13 @@
 				AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AAEC09F227FAD20F00D9B666 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,27 +191,12 @@
 				AADC1CF227BEF548007C47BE /* PBXTargetDependency */,
 			);
 			name = HabitsTests;
+			packageProductDependencies = (
+				AAEC09F327FAD20F00D9B666 /* ViewInspector */,
+			);
 			productName = habitsTests;
 			productReference = AADC1CF027BEF548007C47BE /* HabitsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		AADC1CF927BEF548007C47BE /* HabitsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsUITests" */;
-			buildPhases = (
-				AADC1CF627BEF548007C47BE /* Sources */,
-				AADC1CF727BEF548007C47BE /* Frameworks */,
-				AADC1CF827BEF548007C47BE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AADC1CFC27BEF548007C47BE /* PBXTargetDependency */,
-			);
-			name = HabitsUITests;
-			productName = habitsUITests;
-			productReference = AADC1CFA27BEF548007C47BE /* HabitsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -261,10 +215,6 @@
 						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = AADC1CDF27BEF547007C47BE;
 					};
-					AADC1CF927BEF548007C47BE = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = AADC1CDF27BEF547007C47BE;
-					};
 				};
 			};
 			buildConfigurationList = AADC1CDB27BEF547007C47BE /* Build configuration list for PBXProject "Habits" */;
@@ -276,13 +226,15 @@
 				Base,
 			);
 			mainGroup = AADC1CD727BEF547007C47BE;
+			packageReferences = (
+				AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = AADC1CE127BEF547007C47BE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				AADC1CDF27BEF547007C47BE /* Habits */,
 				AADC1CEF27BEF548007C47BE /* HabitsTests */,
-				AADC1CF927BEF548007C47BE /* HabitsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -292,19 +244,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AADC1CEB27BEF548007C47BE /* Preview Assets.xcassets in Resources */,
 				AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AADC1CEE27BEF548007C47BE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AADC1CF827BEF548007C47BE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -337,21 +281,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
-				AADC1CF527BEF548007C47BE /* habitsTests.swift in Sources */,
+				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
 				AAEC09E727F990C300D9B666 /* DataController.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AADC1CF627BEF548007C47BE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AADC1CFF27BEF548007C47BE /* habitsUITests.swift in Sources */,
-				AADC1D0127BEF548007C47BE /* habitsUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,11 +297,6 @@
 			isa = PBXTargetDependency;
 			target = AADC1CDF27BEF547007C47BE /* Habits */;
 			targetProxy = AADC1CF127BEF548007C47BE /* PBXContainerItemProxy */;
-		};
-		AADC1CFC27BEF548007C47BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AADC1CDF27BEF547007C47BE /* Habits */;
-			targetProxy = AADC1CFB27BEF548007C47BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -494,7 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"habits/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -523,7 +453,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"habits/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -585,42 +515,6 @@
 			};
 			name = Release;
 		};
-		AADC1D0B27BEF548007C47BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z37U6LMURR;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.christianost.habitsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = habits;
-			};
-			name = Debug;
-		};
-		AADC1D0C27BEF548007C47BE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z37U6LMURR;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.christianost.habitsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = habits;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -651,16 +545,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AADC1D0A27BEF548007C47BE /* Build configuration list for PBXNativeTarget "HabitsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AADC1D0B27BEF548007C47BE /* Debug */,
-				AADC1D0C27BEF548007C47BE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AAEC09F327FAD20F00D9B666 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */ = {
