@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DayElement: View {
-    let day: Date
+    let date: Date
     let formattedDay: String
     let isInWeekend: Bool
     let selected: Bool
@@ -18,7 +18,7 @@ struct DayElement: View {
     
     var body: some View {
         Button(action: {
-            onEntrySelect(day)
+            onEntrySelect(date)
         }, label: {
             Text(formattedDay)
                 .frame(maxWidth: .infinity)
@@ -39,10 +39,10 @@ struct DayElement: View {
         .foregroundColor(.primary)
     }
     
-    init(day: Date, selected: Bool, color: Color, onEntrySelect: @escaping (Date) -> Void) {
-        self.day = day
-        self.formattedDay = "\(Calendar.current.dateComponents([.day], from: day).day ?? 0)"
-        self.isInWeekend = Calendar.current.isDateInWeekend(day)
+    init(_ date: Date, selected: Bool, color: Color, onEntrySelect: @escaping (Date) -> Void) {
+        self.date = date
+        self.formattedDay = "\(Calendar.current.dateComponents([.day], from: date).day ?? 0)"
+        self.isInWeekend = Calendar.current.isDateInWeekend(date)
         self.selected = selected
         self.color = color
         self.onEntrySelect = onEntrySelect
@@ -55,7 +55,7 @@ private extension Date {
     }
 }
 
-let elementCount = 7
+let elementDisplayCount = 7
 
 struct DashboardItem: View {
     var habit: Habit
@@ -74,10 +74,12 @@ struct DashboardItem: View {
                 .padding(.bottom)
                         
             HStack(spacing: 8) {
-                ForEach(0..<elementCount, id: \.self) { index in
+                ForEach(0..<elementDisplayCount, id: \.self) { index in
+                    let date = now.getDayWithDistance(by: index - (elementDisplayCount - 1))
+
                     DayElement(
-                        day: now.getDayWithDistance(by: index - (elementCount - 1)),
-                        selected: false,
+                        date,
+                        selected: hasEntryForDate(date),
                         color: .orange,
                         onEntrySelect: { viewModel.addEntry(for: habit, date: $0)}
                     )
@@ -87,5 +89,14 @@ struct DashboardItem: View {
             Text("Entries: \(habit.entry?.count ?? 0)")
         }
         .padding(.vertical)
+    }
+    
+    func hasEntryForDate(_ date: Date) -> Bool {
+        habit.entry?.contains(where: {
+            guard let entryDate = ($0 as? Entry)?.date else {
+                return false
+            }
+            return Calendar.current.isDate(entryDate, equalTo: date, toGranularity: .day)
+        }) ?? false
     }
 }
