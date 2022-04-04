@@ -85,8 +85,6 @@ struct DashboardItem: View {
                     )
                 }
             }
-            
-            Text("Entries: \(habit.entry?.count ?? 0)")
         }
         .padding(.vertical)
     }
