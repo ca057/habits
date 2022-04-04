@@ -26,7 +26,7 @@ class DataController: ObservableObject {
         }
     }
 
-    func save() {
+    private func save() {
         let context = container.viewContext
         
         if context.hasChanges {
@@ -53,9 +53,18 @@ class DataController: ObservableObject {
     
     func addHabit(name: String) {
         let habit = Habit(context: self.container.viewContext)
-        habit.name = name
         habit.id = UUID()
+        habit.name = name
         habit.createdAt = Date()
+        
+        save()
+    }
+    
+    func addEntryToHabit(for habit: Habit, date: Date) {
+        // TODO: don’t allow adding entry if the habit has already an entry for the date
+        let entry = Entry(context: self.container.viewContext)
+        entry.date = date
+        entry.habit = habit
         
         save()
     }

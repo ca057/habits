@@ -14,9 +14,11 @@ struct DayElement: View {
     let selected: Bool
     let color: Color
     
+    let onEntrySelect: (Date) -> Void
+    
     var body: some View {
         Button(action: {
-            print(day.description)
+            onEntrySelect(day)
         }, label: {
             Text(formattedDay)
                 .frame(maxWidth: .infinity)
@@ -37,12 +39,13 @@ struct DayElement: View {
         .foregroundColor(.primary)
     }
     
-    init(day: Date, selected: Bool, color: Color) {
+    init(day: Date, selected: Bool, color: Color, onEntrySelect: @escaping (Date) -> Void) {
         self.day = day
         self.formattedDay = "\(Calendar.current.dateComponents([.day], from: day).day ?? 0)"
         self.isInWeekend = Calendar.current.isDateInWeekend(day)
         self.selected = selected
         self.color = color
+        self.onEntrySelect = onEntrySelect
     }
 }
 
@@ -57,6 +60,7 @@ let elementCount = 7
 struct DashboardItem: View {
     var habit: Habit
     
+    let viewModel = DashboardItemViewModel()
     let now = Date.now
     let today = Calendar.current.dateComponents([.day], from: Date.now)
     
@@ -74,10 +78,13 @@ struct DashboardItem: View {
                     DayElement(
                         day: now.getDayWithDistance(by: index - (elementCount - 1)),
                         selected: false,
-                        color: .orange
+                        color: .orange,
+                        onEntrySelect: { viewModel.addEntry(for: habit, date: $0)}
                     )
                 }
             }
+            
+            Text("Entries: \(habit.entry?.count ?? 0)")
         }
         .padding(.vertical)
     }

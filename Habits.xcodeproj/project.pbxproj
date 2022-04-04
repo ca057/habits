@@ -27,6 +27,8 @@
 		AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
 		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
 		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
+		AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */; };
+		AAEC09F727FB807800D9B666 /* DashboardItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,7 @@
 		AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddHabitViewModel.swift; path = Habits/ViewModels/AddHabitViewModel.swift; sourceTree = SOURCE_ROOT; };
 		AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewModelTests.swift; sourceTree = "<group>"; };
 		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
+		AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,7 @@
 			children = (
 				AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */,
 				AAEC09E027F8EA8200D9B666 /* DashboardViewModel.swift */,
+				AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -264,6 +268,7 @@
 			files = (
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
 				AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */,
+				AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
 				AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */,
 				AAEC09E127F8EA8200D9B666 /* DashboardViewModel.swift in Sources */,
@@ -282,6 +287,7 @@
 			files = (
 				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
+				AAEC09F727FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AAEC09E727F990C300D9B666 /* DataController.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
