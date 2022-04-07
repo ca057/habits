@@ -7,16 +7,13 @@
 
 import SwiftUI
 
-struct ContentView: View {    
-    @State private var hackyRefreshId = UUID() // FIXME: how can I get rid of that?
-    
+struct ContentView: View {
     @State private var showingSettings = false
     @State private var showingAddHabit = false
     
     var body: some View {
         NavigationView {
             DashboardView()
-                .id(hackyRefreshId)
                 .navigationTitle("habits")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -41,15 +38,6 @@ struct ContentView: View {
                 .sheet(isPresented: $showingAddHabit) {
                     AddHabitView()
                 }
-                .onChange(of: showingSettings, perform: recreateHackyRefreshId)
-                .onChange(of: showingAddHabit, perform: recreateHackyRefreshId)
         }
-    }
-    
-    func recreateHackyRefreshId(showingSheet: Bool) {
-        if showingSheet {
-            return
-        }
-        hackyRefreshId = UUID()
     }
 }

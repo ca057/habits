@@ -12,7 +12,7 @@ class DataController: ObservableObject {
     static let shared = DataController()
 
     let container: NSPersistentContainer
-    
+        
     init() {
         // TODO: add option for in memory for tests
         container = NSPersistentContainer(name: "Habit")
@@ -38,19 +38,8 @@ class DataController: ObservableObject {
         }
     }
     
-    func loadAllHabits() -> [Habit] {
-        let context = self.container.viewContext
-        let fetchRequest = NSFetchRequest<Habit>(entityName: "Habit")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            return results
-        } catch {
-            print("loading habits failed: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
+    // TODO: move to HabitsStorage
+
     func addHabit(name: String) {
         let habit = Habit(context: self.container.viewContext)
         habit.id = UUID()
@@ -95,3 +84,4 @@ class DataController: ObservableObject {
         }
     }
 }
+
