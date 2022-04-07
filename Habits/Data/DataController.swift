@@ -60,12 +60,38 @@ class DataController: ObservableObject {
         save()
     }
     
-    func addEntryToHabit(for habit: Habit, date: Date) {
-        // TODO: don’t allow adding entry if the habit has already an entry for the date
+    private func addEntryToHabit(for habit: Habit, date: Date) {
         let entry = Entry(context: self.container.viewContext)
         entry.date = date
         entry.habit = habit
         
         save()
+    }
+    
+    private func removeEntryFromHabit(from habit: Habit, date: Date) {
+        guard let entries = habit.entry?.filter({
+            // TODO: extract logic
+            guard let entryDate = ($0 as? Entry)?.date else {
+                return false
+            }
+            return Calendar.current.isDate(entryDate, equalTo: date, toGranularity: .day)
+        }) else { return }
+        
+        if entries.count == 0 { return }
+        
+        entries.forEach({
+            guard let entry = $0 as? Entry else { return }
+            container.viewContext.delete(entry)
+        })
+
+        save()
+    }
+    
+    func toggleEntry(for habit: Habit, date: Date) {
+        if habit.hasEntry(for: date) {
+            removeEntryFromHabit(from: habit, date: date)
+        } else {
+            addEntryToHabit(for: habit, date: date)
+        }
     }
 }

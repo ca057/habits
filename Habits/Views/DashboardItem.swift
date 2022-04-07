@@ -85,7 +85,7 @@ struct DashboardItem: View {
                         date,
                         selected: habit.hasEntry(for: date),
                         color: .orange,
-                        onEntrySelect: { viewModel.addEntry(for: habit, date: $0)}
+                        onEntrySelect: { viewModel.toggleEntry(for: habit, date: $0)}
                     )
                 }
             }

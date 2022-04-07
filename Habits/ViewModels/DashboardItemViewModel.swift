@@ -17,7 +17,7 @@ class DashboardItemViewModel {
         self.dataController = dataController
     }
     
-    func addEntry(for habit: Habit, date: Date) {
-        dataController.addEntryToHabit(for: habit, date: date)
+    func toggleEntry(for habit: Habit, date: Date) {
+        dataController.toggleEntry(for: habit, date: date)
     }
 }
