@@ -1,0 +1,6 @@
+version: '3'
+
+tasks:
+  test:
+    cmds:
+      - xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.4'
