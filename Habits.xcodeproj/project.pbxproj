@@ -10,10 +10,16 @@
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
 		AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
 		AA5C260B27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
+		AA5C260D2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
+		AA5C260E2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
+		AA5C26102803844A0066082C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260F2803844A0066082C /* MainViewModel.swift */; };
+		AA5C26112803844A0066082C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260F2803844A0066082C /* MainViewModel.swift */; };
+		AA5C261328040D350066082C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C261228040D350066082C /* DashboardViewModel.swift */; };
+		AA5C261428040D350066082C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C261228040D350066082C /* DashboardViewModel.swift */; };
 		AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64341A27E1148C003A74C9 /* DashboardView.swift */; };
 		AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
-		AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* Dashboard.swift */; };
+		AADC1CE627BEF547007C47BE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* MainView.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
 		AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D0F27C01682007C47BE /* SettingsView.swift */; };
 		AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D0F27C01682007C47BE /* SettingsView.swift */; };
@@ -47,12 +53,15 @@
 /* Begin PBXFileReference section */
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA5C260927FF913A0066082C /* HabitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStorage.swift; sourceTree = "<group>"; };
+		AA5C260C2802F18E0066082C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		AA5C260F2803844A0066082C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		AA5C261228040D350066082C /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		AA64341A27E1148C003A74C9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AA64341D27E115FF003A74C9 /* Habit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habit.xcdatamodel; sourceTree = "<group>"; };
 		AAD2E33627ECD26C00389779 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AADC1CE027BEF547007C47BE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CE327BEF547007C47BE /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
-		AADC1CE527BEF547007C47BE /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		AADC1CE527BEF547007C47BE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		AADC1CE727BEF548007C47BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AADC1CF027BEF548007C47BE /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1D0F27C01682007C47BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -132,7 +141,7 @@
 			children = (
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
 				AADC1D1E27C13ACC007C47BE /* HabitView.swift */,
-				AADC1CE527BEF547007C47BE /* Dashboard.swift */,
+				AADC1CE527BEF547007C47BE /* MainView.swift */,
 				AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */,
 				AA64341A27E1148C003A74C9 /* DashboardView.swift */,
 				AADC1D0F27C01682007C47BE /* SettingsView.swift */,
@@ -146,6 +155,7 @@
 				AAEC09DB27F8901D00D9B666 /* DataController.swift */,
 				AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */,
 				AA5C260927FF913A0066082C /* HabitsStorage.swift */,
+				AA5C260C2802F18E0066082C /* Storage.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -155,6 +165,8 @@
 			children = (
 				AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */,
 				AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */,
+				AA5C260F2803844A0066082C /* MainViewModel.swift */,
+				AA5C261228040D350066082C /* DashboardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -272,15 +284,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC09F927FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
+				AA5C260D2802F18E0066082C /* Storage.swift in Sources */,
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
 				AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */,
+				AA5C26102803844A0066082C /* MainViewModel.swift in Sources */,
+				AA5C261328040D350066082C /* DashboardViewModel.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
 				AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AAEC09DC27F8901D00D9B666 /* DataController.swift in Sources */,
-				AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */,
+				AADC1CE627BEF547007C47BE /* MainView.swift in Sources */,
 				AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
 				AAEC09E327F8F76D00D9B666 /* AddHabitViewModel.swift in Sources */,
@@ -292,13 +307,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
+				AA5C260E2802F18E0066082C /* Storage.swift in Sources */,
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
+				AA5C26112803844A0066082C /* MainViewModel.swift in Sources */,
 				AAEC09F727FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AAEC09E727F990C300D9B666 /* DataController.swift in Sources */,
 				AA5C260B27FF913A0066082C /* HabitsStorage.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
+				AA5C261428040D350066082C /* DashboardViewModel.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
 				AAEC09FA27FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
 			);

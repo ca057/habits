@@ -11,6 +11,9 @@ function command_exists() {
 echo "setting up dev environment for Habits"
 echo "---"
 command_exists brew
+command_exists gem
+
+gem install xcpretty
 
 # setup pre-commits
 brew install go-task/tap/go-task

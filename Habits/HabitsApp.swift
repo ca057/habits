@@ -9,21 +9,14 @@ import SwiftUI
 
 @main
 struct habitsApp: App {
-    let dataController = DataController.shared
-    
-    @StateObject var habitsStorage: HabitsStorage
+    private let dataController: DataController = .shared
 
-    init() {
-        let managedObjectContext = dataController.container.viewContext
-
-        self._habitsStorage = StateObject(wrappedValue: HabitsStorage(managedObjectContext: managedObjectContext))
-    }
+    // TODO: update all data on scene change
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(habitsStorage)
         }
     }
 }

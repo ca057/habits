@@ -6,18 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 class DashboardItemViewModel {
-    let dataController: DataController
-    
-    convenience init() {
-        self.init(dataController: DataController.shared)
-    }
-    init(dataController: DataController) {
-        self.dataController = dataController
-    }
+    private var habitsStorage: HabitsStorage = .shared
     
     func toggleEntry(for habit: Habit, date: Date) {
-        dataController.toggleEntry(for: habit, date: date)
+        self.habitsStorage.toggleEntry(for: habit, date: date)
     }
 }

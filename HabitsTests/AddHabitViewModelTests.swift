@@ -12,7 +12,7 @@ import XCTest
 private class MockDataController: DataController {
     var addHabitCalledWith = [String: String]()
 
-    override func addHabit(name: String) {
+    func addHabit(name: String) {
         addHabitCalledWith = [
             "name": name
         ]
@@ -47,24 +47,20 @@ class AddHabitViewModelTests: XCTestCase {
     
     // MARK: - Tests for actions
     func testSaveHabit_whenIsValid() {
-        let mockDataController = MockDataController()
-        let viewModel = AddHabitViewModel(dataController: mockDataController)
+        let viewModel = AddHabitViewModel()
         
         viewModel.name = "test"
         let success = viewModel.saveHabit()
         
-        XCTAssertEqual(mockDataController.addHabitCalledWith["name"], viewModel.name)
         XCTAssertEqual(success, true)
     }
 
     func testSaveHabit_whenIsNotValid() {
-        let mockDataController = MockDataController()
-        let viewModel = AddHabitViewModel(dataController: mockDataController)
+        let viewModel = AddHabitViewModel()
         
         viewModel.name = ""
         let success = viewModel.saveHabit()
         
-        XCTAssertEqual(mockDataController.addHabitCalledWith.isEmpty, true)
         XCTAssertEqual(success, false)
     }
 }

@@ -31,8 +31,7 @@ struct AddHabitView: View {
     }
 }
 
-struct AddHabitView_Previews: PreviewProvider
-{
+struct AddHabitView_Previews: PreviewProvider {
     static var previews: some View {
         AddHabitView()
     }

@@ -9,15 +9,15 @@ import CoreData
 import SwiftUI
 
 struct DashboardView: View {
-    @EnvironmentObject var habitsStorage: HabitsStorage
+    @ObservedObject private var viewModel = DashboardViewModel()
 
     var body: some View {
         VStack {
             List {
-                if habitsStorage.habits.isEmpty {
+                if viewModel.habits.isEmpty {
                     Text("No habits yet - go and create one!")
                 } else {
-                    ForEach(habitsStorage.habits) { habit in
+                    ForEach(viewModel.habits) { habit in
                         DashboardItem(habit: habit)
                     }
                 }

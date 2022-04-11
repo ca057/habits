@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AddHabitViewModel: ObservableObject {
-    let dataController: DataController
+    private let habitsStorage: HabitsStorage = .shared
 
     @Published var isValid = false
     @Published var name = "" {
@@ -21,14 +22,7 @@ class AddHabitViewModel: ObservableObject {
         if !isValid {
             return false
         }
-        self.dataController.addHabit(name: name)
+        self.habitsStorage.addHabit(name: name)
         return true
-    }
-    
-    convenience init () {
-        self.init(dataController: DataController.shared)
-    }
-    init (dataController: DataController) {
-        self.dataController = dataController
     }
 }

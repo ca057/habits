@@ -64,9 +64,9 @@ let elementDisplayCount = 7
 struct DashboardItem: View {
     var habit: Habit
     
-    let viewModel = DashboardItemViewModel()
-    let now = Date.now
-    let today = Calendar.current.dateComponents([.day], from: Date.now)
+    private let viewModel = DashboardItemViewModel()
+    private let now = Date.now
+    private let today = Calendar.current.dateComponents([.day], from: Date.now)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {

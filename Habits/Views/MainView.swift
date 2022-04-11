@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State private var showingSettings = false
-    @State private var showingAddHabit = false
-    
+struct MainView: View {
+    @ObservedObject private var viewModel = MainViewModel()
+
     var body: some View {
         NavigationView {
             DashboardView()
@@ -18,24 +17,24 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
-                            showingSettings = true
+                            viewModel.showingSettings = true
                         } label: {
                             Label("Settings", systemImage: "gearshape")
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            showingAddHabit = true
+                            viewModel.showingAddHabit = true
                         } label: {
                             Label("Add new habit", systemImage: "plus")
                                 .labelStyle(IconOnlyLabelStyle())
                         }
                     }
                 }
-                .sheet(isPresented: $showingSettings) {
+                .sheet(isPresented: $viewModel.showingSettings) {
                     SettingsView()
                 }
-                .sheet(isPresented: $showingAddHabit) {
+                .sheet(isPresented: $viewModel.showingAddHabit) {
                     AddHabitView()
                 }
         }
