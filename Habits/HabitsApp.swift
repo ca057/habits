@@ -9,14 +9,27 @@ import SwiftUI
 
 @main
 struct habitsApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     private let dataController: DataController = .shared
-
-    // TODO: update all data on scene change
     
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .onChange(of: scenePhase, perform: handleSceneChange)
         }
+    }
+    
+    private func handleSceneChange(phase: ScenePhase) {
+        switch phase {
+        case .active:
+            updateData()
+            break
+        default: break
+        }
+    }
+    
+    private func updateData() {
+        HabitsStorage.shared.loadData()
     }
 }
