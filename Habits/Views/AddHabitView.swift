@@ -19,7 +19,13 @@ struct AddHabitView: View {
             }
             .navigationTitle("Add habit")
             .toolbar {
-                Button(viewModel.isValid ? "Save" : "Cancel", action: handleSave)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel", action: { dismissView() })
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save", action: handleSave)
+                        .disabled(!viewModel.isValid)
+                }
             }
         }
     }
