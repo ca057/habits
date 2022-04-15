@@ -43,5 +43,7 @@ install_with_brew "pre-commit"
 install_with_gem "xcpretty" 
 install_with_brew "task" "go-task/tap/go-task"
 
+pre-commit install --hook-type pre-push
+
 echo "---"
 echo "finished setting up dev environment"

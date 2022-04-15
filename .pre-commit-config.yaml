@@ -1,0 +1,9 @@
+- repo: local
+  hooks:
+    - id: test
+      name: test
+      entry: task test
+      language: system
+      always_run: true
+      fail_fast: true
+      stages: [push, manual]
