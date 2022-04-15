@@ -8,4 +8,5 @@ repos:
       language: system
       always_run: true
       fail_fast: true
+      pass_filenames: false
       stages: [push, manual]
