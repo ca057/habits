@@ -9,6 +9,14 @@ import XCTest
 @testable import Habits
 import ViewInspector
 
+private class MockAddHabitViewModel: AddHabitViewModel {
+    var saveHabitCalled = false
+    override func saveHabit() -> Bool {
+        saveHabitCalled = true
+        return true
+    }
+}
+
 extension AddHabitView: Inspectable {}
 
 class AddHabitViewTests: XCTestCase {
@@ -23,6 +31,14 @@ class AddHabitViewTests: XCTestCase {
         
         _ = try sut.inspect().find(button: "Cancel")
     }
+
+    func testCancelButton_dismissesView() throws {
+        let sut = AddHabitView()
+        
+        _ = try sut.inspect().find(button: "Cancel")
+        
+        // TODO: check for call to dismiss
+    }
     
     func testSaveButton_exists() throws {
         let sut = AddHabitView()
@@ -30,14 +46,17 @@ class AddHabitViewTests: XCTestCase {
         _ = try sut.inspect().find(button: "Save")
     }
     
-    func testSaveButton_callsViewModel() throws {
-        let sut = AddHabitView()
+    func testSaveButton_whenFormIsFilledOut() throws {
+        let mockViewModel = MockAddHabitViewModel()
+        var sut = AddHabitView()
+        sut.viewModel = mockViewModel
 
         let nameInput = try sut.inspect().find(ViewType.TextField.self, where: { try $0.labelView().text().string() == "Name" })
         try nameInput.setInput("Test name")
 
         try sut.inspect().find(button: "Save").tap()
         
-        // TODO: expect viewmodel to be called
+        XCTAssertEqual(mockViewModel.saveHabitCalled, true)
+        // TODO: check for call to dismiss
     }
 }

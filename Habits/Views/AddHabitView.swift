@@ -10,7 +10,7 @@ import SwiftUI
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismissView
     
-    @ObservedObject private var viewModel = AddHabitViewModel()
+    @ObservedObject var viewModel: AddHabitViewModel = AddHabitViewModel()
 
     var body: some View {
         NavigationView {

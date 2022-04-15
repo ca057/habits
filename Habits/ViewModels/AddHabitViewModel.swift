@@ -29,7 +29,6 @@ class AddHabitViewModel: ObservableObject {
     convenience init() {
         self.init(habitsStorage: .shared)
     }
-    
     init(habitsStorage: HabitsStorage) {
         self.habitsStorage = habitsStorage
     }
