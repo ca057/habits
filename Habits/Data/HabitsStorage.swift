@@ -52,10 +52,7 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
             print("failed to fetch habits")
         }
     }
-}
 
-// MARK: - functionality
-extension HabitsStorage {
     func addHabit(name: String) {
         let habit = Habit(context: self.dataController.container.viewContext)
         habit.id = UUID()

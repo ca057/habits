@@ -18,17 +18,26 @@ class AddHabitViewTests: XCTestCase {
     override func tearDownWithError() throws {}
 
     // #MARK: - UI test
-    func testAddHabitButton_showsSaveWhenFormFilledOut() throws {
+    func testCancelButton_exists() throws {
         let sut = AddHabitView()
         
-        // we have a cancel button initially
         _ = try sut.inspect().find(button: "Cancel")
+    }
+    
+    func testSaveButton_exists() throws {
+        let sut = AddHabitView()
         
-        // input name
+        _ = try sut.inspect().find(button: "Save")
+    }
+    
+    func testSaveButton_callsViewModel() throws {
+        let sut = AddHabitView()
+
         let nameInput = try sut.inspect().find(ViewType.TextField.self, where: { try $0.labelView().text().string() == "Name" })
         try nameInput.setInput("Test name")
 
-        // we expect to have a save button
-        _ = try sut.inspect().find(button: "Save")
+        try sut.inspect().find(button: "Save").tap()
+        
+        // TODO: expect viewmodel to be called
     }
 }

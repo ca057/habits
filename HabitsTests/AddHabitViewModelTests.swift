@@ -9,10 +9,10 @@ import Foundation
 @testable import Habits
 import XCTest
 
-private class MockDataController: DataController {
+private class MockHabitsStorage: HabitsStorage {
     var addHabitCalledWith = [String: String]()
 
-    func addHabit(name: String) {
+    override func addHabit(name: String) {
         addHabitCalledWith = [
             "name": name
         ]
@@ -21,7 +21,6 @@ private class MockDataController: DataController {
 
 class AddHabitViewModelTests: XCTestCase {
     override func setUpWithError() throws {
-        
     }
     
     override func tearDownWithError() throws {
@@ -47,20 +46,24 @@ class AddHabitViewModelTests: XCTestCase {
     
     // MARK: - Tests for actions
     func testSaveHabit_whenIsValid() {
-        let viewModel = AddHabitViewModel()
+        let mockHabitsStorage = MockHabitsStorage()
+        let viewModel = AddHabitViewModel(habitsStorage: mockHabitsStorage)
         
         viewModel.name = "test"
         let success = viewModel.saveHabit()
         
+        XCTAssertEqual(mockHabitsStorage.addHabitCalledWith, ["name": "test"])
         XCTAssertEqual(success, true)
     }
 
     func testSaveHabit_whenIsNotValid() {
-        let viewModel = AddHabitViewModel()
-        
+        let mockHabitsStorage = MockHabitsStorage()
+        let viewModel = AddHabitViewModel(habitsStorage: mockHabitsStorage)
+
         viewModel.name = ""
         let success = viewModel.saveHabit()
         
+        XCTAssertEqual(mockHabitsStorage.addHabitCalledWith, [:])
         XCTAssertEqual(success, false)
     }
 }
