@@ -9,4 +9,4 @@ repos:
       always_run: true
       fail_fast: true
       pass_filenames: false
-      stages: [push, manual]
+      stages: [push]
