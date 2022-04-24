@@ -19,6 +19,11 @@ struct DashboardView: View {
                 } else {
                     ForEach(viewModel.habits) { habit in
                         DashboardItem(habit: habit)
+                            .overlay(
+                                NavigationLink(destination: HabitView(habit: habit)) {
+                                    EmptyView()
+                                }
+                            )
                     }
                 }
             }
