@@ -24,6 +24,16 @@ struct DashboardView: View {
                                     EmptyView()
                                 }
                             )
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button("Tick") { // tick or untick
+                                    print("\(habit.name ?? "") ticked")
+                                }.tint(.blue)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button("Delete", role: .destructive) {
+                                    print("\(habit.name ?? "") deleted")
+                                }
+                            }
                     }
                 }
             }
