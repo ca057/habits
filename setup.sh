@@ -36,8 +36,8 @@ function install_with_gem() {
 
 echo "setting up dev environment for Habits"
 echo "---"
-# command_exists brew
-# command_exists gem
+command_exists brew
+command_exists gem
 
 install_with_brew "pre-commit"
 install_with_gem "xcpretty" 
