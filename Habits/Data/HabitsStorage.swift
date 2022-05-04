@@ -44,6 +44,8 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
         self.loadData()
     }
     
+    // MARK: - core
+    
     func loadData() {
         do {
             try habitsController.performFetch()
@@ -52,6 +54,8 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
             print("failed to fetch habits")
         }
     }
+    
+    // MARK: - create
 
     func addHabit(name: String) {
         let habit = Habit(context: self.dataController.container.viewContext)
@@ -61,6 +65,8 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
         
         self.dataController.save()
     }
+    
+    // MARK: - update
     
     private func addEntryToHabit(for habit: Habit, date: Date) {
         let entry = Entry(context: self.dataController.container.viewContext)
@@ -95,6 +101,12 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
         } else {
             addEntryToHabit(for: habit, date: date)
         }
+    }
+    
+    // MARK: - delete
+    func deleteHabit(_ habit: Habit) {
+        dataController.deleteObject(habit)
+        dataController.save()
     }
 }
 

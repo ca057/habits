@@ -37,4 +37,8 @@ class DataController: ObservableObject {
             }
         }
     }
+    
+    func deleteObject(_ object: NSManagedObject) {
+        self.container.viewContext.delete(object)
+    }
 }

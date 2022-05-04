@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA13FA272823333200B10BAE /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitViewModel.swift */; };
+		AA13FA282823333200B10BAE /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitViewModel.swift */; };
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
 		AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
 		AA5C260B27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
@@ -51,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA13FA262823333200B10BAE /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HabitViewModel.swift; path = Habits/ViewModels/HabitViewModel.swift; sourceTree = SOURCE_ROOT; };
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA5C260927FF913A0066082C /* HabitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStorage.swift; sourceTree = "<group>"; };
 		AA5C260C2802F18E0066082C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -165,8 +168,9 @@
 			children = (
 				AAEC09E227F8F76D00D9B666 /* AddHabitViewModel.swift */,
 				AAEC09F527FB807800D9B666 /* DashboardItemViewModel.swift */,
-				AA5C260F2803844A0066082C /* MainViewModel.swift */,
 				AA5C261228040D350066082C /* DashboardViewModel.swift */,
+				AA13FA262823333200B10BAE /* HabitViewModel.swift */,
+				AA5C260F2803844A0066082C /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -289,6 +293,7 @@
 				AADC1D1027C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */,
+				AA13FA272823333200B10BAE /* HabitViewModel.swift in Sources */,
 				AA5C26102803844A0066082C /* MainViewModel.swift in Sources */,
 				AA5C261328040D350066082C /* DashboardViewModel.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
@@ -315,6 +320,7 @@
 				AA5C260B27FF913A0066082C /* HabitsStorage.swift in Sources */,
 				AADC1D1127C01682007C47BE /* SettingsView.swift in Sources */,
 				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
+				AA13FA282823333200B10BAE /* HabitViewModel.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA5C261428040D350066082C /* DashboardViewModel.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
