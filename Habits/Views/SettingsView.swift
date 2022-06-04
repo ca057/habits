@@ -8,12 +8,27 @@
 import CoreData
 import SwiftUI
 
+extension Bundle {
+    private var versionNumber: String {
+        self.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
+    
+    private var buildNumber: String {
+        self.infoDictionary?["CFBundleVersion"] as? String ?? "N/A"
+    }
+    
+    var versionAndBuildNumber: String {
+        "v\(self.versionNumber) (\(self.buildNumber))"
+    }
+}
+
 struct SettingsView: View {
     // TODO: move to view model
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.dismiss) var dismissView
     
     @State private var confirmDeletion = false
+    @State private var sorting = 0 // TODO
     
     private var showDebugSettings: Bool {
         #if DEBUG
@@ -27,7 +42,10 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 Section("Display Settings") {
-                    Text("Sort by")
+                    Picker("Sort by", selection: $sorting) {
+                        Text("Name first, creation date second").tag(0)
+                        Text("Creation date first, name second").tag(1)
+                    }
                 }
                 
                 if showDebugSettings {
@@ -36,6 +54,10 @@ struct SettingsView: View {
                             confirmDeletion = true
                         }
                     }
+                }
+
+                Section("App Information") {
+                    Text("App Version: \(Bundle.main.versionAndBuildNumber)")
                 }
             }
             .navigationTitle("Settings")
@@ -51,6 +73,7 @@ struct SettingsView: View {
                     confirmDeletion = false
                 }
             }
+                
         }
     }
     
