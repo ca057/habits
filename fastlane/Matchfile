@@ -1,0 +1,8 @@
+git_url ENV["MATCH_GIT_REPO_URL"]
+
+storage_mode("git")
+
+type("development")
+
+app_identifier(["de.christianost.habits"])
+username ENV["APPLE_ID"]
