@@ -14,7 +14,9 @@ extension Habit {
     static var habitsFetchRequest: NSFetchRequest<Habit> {
         let request: NSFetchRequest<Habit> = Habit.fetchRequest()
         
-        request.sortDescriptors = []
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: false) // TODO: read from user defaults
+        ]
         
         return request
     }
@@ -47,6 +49,7 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
     // MARK: - core
     
     func loadData() {
+        // TODO: make async/await
         do {
             try habitsController.performFetch()
             self.habits = habitsController.fetchedObjects ?? []
