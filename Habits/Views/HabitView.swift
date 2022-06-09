@@ -37,9 +37,3 @@ struct HabitView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-
-//struct HabitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HabitView()
-//    }
-//}
