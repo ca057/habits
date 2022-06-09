@@ -73,8 +73,6 @@ struct DashboardItem: View {
             Text(habit.name ?? "N/A")
                 .font(.title)
                 .bold()
-            Text("Started on \(habit.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")")
-                .font(.caption)
                 .padding(.bottom)
                         
             HStack(spacing: 8) {

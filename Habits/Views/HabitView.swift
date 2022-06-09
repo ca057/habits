@@ -17,7 +17,7 @@ struct HabitView: View {
     var body: some View {
         VStack {
             List {
-                Text(habit.name ?? "")
+                Text("You’re working on this habit since \(habit.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A") – nice job!")
                 
                 Section("Danger Zone") {
                     Button("Delete habit", role: .destructive) {
