@@ -1,7 +1,4 @@
 //
-//  ContentView.swift
-//  habits
-//
 //  Created by Christian Ost on 17.02.22.
 //
 
@@ -16,11 +13,8 @@ struct MainView: View {
                 .navigationTitle("habits")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            viewModel.showingSettings = true
-                        } label: {
-                            Label("Settings", systemImage: "gearshape")
-                        }
+                        // TODO: implement this here
+//                        EditButton()
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -31,12 +25,15 @@ struct MainView: View {
                         }
                     }
                 }
-                .sheet(isPresented: $viewModel.showingSettings) {
-                    SettingsView()
-                }
                 .sheet(isPresented: $viewModel.showingAddHabit) {
                     AddHabitView()
                 }
         }
+    }
+}
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
     }
 }

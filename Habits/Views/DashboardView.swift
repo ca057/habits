@@ -14,28 +14,34 @@ struct DashboardView: View {
     var body: some View {
         VStack {
             List {
-                if viewModel.habits.isEmpty {
-                    Text("No habits yet - go and create one!")
-                } else {
-                    ForEach(viewModel.habits) { habit in
-                        DashboardItem(habit: habit)
-                            .overlay(
-                                NavigationLink(destination: HabitView(habit: habit)) {
-                                    EmptyView()
+                Section {
+                    if viewModel.habits.isEmpty {
+                        Text("No habits yet - go and create one!")
+                    } else {
+                        ForEach(viewModel.habits) { habit in
+                            DashboardItem(habit: habit)
+                                .background(
+                                    NavigationLink("", destination: HabitView(habit: habit)).opacity(0)
+                                )
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
+                                        viewModel.toggleLatestEntry(for: habit)
+                                    }.tint(.blue)
                                 }
-                            )
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button("Tick") { // tick or untick
-                                    print("\(habit.name ?? "") ticked")
-                                }.tint(.blue)
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button("Delete", role: .destructive) {
-                                    print("\(habit.name ?? "") deleted")
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                    Button("Delete", role: .destructive) {
+                                        viewModel.requestToDelete(habit)
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
+            }.listStyle(.insetGrouped)
+        }
+        .alert("Delete habit?", isPresented: $viewModel.showingDeleteHabitConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                viewModel.deleteHabit()
             }
         }
     }

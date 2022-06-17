@@ -17,7 +17,7 @@ struct DayElement: View {
     let onEntrySelect: (Date) -> Void
     
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: handlePress, label: {
             Text(formattedDay)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 4)
@@ -33,7 +33,6 @@ struct DayElement: View {
                         .grayscale(isInWeekend ? 0.75 : 0)
                 )
         })
-        .simultaneousGesture(LongPressGesture().onEnded(handleLongPress))
         .buttonStyle(BorderlessButtonStyle())
         .foregroundColor(.primary)
     }
@@ -47,7 +46,7 @@ struct DayElement: View {
         self.onEntrySelect = onEntrySelect
     }
     
-    func handleLongPress(_: Any) {
+    func handlePress() {
         onEntrySelect(date)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }

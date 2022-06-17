@@ -8,6 +8,5 @@
 import Foundation
 
 class MainViewModel: ObservableObject {
-    @Published var showingSettings = false
     @Published var showingAddHabit = false
 }
