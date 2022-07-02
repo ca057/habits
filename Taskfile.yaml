@@ -1,6 +1,9 @@
 version: '3'
 
 tasks:
+  beta:
+    cmds:
+      - bundle exec fastlane ios beta
   test:
     cmds:
       - xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.4' | xcpretty && exit ${PIPESTATUS[0]}
