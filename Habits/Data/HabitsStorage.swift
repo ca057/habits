@@ -15,7 +15,8 @@ extension Habit {
         let request: NSFetchRequest<Habit> = Habit.fetchRequest()
         
         request.sortDescriptors = [
-            NSSortDescriptor(key: "name", ascending: false) // TODO: read from user defaults
+            NSSortDescriptor(key: "order", ascending: true),
+            NSSortDescriptor(key: "createdAt", ascending: false)
         ]
         
         return request
@@ -104,6 +105,16 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
         } else {
             addEntryToHabit(for: habit, date: date)
         }
+    }
+    
+    func move(from: IndexSet, to: Int) {
+        habits.move(fromOffsets: from, toOffset: to)
+        for index in 0..<habits.count {
+            let habit = habits[index]
+            habit.order = Int16(index)
+        }
+
+        dataController.save()
     }
     
     // MARK: - delete

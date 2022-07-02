@@ -13,7 +13,6 @@ struct DayElement: View {
     let isInWeekend: Bool
     let selected: Bool
     let color: Color
-    
     let onEntrySelect: (Date) -> Void
     
     var body: some View {
@@ -32,6 +31,7 @@ struct DayElement: View {
                         .stroke(color, lineWidth: 4)
                         .grayscale(isInWeekend ? 0.75 : 0)
                 )
+                .lineLimit(1)
         })
         .buttonStyle(BorderlessButtonStyle())
         .foregroundColor(.primary)
@@ -73,6 +73,7 @@ struct DashboardItem: View {
                 .font(.title)
                 .bold()
                 .padding(.bottom)
+                .lineLimit(1)
                         
             HStack(spacing: 8) {
                 ForEach(0..<elementDisplayCount, id: \.self) { index in

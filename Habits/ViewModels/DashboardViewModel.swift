@@ -40,4 +40,8 @@ class DashboardViewModel: ObservableObject {
         habitsStorage.deleteHabit(habit)
         showingDeleteHabitConfirmation = false
     }
+    
+    func reorderElements(source: IndexSet, destination: Int) {
+        habitsStorage.move(from: source, to: destination)
+    }
 }

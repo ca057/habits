@@ -11,6 +11,7 @@ import CoreData
 class DataController: ObservableObject {
     static let shared = DataController()
 
+    // TODO: make it a lazy var
     let container: NSPersistentContainer
         
     init() {
@@ -22,7 +23,12 @@ class DataController: ObservableObject {
                 print("core data failed to load: \(error.localizedDescription)")
             }
             
+            let persistentStoreDescriptions = NSPersistentStoreDescription()
+            persistentStoreDescriptions.shouldMigrateStoreAutomatically = true
+            persistentStoreDescriptions.shouldInferMappingModelAutomatically = true
+            
             self.container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+            self.container.persistentStoreDescriptions.append(persistentStoreDescriptions)
         }
     }
 

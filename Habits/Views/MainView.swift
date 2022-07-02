@@ -13,8 +13,7 @@ struct MainView: View {
                 .navigationTitle("habits")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        // TODO: implement this here
-//                        EditButton()
+                        EditButton()
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
