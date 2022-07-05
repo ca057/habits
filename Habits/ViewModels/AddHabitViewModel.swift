@@ -17,12 +17,13 @@ class AddHabitViewModel: ObservableObject {
             isValid = !name.isEmpty
         }
     }
+    @Published var bgColour = Colour.allCasesSorted[0]
     
     func saveHabit() -> Bool {
         if !isValid {
             return false
         }
-        self.habitsStorage.addHabit(name: name)
+        self.habitsStorage.addHabit(name: name, colour: bgColour)
         return true
     }
     

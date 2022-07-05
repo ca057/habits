@@ -37,7 +37,7 @@ class DashboardViewModel: ObservableObject {
             // TODO: this is an error, handle it?
             return
         }
-        habitsStorage.deleteHabit(habit)
+        habitsStorage.delete(habit)
         showingDeleteHabitConfirmation = false
     }
     

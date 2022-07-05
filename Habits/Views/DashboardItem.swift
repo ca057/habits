@@ -15,9 +15,23 @@ struct DayElement: View {
     let color: Color
     let onEntrySelect: (Date) -> Void
     
+    @Environment(\.colorScheme) var colorScheme
+    
+    private var selectedForegroundColor: Color {
+        if color == Color.primary {
+            #if os(macOS)
+            return Color(NSColor.windowBackgroundColor)
+            #else
+            return Color(UIColor.systemBackground)
+            #endif
+        }
+        return Color.primary
+    }
+    
     var body: some View {
         Button(action: handlePress, label: {
             Text(formattedDay)
+                .foregroundColor(selected ? selectedForegroundColor : Color.primary)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 20)
@@ -82,7 +96,7 @@ struct DashboardItem: View {
                     DayElement(
                         date,
                         selected: habit.hasEntry(for: date),
-                        color: .orange,
+                        color: Colour(rawValue: habit.colour)?.toColor() ?? Colour.base.toColor(),
                         onEntrySelect: { viewModel.toggleEntry(for: habit, date: $0)}
                     )
                 }

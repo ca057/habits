@@ -8,16 +8,28 @@
 import SwiftUI
 
 struct HabitView: View {
-    var habit: Habit
-    let viewModel = HabitViewModel()
+    @StateObject var viewModel: HabitViewModel
     
     @Environment(\.dismiss) private var dismissView
     @State private var showDeleteConfirmation = false
 
     var body: some View {
         VStack {
-            List {
-                Text("You’re working on this habit since \(habit.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A") – nice job!")
+            Form {
+                Text("You’re working on this habit since \(viewModel.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A") – nice job!")
+                
+                Section("Statistics") {
+                    Text("Coming soon - really sorry 😭")
+                }
+                
+                Section("Settings") {
+                    TextField("Name", text: $viewModel.name)
+                    VStack(alignment: .leading) {
+                        Text("Colour")
+                        ColourPicker(colours: Colour.allCasesSorted, selection: $viewModel.colour)
+                            .padding(.bottom, 4)
+                    }
+                }
                 
                 Section("Danger Zone") {
                     Button("Delete habit", role: .destructive) {
@@ -29,11 +41,16 @@ struct HabitView: View {
         .alert("Delete habit?", isPresented: $showDeleteConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {
-                viewModel.deleteHabit(habit)
+                viewModel.deleteHabit()
                 dismissView()
             }
         }
-        .navigationTitle(habit.name ?? "")
+        .navigationTitle(viewModel.name)
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear(perform: viewModel.saveChanges)
+    }
+    
+    init(_ habit: Habit) {
+        _viewModel = StateObject(wrappedValue: HabitViewModel(habit))
     }
 }

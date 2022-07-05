@@ -13,17 +13,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### print_env
-
-```sh
-[bundle exec] fastlane print_env
-```
-
-Support debugging and print environment variables
-
-----
-
-
 ## iOS
 
 ### ios beta

@@ -61,16 +61,23 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
     
     // MARK: - create
 
-    func addHabit(name: String) {
+    func addHabit(name: String, colour: Colour) {
         let habit = Habit(context: self.dataController.container.viewContext)
         habit.id = UUID()
         habit.name = name
         habit.createdAt = Date()
+        habit.colour = colour.rawValue
         
         self.dataController.save()
     }
     
     // MARK: - update
+    func update(_ habit: Habit, name: String, colour: Colour) {
+        habit.name = name
+        habit.colour = colour.rawValue
+        
+        self.dataController.save()
+    }
     
     private func addEntryToHabit(for habit: Habit, date: Date) {
         let entry = Entry(context: self.dataController.container.viewContext)
@@ -116,9 +123,9 @@ class HabitsStorage: NSObject, ObservableObject, Storage {
 
         dataController.save()
     }
-    
+
     // MARK: - delete
-    func deleteHabit(_ habit: Habit) {
+    func delete(_ habit: Habit) {
         dataController.deleteObject(habit)
         dataController.save()
     }

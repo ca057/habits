@@ -15,7 +15,19 @@ struct AddHabitView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Name", text: $viewModel.name)
+                TextField("I want to track...", text: $viewModel.name)
+                    .accessibilityLabel("Name of your new habit")
+                Section {
+                    VStack(alignment: .leading) {
+                        Text("Pick a colour")
+                        ColourPicker(
+                            colours: Colour.allCasesSorted,
+                            selection: $viewModel.bgColour
+                        )
+                        .accessibilityLabel("Background colour")
+                    }
+                    .padding(.vertical)
+                }
             }
             .navigationTitle("Add habit")
             .toolbar {
