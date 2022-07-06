@@ -21,6 +21,7 @@
 		AA64341B27E1148C003A74C9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64341A27E1148C003A74C9 /* DashboardView.swift */; };
 		AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
 		AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6273B28531D9A0056FAF3 /* Bundle.swift */; };
+		AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC010692875C0E900AE0889 /* Ghraph.swift */; };
 		AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0828739D290085F2B6 /* UIColor.swift */; };
@@ -66,6 +67,7 @@
 		AA64341D27E115FF003A74C9 /* Habit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habit.xcdatamodel; sourceTree = "<group>"; };
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		AAA85423286CCF7200A0277B /* Habit 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Habit 2.xcdatamodel"; sourceTree = "<group>"; };
+		AAC010692875C0E900AE0889 /* Ghraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ghraph.swift; sourceTree = "<group>"; };
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AAC67B0C287440080085F2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
+				AAC010692875C0E900AE0889 /* Ghraph.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				AA5C260D2802F18E0066082C /* Storage.swift in Sources */,
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
 				AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
+				AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */,
 				AA13FA272823333200B10BAE /* HabitViewModel.swift in Sources */,
