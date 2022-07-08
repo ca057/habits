@@ -21,6 +21,8 @@ class HabitViewModel: ObservableObject {
             self.saveChanges()
         }
     }
+    @Published var earliestEntry: Date = Date.distantFuture
+    @Published var latestEntry: Date = Date.distantPast
     var createdAt: Date?
     
     func saveChanges() {
@@ -29,6 +31,11 @@ class HabitViewModel: ObservableObject {
     
     func deleteHabit() {
         habitsStorage.delete(self.habit)
+    }
+    
+    func hasEntryForDate(_ date: Date?) -> Bool {
+        guard let d = date else { return false }
+        return habit.hasEntry(for: d)
     }
     
     // MARK: -
@@ -41,5 +48,21 @@ class HabitViewModel: ObservableObject {
         self.name = habit.name ?? ""
         self.createdAt = habit.createdAt
         self.colour = Colour.fromRawValue(habit.colour)
+        
+        guard let entries = habit.entry, entries.count > 0 else { return }
+
+        entries.forEach({
+            guard
+                let entry = $0 as? Entry,
+                let date = entry.date
+            else { return }
+
+            if date.compare(.isEarlier(than: earliestEntry)) {
+                earliestEntry = date
+            }
+            if date.compare(.isLater(than: latestEntry)) {
+                latestEntry = date
+            }
+        })
     }
 }

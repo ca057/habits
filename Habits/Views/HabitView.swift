@@ -19,7 +19,9 @@ struct HabitView: View {
                 Text("You’re working on this habit since \(viewModel.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A") – nice job!")
                 
                 Section("Statistics") {
-                    Text("Coming soon - really sorry 😭")
+                    Ghraph(from: viewModel.earliestEntry, to: viewModel.latestEntry) { date in
+                        Text(viewModel.hasEntryForDate(date) ? "X" : "")
+                    }
                 }
                 
                 Section("Settings") {
