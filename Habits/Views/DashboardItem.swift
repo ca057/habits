@@ -27,6 +27,15 @@ struct DayElement: View {
         }
         return Color.primary
     }
+    private var fillColor: Color {
+        if isInWeekend {
+            return color == Color.primary ? Color.gray :color
+        }
+        return color
+    }
+    private var grayScale: Double {
+        isInWeekend ? 0.75 : 0
+    }
     
     var body: some View {
         Button(action: handlePress, label: {
@@ -37,13 +46,13 @@ struct DayElement: View {
                 .padding(.vertical, 20)
                 .background(
                     RoundedRectangle(cornerRadius: .infinity)
-                        .fill(selected ? color : .clear)
-                        .grayscale(isInWeekend ? 0.75 : 0)
+                        .fill(selected ? fillColor : .clear)
+                        .grayscale(grayScale)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: .infinity)
-                        .stroke(color, lineWidth: 4)
-                        .grayscale(isInWeekend ? 0.75 : 0)
+                        .stroke(fillColor, lineWidth: 4)
+                        .grayscale(grayScale)
                 )
                 .lineLimit(1)
         })
