@@ -11,10 +11,6 @@ import DateHelper
 struct Row<Content>: View where Content: View {
     var start: Date
     @ViewBuilder var cell: (Date?) -> Content
-    
-    private var isRowForCurrentWeek: Bool {
-        start.compare(.isThisWeek)
-    }
 
     var body: some View {
         ForEach(0..<7) { index in
@@ -22,6 +18,7 @@ struct Row<Content>: View where Content: View {
             VStack {
                 cell(date)
                     .frame(maxWidth: .infinity)
+                    .opacity(date?.compare(.isInTheFuture) ?? false ? 0.25 : 1)
             }
         }
     }
@@ -68,7 +65,9 @@ struct Ghraph<Content>: View where Content: View {
                     Text(hasMonthChange || startIsFirstDayOfMonth
                          ? endOfWeek.toString(format: .custom("MMM"))?.description ?? ""
                          : ""
-                    ).frame(maxWidth: .infinity)
+                    )
+                    .rotationEffect(.degrees(-45))
+                    .frame(maxWidth: .infinity)
                     Row(start: nextDate ?? to, cell: cell).frame(maxWidth: .infinity)
                 }
             }
@@ -82,11 +81,11 @@ struct Ghraph_Previews: PreviewProvider {
             from: Date.now.advanced(by: 60 * 60 * 24 * 65 * -1),
             to: Date.now
         ) { date in
-            if date?.compare(.isInTheFuture) ?? false {
-                Spacer().frame(height: 0)
-            } else {
-                Text(String(date?.component(.day) ?? 0))
-            }
+            RoundedRectangle(cornerRadius: .infinity)
+                .stroke(.cyan)
+//                .fill(.crown)
+                
+//            Text(String(date?.component(.day) ?? 0))
         }
     }
 }
