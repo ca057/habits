@@ -34,19 +34,15 @@ struct Ghraph<Content>: View where Content: View {
         distance.round(.up)
         return Int(distance)
     }
-    
-    let formatter: DateFormatter = {
-        let fmt = DateFormatter()
-        fmt.locale = .init(identifier: Locale.current.languageCode ?? "en")
-        return fmt
-    }()
+    // FIXME: make this dependent on the language and ensure it’s synced with the used calendar
+    var weekDays = ["M", "T", "W", "T", "F", "S", "S"]
 
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                     .frame(maxWidth: .infinity)
-                ForEach(formatter.veryShortWeekdaySymbols, id: \.self) {
+                ForEach(weekDays, id: \.self) {
                     Text($0)
                         .frame(maxWidth: .infinity)
                 }
