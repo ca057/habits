@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AddHabitButton: View {
+    var onPress: () -> Void
+
     var body: some View {
         Button {
-            
+            onPress()
         } label: {
             HStack {
                 Image(systemName: "goforward.plus")
@@ -24,10 +26,14 @@ struct AddHabitButton: View {
         .background(Color.accentColor)
         .cornerRadius(20)
     }
+    
+    init(onPress: @escaping () -> Void) {
+        self.onPress = onPress
+    }
 }
 
 struct AddHabitButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddHabitButton()
+        AddHabitButton() { }
     }
 }

@@ -15,8 +15,8 @@
 		AA5C260D2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
 		AA5C260E2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
 		AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
-		AA8636E929B54B9600144373 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* MainScreen.swift */; };
-		AA8636EB29B54BB100144373 /* MainView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EA29B54BB100144373 /* MainView-ViewModel.swift */; };
+		AA8636EB29B54BB100144373 /* MainScreen-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EA29B54BB100144373 /* MainScreen-ViewModel.swift */; };
+		AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EE29B68F4100144373 /* EmptyState.swift */; };
 		AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6273B28531D9A0056FAF3 /* Bundle.swift */; };
 		AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC010692875C0E900AE0889 /* Ghraph.swift */; };
 		AAC0106D2875C12F00AE0889 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AAC0106C2875C12F00AE0889 /* DateHelper */; };
@@ -62,7 +62,8 @@
 		AA5C260927FF913A0066082C /* HabitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStorage.swift; sourceTree = "<group>"; };
 		AA5C260C2802F18E0066082C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AA64341D27E115FF003A74C9 /* Habit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habit.xcdatamodel; sourceTree = "<group>"; };
-		AA8636EA29B54BB100144373 /* MainView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainView-ViewModel.swift"; path = "ViewModels/MainView-ViewModel.swift"; sourceTree = "<group>"; };
+		AA8636EA29B54BB100144373 /* MainScreen-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainScreen-ViewModel.swift"; sourceTree = "<group>"; };
+		AA8636EE29B68F4100144373 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		AAA85423286CCF7200A0277B /* Habit 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Habit 2.xcdatamodel"; sourceTree = "<group>"; };
 		AAC010692875C0E900AE0889 /* Ghraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ghraph.swift; sourceTree = "<group>"; };
@@ -106,6 +107,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA8636ED29B68F3000144373 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				AA8636EE29B68F4100144373 /* EmptyState.swift */,
+				AADC1CE527BEF547007C47BE /* MainScreen.swift */,
+				AA8636EA29B54BB100144373 /* MainScreen-ViewModel.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
 		AAA6273A28531D890056FAF3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,8 +159,6 @@
 		AADC1CE227BEF547007C47BE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
-				AADC1CE527BEF547007C47BE /* MainScreen.swift */,
-				AA8636EA29B54BB100144373 /* MainView-ViewModel.swift */,
 				AAC67B0C287440080085F2B6 /* Info.plist */,
 				AAC67B0428734CC30085F2B6 /* Components */,
 				AAA6273A28531D890056FAF3 /* Extensions */,
@@ -175,6 +184,7 @@
 		AAEC09D927F87DA500D9B666 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA8636ED29B68F3000144373 /* MainScreen */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
 				AADC1D1E27C13ACC007C47BE /* HabitView.swift */,
 				AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */,
@@ -323,9 +333,10 @@
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
 				AA5C260D2802F18E0066082C /* Storage.swift in Sources */,
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
-				AA8636EB29B54BB100144373 /* MainView-ViewModel.swift in Sources */,
+				AA8636EB29B54BB100144373 /* MainScreen-ViewModel.swift in Sources */,
 				AAEC09F627FB807800D9B666 /* DashboardItemViewModel.swift in Sources */,
 				AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */,
+				AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */,
 				AA13FA272823333200B10BAE /* HabitViewModel.swift in Sources */,
@@ -355,7 +366,6 @@
 				AAEC09E627F990AA00D9B666 /* AddHabitViewModel.swift in Sources */,
 				AA13FA282823333200B10BAE /* HabitViewModel.swift in Sources */,
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
-				AA8636E929B54B9600144373 /* MainScreen.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AACA94CD29AA489F002B6837 /* AddHabitButton.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
