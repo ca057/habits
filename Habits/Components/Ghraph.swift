@@ -43,9 +43,9 @@ struct Ghraph<Content>: View where Content: View {
     
     var weekDays: [String] {
         var day = Date().adjust(for: .startOfWeek, calendar: calendar)
-        var wd = [String]()
+        var weekDays = [String]()
         for _ in 0...6 {
-            wd.append(
+            weekDays.append(
                 day?.toString(
                     format: .custom("EEEEE"),
                     locale: Locale(identifier: Locale.current.languageCode ?? "en")
@@ -53,7 +53,7 @@ struct Ghraph<Content>: View where Content: View {
             )
             day = day?.offset(.day, value: 1)
         }
-        return wd
+        return weekDays
     }
 
     var body: some View {
@@ -97,8 +97,7 @@ struct Ghraph_Previews: PreviewProvider {
             to: Date.now
         ) { date in
             RoundedRectangle(cornerRadius: .infinity)
-                .stroke(.cyan)
-//                .fill(.crown)
+                .stroke(.blue, lineWidth: 3)
                 
 //            Text(String(date?.component(.day) ?? 0))
         }

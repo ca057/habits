@@ -21,8 +21,8 @@ class HabitViewModel: ObservableObject {
             self.saveChanges()
         }
     }
-    @Published var earliestEntry: Date = Date.distantFuture
-    @Published var latestEntry: Date = Date.distantPast
+    @Published var earliestEntry: Date = Date.now
+    @Published var latestEntry: Date = Date.now
     var createdAt: Date?
     
     func saveChanges() {
@@ -34,8 +34,8 @@ class HabitViewModel: ObservableObject {
     }
     
     func hasEntryForDate(_ date: Date?) -> Bool {
-        guard let d = date else { return false }
-        return habit.hasEntry(for: d)
+        guard let date = date else { return false }
+        return habit.hasEntry(for: date)
     }
     
     // MARK: -
