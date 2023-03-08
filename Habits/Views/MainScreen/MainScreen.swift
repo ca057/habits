@@ -40,7 +40,7 @@ struct MainScreen: View {
                                         }
                                     }
                             }
-                            .onMove(perform: viewModel.reorderElements)
+                            .onMove {  viewModel.reorderElements(source: $0, destination: $1) }
                             .onDelete { _ in }
                         }
 //                        AddHabitButton {
@@ -55,7 +55,7 @@ struct MainScreen: View {
                     viewModel.deleteHabit()
                 }
             }
-            .navigationTitle(Text("habits"))
+            .navigationTitle(Text("Your habits"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if !viewModel.habits.isEmpty {
