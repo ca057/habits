@@ -8,8 +8,8 @@
 import Combine
 import Foundation
 
-extension MainScreen {
-    @MainActor class ViewModel: ObservableObject {
+extension Dashboard {
+    @MainActor final class ViewModel: ObservableObject {
         private var habitsStorage = HabitsStorage.shared
         private var cancellables: Set<AnyCancellable> = []
         

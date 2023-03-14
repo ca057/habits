@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct MainScreen: View {
+struct Dashboard: View {
     @StateObject private var viewModel = ViewModel()
     @Environment(\.editMode) private var editMode
 
@@ -81,9 +81,9 @@ struct MainScreen: View {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
+struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
-        MainScreen()
+        Dashboard()
     }
 }
 

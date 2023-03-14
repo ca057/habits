@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HabitView: View {
-    @StateObject var viewModel: HabitViewModel
+    @StateObject var viewModel: ViewModel
     
     @Environment(\.dismiss) private var dismissView
     @State private var showDeleteConfirmation = false
@@ -47,10 +47,10 @@ struct HabitView: View {
         }
         .navigationTitle(viewModel.name)
         .navigationBarTitleDisplayMode(.inline)
-        .onDisappear(perform: viewModel.saveChanges)
+        .onDisappear(perform: { viewModel.saveChanges() }) // TODO: why?
     }
     
     init(_ habit: Habit) {
-        _viewModel = StateObject(wrappedValue: HabitViewModel(habit))
+        _viewModel = StateObject(wrappedValue: ViewModel(habit))
     }
 }

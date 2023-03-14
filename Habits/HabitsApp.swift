@@ -14,7 +14,7 @@ struct habitsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainScreen()
+            Dashboard()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .onChange(of: scenePhase, perform: handleSceneChange)
         }
