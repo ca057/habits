@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct HabitView: View {
-    @StateObject var viewModel: HabitViewModel
+    @StateObject var viewModel: ViewModel
     
     @Environment(\.dismiss) private var dismissView
     @State private var showDeleteConfirmation = false
 
     var body: some View {
         VStack {
-            Form {
-                Text("You’re working on this habit since \(viewModel.createdAt?.formatted(date: .abbreviated, time: .omitted) ?? "N/A") – nice job!")
-                
+            Form {                
                 Section("Statistics") {
                     Ghraph(from: viewModel.earliestEntry, to: viewModel.latestEntry) { date in
                         Text(viewModel.hasEntryForDate(date) ? "X" : "")
@@ -49,10 +47,10 @@ struct HabitView: View {
         }
         .navigationTitle(viewModel.name)
         .navigationBarTitleDisplayMode(.inline)
-        .onDisappear(perform: viewModel.saveChanges)
+        .onDisappear(perform: { viewModel.saveChanges() }) // TODO: why?
     }
     
     init(_ habit: Habit) {
-        _viewModel = StateObject(wrappedValue: HabitViewModel(habit))
+        _viewModel = StateObject(wrappedValue: ViewModel(habit))
     }
 }

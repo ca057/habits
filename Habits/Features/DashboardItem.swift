@@ -86,7 +86,8 @@ let elementDisplayCount = 7
 struct DashboardItem: View {
     var habit: Habit
     
-    private let viewModel = DashboardItemViewModel()
+    @ObservedObject private var viewModel = ViewModel()
+    
     private let now = Date.now
     private let today = Calendar.current.dateComponents([.day], from: Date.now)
     
@@ -112,5 +113,15 @@ struct DashboardItem: View {
             }
         }
         .padding(.vertical)
+    }
+}
+
+extension DashboardItem {
+    @MainActor final class ViewModel: ObservableObject {
+        private var habitsStorage: HabitsStorage = .shared
+        
+        func toggleEntry(for habit: Habit, date: Date) {
+            self.habitsStorage.toggleEntry(for: habit, date: date)
+        }
     }
 }

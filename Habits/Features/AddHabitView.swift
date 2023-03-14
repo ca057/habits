@@ -10,7 +10,7 @@ import SwiftUI
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismissView
     
-    @ObservedObject var viewModel: AddHabitViewModel = AddHabitViewModel()
+    @StateObject var viewModel = ViewModel()
 
     var body: some View {
         NavigationView {
@@ -52,5 +52,35 @@ struct AddHabitView: View {
 struct AddHabitView_Previews: PreviewProvider {
     static var previews: some View {
         AddHabitView()
+    }
+}
+
+extension AddHabitView {
+    @MainActor final class ViewModel: ObservableObject {
+        private var habitsStorage: HabitsStorage
+
+        @Published var isValid = false
+        @Published var name = "" {
+            didSet {
+                isValid = !name.isEmpty
+            }
+        }
+        @Published var bgColour = Colour.allCasesSorted[0]
+        
+        func saveHabit() -> Bool {
+            if !isValid {
+                return false
+            }
+            self.habitsStorage.addHabit(name: name, colour: bgColour)
+            return true
+        }
+        
+        convenience init() {
+            self.init(habitsStorage: .shared)
+        }
+        init(habitsStorage: HabitsStorage) {
+            self.habitsStorage = habitsStorage
+        }
+
     }
 }

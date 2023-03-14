@@ -11,10 +11,6 @@ import DateHelper
 struct Row<Content>: View where Content: View {
     var start: Date
     @ViewBuilder var cell: (Date?) -> Content
-    
-    private var isRowForCurrentWeek: Bool {
-        start.compare(.isThisWeek)
-    }
 
     var body: some View {
         ForEach(0..<7) { index in
@@ -22,6 +18,7 @@ struct Row<Content>: View where Content: View {
             VStack {
                 cell(date)
                     .frame(maxWidth: .infinity)
+                    .opacity(date?.compare(.isInTheFuture) ?? false ? 0.25 : 1)
             }
         }
     }
@@ -32,24 +29,39 @@ struct Ghraph<Content>: View where Content: View {
     var to: Date
     @ViewBuilder var cell: (Date?) -> Content
     
+    var calendar: Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.firstWeekday = 2
+        return c
+    }
+    
     var weeks: Int {
         var distance = Double(to.since(from, in: .day) ?? 0) / 7
         distance.round(.up)
         return Int(distance)
     }
     
-    let formatter: DateFormatter = {
-        let fmt = DateFormatter()
-        fmt.locale = .init(identifier: Locale.current.languageCode ?? "en")
-        return fmt
-    }()
+    var weekDays: [String] {
+        var day = Date().adjust(for: .startOfWeek, calendar: calendar)
+        var weekDays = [String]()
+        for _ in 0...6 {
+            weekDays.append(
+                day?.toString(
+                    format: .custom("EEEEE"),
+                    locale: Locale(identifier: Locale.current.languageCode ?? "en")
+                ) ?? ""
+            )
+            day = day?.offset(.day, value: 1)
+        }
+        return weekDays
+    }
 
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                     .frame(maxWidth: .infinity)
-                ForEach(formatter.veryShortWeekdaySymbols, id: \.self) {
+                ForEach(weekDays, id: \.self) {
                     Text($0)
                         .frame(maxWidth: .infinity)
                 }
@@ -58,9 +70,9 @@ struct Ghraph<Content>: View where Content: View {
             .padding(.bottom)
             
             ForEach(0..<weeks, id: \.self) { index in
-                let nextDate = to.adjust(for: .startOfWeek)?.offset(.week, value: index * -1)
+                let nextDate = to.adjust(for: .startOfWeek, calendar: calendar)?.offset(.week, value: index * -1)
                 
-                let endOfWeek = nextDate?.adjust(for: .endOfWeek) ?? Date.now
+                let endOfWeek = nextDate?.adjust(for: .endOfWeek, calendar: calendar) ?? Date.now
                 let hasMonthChange: Bool = !(nextDate?.compare(.isSameMonth(as: endOfWeek)) ?? true)
                 let startIsFirstDayOfMonth: Bool = nextDate?.component(.day) == 1
 
@@ -68,7 +80,9 @@ struct Ghraph<Content>: View where Content: View {
                     Text(hasMonthChange || startIsFirstDayOfMonth
                          ? endOfWeek.toString(format: .custom("MMM"))?.description ?? ""
                          : ""
-                    ).frame(maxWidth: .infinity)
+                    )
+                    .rotationEffect(.degrees(-45))
+                    .frame(maxWidth: .infinity)
                     Row(start: nextDate ?? to, cell: cell).frame(maxWidth: .infinity)
                 }
             }
@@ -82,11 +96,10 @@ struct Ghraph_Previews: PreviewProvider {
             from: Date.now.advanced(by: 60 * 60 * 24 * 65 * -1),
             to: Date.now
         ) { date in
-            if date?.compare(.isInTheFuture) ?? false {
-                Spacer().frame(height: 0)
-            } else {
-                Text(String(date?.component(.day) ?? 0))
-            }
+            RoundedRectangle(cornerRadius: .infinity)
+                .stroke(.blue, lineWidth: 3)
+                
+//            Text(String(date?.component(.day) ?? 0))
         }
     }
 }

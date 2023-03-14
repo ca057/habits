@@ -12,9 +12,10 @@ import XCTest
 private class MockHabitsStorage: HabitsStorage {
     var addHabitCalledWith = [String: String]()
 
-    override func addHabit(name: String) {
+    override func addHabit(name: String, colour: Colour) {
         addHabitCalledWith = [
-            "name": name
+            "name": name,
+            "colour": colour.toLabel()
         ]
     }
 }
@@ -50,9 +51,10 @@ class AddHabitViewModelTests: XCTestCase {
         let viewModel = AddHabitViewModel(habitsStorage: mockHabitsStorage)
         
         viewModel.name = "test"
+        viewModel.bgColour = Colour.base
         let success = viewModel.saveHabit()
         
-        XCTAssertEqual(mockHabitsStorage.addHabitCalledWith, ["name": "test"])
+        XCTAssertEqual(mockHabitsStorage.addHabitCalledWith, ["name": "test", "colour": Colour.base.toLabel()])
         XCTAssertEqual(success, true)
     }
 
