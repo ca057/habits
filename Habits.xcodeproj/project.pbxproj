@@ -19,7 +19,6 @@
 		AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EE29B68F4100144373 /* EmptyState.swift */; };
 		AA8636F729C122D000144373 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636F629C122D000144373 /* Calendar.swift */; };
 		AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6273B28531D9A0056FAF3 /* Bundle.swift */; };
-		AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC010692875C0E900AE0889 /* Ghraph.swift */; };
 		AAC0106D2875C12F00AE0889 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AAC0106C2875C12F00AE0889 /* DateHelper */; };
 		AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
@@ -64,7 +63,6 @@
 		AA8636F629C122D000144373 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		AAA85423286CCF7200A0277B /* Habit 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Habit 2.xcdatamodel"; sourceTree = "<group>"; };
-		AAC010692875C0E900AE0889 /* Ghraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ghraph.swift; sourceTree = "<group>"; };
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AAC67B0C287440080085F2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 				AA8636F629C122D000144373 /* Calendar.swift */,
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
 				AACA94CB29AA489F002B6837 /* AddHabitButton.swift */,
-				AAC010692875C0E900AE0889 /* Ghraph.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -330,7 +327,6 @@
 				AA5C260D2802F18E0066082C /* Storage.swift in Sources */,
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
 				AA8636EB29B54BB100144373 /* Dashboard-ViewModel.swift in Sources */,
-				AAC0106A2875C0E900AE0889 /* Ghraph.swift in Sources */,
 				AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */,
