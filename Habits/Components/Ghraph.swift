@@ -48,7 +48,7 @@ struct Ghraph<Content>: View where Content: View {
             weekDays.append(
                 day?.toString(
                     format: .custom("EEEEE"),
-                    locale: Locale(identifier: Locale.current.languageCode ?? "en")
+                    locale: Locale(identifier: Locale.current.language.languageCode?.identifier ?? "en")
                 ) ?? ""
             )
             day = day?.offset(.day, value: 1)

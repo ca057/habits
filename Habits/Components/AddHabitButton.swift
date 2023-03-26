@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddHabitButton: View {
     var onPress: () -> Void
+    
+    private var bg = Color.accentColor
 
     var body: some View {
         Button {
@@ -23,17 +25,24 @@ struct AddHabitButton: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.accentColor)
+        .background(bg)
         .cornerRadius(20)
     }
     
-    init(onPress: @escaping () -> Void) {
+    init(withSparkle: Bool = false, onPress: @escaping () -> Void) {
         self.onPress = onPress
+        if withSparkle {
+            // TODO: implement this properly
+            bg = .purple
+        }
     }
 }
 
 struct AddHabitButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddHabitButton() { }
+        VStack(spacing: 20) {
+            AddHabitButton() { }
+            AddHabitButton(withSparkle: true) { }
+        }
     }
 }

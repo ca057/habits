@@ -16,11 +16,20 @@ struct HabitView: View {
     var body: some View {
         VStack {
             Form {                
-                Section("Statistics") {
-                    Ghraph(from: viewModel.earliestEntry, to: viewModel.latestEntry) { date in
-                        Text(viewModel.hasEntryForDate(date) ? "X" : "")
+                Section("Overview") {
+                    ReverseCalendarView(endDate: viewModel.latestEntry) { date in
+                        if viewModel.hasEntryForDate(date) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(viewModel.colour.toColor())
+                        } else if let date = date {
+                            Text(CalendarHelper().calendar.component(.day, from: date).description)
+                                .font(.footnote.monospacedDigit())
+                                .fontWeight(date.compare(.isWeekend) ? .light : .regular)
+                        }
                     }
+                    // TODO: add load more button here
                 }
+                .buttonStyle(BorderlessButtonStyle())
                 
                 Section("Settings") {
                     TextField("Name", text: $viewModel.name)
