@@ -17,7 +17,7 @@ struct HabitView: View {
         VStack {
             Form {                
                 Section("Overview") {
-                    ReverseCalendarView(endDate: viewModel.latestEntry) { date in
+                    ReverseCalendarView(endDate: viewModel.earliestEntry) { date in
                         if viewModel.hasEntryForDate(date) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(viewModel.colour.toColor())
