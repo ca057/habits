@@ -17,12 +17,12 @@ struct HabitView: View {
         VStack {
             Form {                
                 Section("Overview") {
-                    ReverseCalendarView(endDate: viewModel.earliestEntry) { date in
+                    ReversedCalendar(endDate: viewModel.earliestEntry) { date in
                         if viewModel.hasEntryForDate(date) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(viewModel.colour.toColor())
                         } else if let date = date {
-                            Text(CalendarHelper().calendar.component(.day, from: date).description)
+                            Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
                                 .font(.footnote.monospacedDigit())
                                 .fontWeight(date.compare(.isWeekend) ? .light : .regular)
                         }
