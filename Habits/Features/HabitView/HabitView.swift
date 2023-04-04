@@ -18,13 +18,18 @@ struct HabitView: View {
             Form {                
                 Section("Overview") {
                     ReversedCalendar(endDate: viewModel.earliestEntry) { date in
+                        let isOnWeekend = date?.compare(.isWeekend) ?? false
+                        let dimForWeekend = isOnWeekend ? 0.75 : 0
+                        
                         if viewModel.hasEntryForDate(date) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(viewModel.colour.toColor())
+                                .grayscale(dimForWeekend)
                         } else if let date = date {
                             Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
                                 .font(.footnote.monospacedDigit())
-                                .fontWeight(date.compare(.isWeekend) ? .light : .regular)
+                                .fontWeight(isOnWeekend ? .light : .regular)
+                                .grayscale(dimForWeekend)
                         }
                     }
                     // TODO: add load more button here
