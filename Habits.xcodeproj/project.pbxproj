@@ -23,6 +23,9 @@
 		AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */; };
 		AA86370129D23FBD00144373 /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370029D23FBD00144373 /* CalendarUtils.swift */; };
 		AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370029D23FBD00144373 /* CalendarUtils.swift */; };
+		AA86370429D4CC5600144373 /* MainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370329D4CC5600144373 /* MainApp.swift */; };
+		AA86370629D4D0C900144373 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370529D4D0C900144373 /* Settings.swift */; };
+		AA86370829D62CCF00144373 /* Settings-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370729D62CCF00144373 /* Settings-ViewModel.swift */; };
 		AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6273B28531D9A0056FAF3 /* Bundle.swift */; };
 		AAC0106D2875C12F00AE0889 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AAC0106C2875C12F00AE0889 /* DateHelper */; };
 		AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
@@ -68,6 +71,9 @@
 		AA8636F929D23F5300144373 /* ReversedCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedCalendar.swift; sourceTree = "<group>"; };
 		AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReversedCalendar+Extensions.swift"; sourceTree = "<group>"; };
 		AA86370029D23FBD00144373 /* CalendarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtils.swift; sourceTree = "<group>"; };
+		AA86370329D4CC5600144373 /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
+		AA86370529D4D0C900144373 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		AA86370729D62CCF00144373 /* Settings-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-ViewModel.swift"; sourceTree = "<group>"; };
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		AAA85423286CCF7200A0277B /* Habit 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Habit 2.xcdatamodel"; sourceTree = "<group>"; };
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
@@ -144,6 +150,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		AA86370A29D62CDB00144373 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AA86370529D4D0C900144373 /* Settings.swift */,
+				AA86370729D62CCF00144373 /* Settings-ViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		AAA6273A28531D890056FAF3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +226,8 @@
 		AAEC09D927F87DA500D9B666 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				AA86370329D4CC5600144373 /* MainApp.swift */,
+				AA86370A29D62CDB00144373 /* Settings */,
 				AA8636ED29B68F3000144373 /* Dashboard */,
 				AA8636F329BFD93800144373 /* HabitView */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
@@ -358,13 +375,16 @@
 				AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */,
 				AA13FA272823333200B10BAE /* HabitView-ViewModel.swift in Sources */,
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
+				AA86370429D4CC5600144373 /* MainApp.swift in Sources */,
 				AACA94CC29AA489F002B6837 /* AddHabitButton.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
+				AA86370829D62CCF00144373 /* Settings-ViewModel.swift in Sources */,
 				AAEC09DC27F8901D00D9B666 /* DataController.swift in Sources */,
 				AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */,
 				AA86370129D23FBD00144373 /* CalendarUtils.swift in Sources */,
 				AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */,
+				AA86370629D4D0C900144373 /* Settings.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,8 +457,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -498,8 +520,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -528,7 +552,9 @@
 				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Habits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -561,7 +587,9 @@
 				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Habits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

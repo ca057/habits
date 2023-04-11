@@ -8,13 +8,13 @@
 import SwiftUI
 
 @main
-struct habitsApp: App {
+struct HabitsApp: App {
     @Environment(\.scenePhase) private var scenePhase
     private let dataController: DataController = .shared
     
     var body: some Scene {
         WindowGroup {
-            Dashboard()
+            MainApp()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .onChange(of: scenePhase, perform: handleSceneChange)
         }
