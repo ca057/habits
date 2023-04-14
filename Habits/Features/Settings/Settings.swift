@@ -9,17 +9,17 @@ import SwiftUI
 
 struct Settings: View {
     @StateObject private var viewModel = ViewModel()
-        
+            
     var body: some View {
         NavigationStack {
             VStack {
                 List {
                     Section("Data") {
-                        ShareLink(
-                            item: viewModel.getDataAsJson(),
-                            preview: SharePreview("Habits export")
-                        ) {
-                            Label("Export data as JSON", systemImage: "square.and.arrow.up")
+                        Button(action: {
+                            // TODO: prepare the file here, then present it
+                            viewModel.showingExporter = true
+                        }) {
+                            Label("Export data", systemImage: "square.and.arrow.up")
                         }
                     }
                     
@@ -33,6 +33,18 @@ struct Settings: View {
                 }
             }
             .navigationTitle("Settings")
+            .fileExporter(
+                isPresented: $viewModel.showingExporter,
+                document: viewModel.getDataAsJsonFile(),
+                contentType: .json
+            ) { result in
+                switch result {
+                case .success(let url):
+                    print("Saved to \(url)")
+                case .failure(let error):
+                    print("whoopsie \(error.localizedDescription)")
+                }
+            }
         }
     }
 }

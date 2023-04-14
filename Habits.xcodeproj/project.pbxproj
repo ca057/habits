@@ -12,8 +12,6 @@
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
 		AA5C260A27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
 		AA5C260B27FF913A0066082C /* HabitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260927FF913A0066082C /* HabitsStorage.swift */; };
-		AA5C260D2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
-		AA5C260E2802F18E0066082C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C260C2802F18E0066082C /* Storage.swift */; };
 		AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA64341C27E115FF003A74C9 /* Habit.xcdatamodeld */; };
 		AA8636EB29B54BB100144373 /* Dashboard-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EA29B54BB100144373 /* Dashboard-ViewModel.swift */; };
 		AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EE29B68F4100144373 /* EmptyState.swift */; };
@@ -64,7 +62,6 @@
 		AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HabitView-ViewModel.swift"; path = "Habits/Features/HabitView/HabitView-ViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA5C260927FF913A0066082C /* HabitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStorage.swift; sourceTree = "<group>"; };
-		AA5C260C2802F18E0066082C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AA64341D27E115FF003A74C9 /* Habit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habit.xcdatamodel; sourceTree = "<group>"; };
 		AA8636EA29B54BB100144373 /* Dashboard-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dashboard-ViewModel.swift"; sourceTree = "<group>"; };
 		AA8636EE29B68F4100144373 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
@@ -242,7 +239,6 @@
 				AAEC09DB27F8901D00D9B666 /* DataController.swift */,
 				AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */,
 				AA5C260927FF913A0066082C /* HabitsStorage.swift */,
-				AA5C260C2802F18E0066082C /* Storage.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -366,7 +362,6 @@
 				AA8636FA29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AAEC09F927FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
-				AA5C260D2802F18E0066082C /* Storage.swift in Sources */,
 				AA64341E27E115FF003A74C9 /* Habit.xcdatamodeld in Sources */,
 				AA8636EB29B54BB100144373 /* Dashboard-ViewModel.swift in Sources */,
 				AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */,
@@ -394,7 +389,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
-				AA5C260E2802F18E0066082C /* Storage.swift in Sources */,
 				AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
@@ -549,7 +543,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = NO;
@@ -584,7 +578,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = NO;
@@ -618,7 +612,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -638,7 +632,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z37U6LMURR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;

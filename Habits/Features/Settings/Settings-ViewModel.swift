@@ -6,6 +6,32 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
+import SwiftUI
+
+struct JSONFile: FileDocument {
+    static var readableContentTypes = [UTType.json]
+    static var writableContentTypes = [UTType.json]
+    
+    var data = Data()
+    
+    init(_ json: Data) {
+        data = json
+    }
+    
+    init(configuration: ReadConfiguration) throws {
+        if let content = configuration.file.regularFileContents {
+            data = content
+        }
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let fileWrapper = FileWrapper(regularFileWithContents: data)
+        fileWrapper.filename = "habits-export-\(Date().toString(format: .isoDate) ?? "?")"
+
+        return fileWrapper
+    }
+}
 
 struct HabitsExportItemEntry: Codable {
     let date: Date
@@ -31,6 +57,48 @@ extension Settings {
         
         private let habitsStorage = HabitsStorage.shared
 
+        func getDataAsJsonFile() -> JSONFile {
+            // TODO: do I need to make this async? for sure with a cool animation
+            
+            var habits: [HabitsExportItem] = []
+            habitsStorage.habits.forEach({ habit in
+                var entries: [HabitsExportItemEntry] = []
+                habit.entry?.array.forEach({
+                    guard let entryDate = ($0 as? Entry)?.date else { return }
+                    
+                    entries.append(HabitsExportItemEntry(date: entryDate))
+                })
+                
+                habits.append(HabitsExportItem(
+                    id: habit.id,
+                    name: habit.name,
+                    createdAt: habit.createdAt,
+                    colour: habit.colour,
+                    entries: entries
+                ))
+            })
+            
+            let export = HabitsExport(
+                appVersion: Bundle.main.versionAndBuildNumber,
+                exportDate: Date(),
+                habits: habits
+            )
+            
+            let jsonEncoder = JSONEncoder()
+            jsonEncoder.dateEncodingStrategy = .iso8601
+            jsonEncoder.outputFormatting = .prettyPrinted
+            
+            do {
+                let habitsAsJson = try jsonEncoder.encode(export)
+                
+                return JSONFile(habitsAsJson)
+            } catch {
+                print("something failed \(error)")
+                
+                return JSONFile(Data())
+            }
+        }
+        
         func getDataAsJson() -> String {
             // TODO: do I need to make this async? for sure with a cool animation
             

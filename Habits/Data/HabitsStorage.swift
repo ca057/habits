@@ -23,7 +23,7 @@ extension Habit {
     }
 }
 
-class HabitsStorage: NSObject, ObservableObject, Storage {
+class HabitsStorage: NSObject, ObservableObject {
     static var shared = HabitsStorage()
 
     @Published var habits: [Habit] = []
