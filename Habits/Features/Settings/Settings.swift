@@ -16,7 +16,6 @@ struct Settings: View {
                 List {
                     Section("Data") {
                         Button(action: {
-                            // TODO: prepare the file here, then present it
                             viewModel.showingExporter = true
                         }) {
                             Label("Export data", systemImage: "square.and.arrow.up")

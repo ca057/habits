@@ -29,7 +29,7 @@ struct DayElement: View {
     }
     private var fillColor: Color {
         if isInWeekend {
-            return color == Color.primary ? Color.gray :color
+            return color == Color.primary ? Color.gray : color
         }
         return color
     }

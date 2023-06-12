@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HabitView: View {
+    var color : Color
     @StateObject var viewModel: ViewModel
     
     @Environment(\.dismiss) private var dismissView
@@ -18,17 +19,24 @@ struct HabitView: View {
             Form {                
                 Section("Overview") {
                     ReversedCalendar(endDate: viewModel.earliestEntry) { date in
-                        let isOnWeekend = date?.compare(.isWeekend) ?? false
-                        let dimForWeekend = isOnWeekend ? 0.75 : 0
+                        let isInWeekend = date?.compare(.isWeekend) ?? false
+                        let dimForWeekend = isInWeekend ? 0.75 : 0
+                        var fillColor: Color {
+                            if isInWeekend {
+                                return color == Color.primary ? Color.gray : color
+                            }
+                            return color
+                        }
+                        var grayScale: Double { isInWeekend ? 0.75 : 0 }
                         
                         if viewModel.hasEntryForDate(date) {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(viewModel.colour.toColor())
+                                .foregroundColor(fillColor)
                                 .grayscale(dimForWeekend)
                         } else if let date = date {
                             Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
                                 .font(.footnote.monospacedDigit())
-                                .fontWeight(isOnWeekend ? .light : .regular)
+                                .fontWeight(isInWeekend ? .light : .regular)
                                 .grayscale(dimForWeekend)
                         }
                     }
@@ -65,6 +73,8 @@ struct HabitView: View {
     }
     
     init(_ habit: Habit) {
-        _viewModel = StateObject(wrappedValue: ViewModel(habit))
+        let wrappedViewModel = ViewModel(habit)
+        _viewModel = StateObject(wrappedValue: wrappedViewModel)
+        self.color = wrappedViewModel.colour.toColor()
     }
 }
