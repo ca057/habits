@@ -8,6 +8,7 @@
 import Foundation
 import UniformTypeIdentifiers
 import SwiftUI
+import CoreData
 
 struct JSONFile: FileDocument {
     static var readableContentTypes = [UTType.json]
@@ -53,9 +54,35 @@ struct HabitsExport: Codable {
 
 extension Settings {
     @MainActor final class ViewModel: ObservableObject {
+        let container: NSPersistentContainer
+        
         @Published var showingExporter = false
         
+        @Published var savedEntities: [Habit] = []
+        
         private let habitsStorage = HabitsStorage.shared
+        
+        init() {
+            container = NSPersistentContainer(name: "Habit")
+            container.loadPersistentStores { (description, error) in
+                if let error = error {
+                    print("ERROR loading core data. \(error)")
+                } else {
+                    print("Successfully loaded core data")
+                }
+            }
+            fetchHabits()
+        }
+        
+        func fetchHabits() {
+            let request = NSFetchRequest<Habit>(entityName: "Habit")
+            
+            do {
+                savedEntities = try container.viewContext.fetch(request)
+            } catch let error {
+                print("ERROR fetching \(error)")
+            }
+        }
 
         func getDataAsJsonFile() -> JSONFile {
             // TODO: do I need to make this async? for sure with a cool animation
