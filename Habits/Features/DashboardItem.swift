@@ -84,10 +84,9 @@ private extension Date {
 let elementDisplayCount = 7
 
 struct DashboardItem: View {
-    var habit: Habit
-    
-    @ObservedObject private var viewModel = ViewModel()
-    
+    let habit: Habit
+    let toggleEntry: (Habit, Date) -> Void
+
     private let now = Date.now
     private let today = Calendar.current.dateComponents([.day], from: Date.now)
     
@@ -107,21 +106,11 @@ struct DashboardItem: View {
                         date,
                         selected: habit.hasEntry(for: date),
                         color: Colour(rawValue: habit.colour)?.toColor() ?? Colour.base.toColor(),
-                        onEntrySelect: { viewModel.toggleEntry(for: habit, date: $0)}
+                        onEntrySelect: { toggleEntry(habit, $0)}
                     )
                 }
             }
         }
         .padding(.vertical)
-    }
-}
-
-extension DashboardItem {
-    @MainActor final class ViewModel: ObservableObject {
-        private var habitsStorage: HabitsStorage = .shared
-        
-        func toggleEntry(for habit: Habit, date: Date) {
-            self.habitsStorage.toggleEntry(for: habit, date: date)
-        }
     }
 }

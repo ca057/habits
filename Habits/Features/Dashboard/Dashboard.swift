@@ -25,23 +25,17 @@ struct Dashboard: View {
                     VStack {
                         List {
                             ForEach(viewModel.habits) { habit in
-                                DashboardItem(habit: habit)
+                                DashboardItem(habit: habit, toggleEntry: { viewModel.toggleEntry(for: $0, on: $1) } )
                                     .background(
                                         NavigationLink("", destination: HabitView(habit)).opacity(0)
                                     )
                                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                         Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
-                                            viewModel.toggleLatestEntry(for: habit)
+                                            viewModel.toggleEntry(for: habit, on: Date.now)
                                         }.tint(.blue)
-                                    }
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                        Button("Delete", role: .destructive) {
-                                            viewModel.requestToDelete(habit)
-                                        }
                                     }
                             }
                             .onMove {  viewModel.reorderElements(source: $0, destination: $1) }
-                            .onDelete { _ in }
                         }
 //                        AddHabitButton {
 //                            viewModel.showingAddHabit = true
@@ -49,20 +43,8 @@ struct Dashboard: View {
                     }
                 }
             }
-            .alert("Delete habit?", isPresented: $viewModel.showingDeleteHabitConfirmation) {
-                Button("Cancel", role: .cancel) {}
-                Button("Delete", role: .destructive) {
-                    viewModel.deleteHabit()
-                }
-            }
             .navigationTitle(Text("Your habits"))
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if !viewModel.habits.isEmpty {
-                        EditButton()
-                    }
-                }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !viewModel.habits.isEmpty {
                         Button {

@@ -28,7 +28,7 @@ struct HabitView: View {
                             return color
                         }
                         var grayScale: Double { isInWeekend ? 0.75 : 0 }
-                        
+
                         if viewModel.hasEntryForDate(date) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(fillColor)

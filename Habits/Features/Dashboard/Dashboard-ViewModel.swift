@@ -13,40 +13,21 @@ extension Dashboard {
         private var habitsStorage = HabitsStorage.shared
         private var cancellables: Set<AnyCancellable> = []
         
-        private var habitToDelete: Habit?
-        
         @Published var habits = [Habit]()
-        @Published var showingDeleteHabitConfirmation = false
         @Published var showingAddHabit = false
-
         
         init() {
-            HabitsStorage.shared.$habits
+            habitsStorage.$habits
                 .assign(to: \.habits, on: self)
                 .store(in: &cancellables)
         }
         
-        func toggleLatestEntry(for habit: Habit) {
-            self.habitsStorage.toggleEntry(for: habit, date: Date.now)
+        func toggleEntry(for habit: Habit, on date: Date) {
+            habitsStorage.toggleEntry(for: habit, date: date)
         }
-        
-        func requestToDelete(_ habit: Habit) {
-            habitToDelete = habit
-            showingDeleteHabitConfirmation = true
-        }
-        
-        func deleteHabit() {
-            guard let habit = habitToDelete else {
-                // TODO: this is an error, handle it?
-                return
-            }
-            habitsStorage.delete(habit)
-            showingDeleteHabitConfirmation = false
-        }
-        
+                
         func reorderElements(source: IndexSet, destination: Int) -> Void {
             habitsStorage.move(from: source, to: destination)
         }
-
     }
 }
