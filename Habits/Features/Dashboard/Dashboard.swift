@@ -27,6 +27,7 @@ struct Dashboard: View {
                             ForEach(viewModel.habits) { habit in
                                 DashboardItem(habit: habit, toggleEntry: { viewModel.toggleEntry(for: $0, on: $1) } )
                                     .background(
+                                        // TODO: add a lazy view here
                                         NavigationLink("", destination: HabitView(habit)).opacity(0)
                                     )
                                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -37,9 +38,6 @@ struct Dashboard: View {
                             }
                             .onMove {  viewModel.reorderElements(source: $0, destination: $1) }
                         }
-//                        AddHabitButton {
-//                            viewModel.showingAddHabit = true
-//                        }
                     }
                 }
             }
