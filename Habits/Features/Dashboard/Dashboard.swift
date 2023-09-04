@@ -41,7 +41,7 @@ struct Dashboard: View {
                     }
                 }
             }
-            .navigationTitle(Text("Your habits"))
+            .navigationTitle("Habits")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !viewModel.habits.isEmpty {
