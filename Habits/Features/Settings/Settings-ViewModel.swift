@@ -54,6 +54,7 @@ struct HabitsExport: Codable {
 extension Settings {
     @MainActor final class ViewModel: ObservableObject {
         @Published var showingExporter = false
+        @Published var showingImporter = false
         
         private let habitsStorage = HabitsStorage.shared
 

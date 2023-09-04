@@ -20,7 +20,12 @@ struct Settings: View {
                         Button(action: {
                             viewModel.showingExporter = true
                         }) {
-                            Label("Export data", systemImage: "square.and.arrow.up")
+                            Label("Backup data", systemImage: "square.and.arrow.up")
+                        }
+                        Button(action: {
+                            viewModel.showingImporter = true
+                        }) {
+                            Label("Import backup", systemImage: "square.and.arrow.down")
                         }
                     }
                     
@@ -49,6 +54,13 @@ struct Settings: View {
                 case .failure(let error):
                     print("whoopsie \(error.localizedDescription)")
                 }
+            }
+            .fileImporter(
+                isPresented: $viewModel.showingImporter,
+                allowedContentTypes: [.json],
+                allowsMultipleSelection: false
+            ) { result in
+                print("import \(result)")
             }
         }
     }
