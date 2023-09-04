@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Foundation
+
 
 struct Settings: View {
     @StateObject private var viewModel = ViewModel()
@@ -25,8 +27,11 @@ struct Settings: View {
                     Section("About") {
                         Link("Source Code", destination: URL(string: "https://github.com/ca057/habits")!)
                         VStack(alignment: .center) {
-                            Text(Bundle.main.versionAndBuildNumber)
-                                .font(.footnote)
+                            HStack {
+                                Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                                Text(Bundle.main.versionAndBuildNumber)
+                                    .font(.footnote)
+                            }
                         }.frame(maxWidth: .infinity)
                     }
                 }
@@ -46,6 +51,16 @@ struct Settings: View {
             }
         }
     }
+    
+    func getHighResolutionAppIconName() -> String? {
+        guard let infoPlist = Bundle.main.infoDictionary else { return nil }
+        guard let bundleIcons = infoPlist["CFBundleIcons"] as? NSDictionary else { return nil }
+        guard let bundlePrimaryIcon = bundleIcons["CFBundlePrimaryIcon"] as? NSDictionary else { return nil }
+        guard let bundleIconFiles = bundlePrimaryIcon["CFBundleIconFiles"] as? NSArray else { return nil }
+        guard let appIcon = bundleIconFiles.lastObject as? String else { return nil }
+        return appIcon
+    }
+
 }
 
 struct Settings_Previews: PreviewProvider {
