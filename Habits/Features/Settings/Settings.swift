@@ -29,6 +29,7 @@ struct Settings: View {
                         VStack(alignment: .center) {
                             HStack {
                                 Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                                    .cornerRadius(4)
                                 Text(Bundle.main.versionAndBuildNumber)
                                     .font(.footnote)
                             }
