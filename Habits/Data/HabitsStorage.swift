@@ -9,6 +9,8 @@
 
 import CoreData
 import Foundation
+import UniformTypeIdentifiers
+import SwiftUI
 
 extension Habit {
     static var habitsFetchRequest: NSFetchRequest<Habit> {
@@ -131,7 +133,7 @@ class HabitsStorage: NSObject, ObservableObject {
     }
     
     // MARK: - import / export
-    func exportAllHabits() throws -> Data {
+    func exportAllHabits() throws -> JSONFile {
         var habitsForExport: [HabitsExportItem] = []
         
         habits.forEach({ habit in
@@ -162,7 +164,9 @@ class HabitsStorage: NSObject, ObservableObject {
         jsonEncoder.outputFormatting = .prettyPrinted
         
         do {
-            return try jsonEncoder.encode(export)
+            let dataToExport = try jsonEncoder.encode(export)
+            
+            return JSONFile(dataToExport)
         } catch {
             print("something failed during the export \(error)")
             
@@ -204,7 +208,7 @@ class HabitsStorage: NSObject, ObservableObject {
     }
 }
 
-// MARK: - listener to changes
+// MARK: - extension
 extension HabitsStorage: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard let habits = controller.fetchedObjects as? [Habit]
@@ -234,5 +238,29 @@ extension HabitsStorage: NSFetchedResultsControllerDelegate {
         let appVersion: String
         let exportDate: Date
         let habits: [HabitsExportItem]
+    }
+    
+    struct JSONFile: FileDocument {
+        static var readableContentTypes = [UTType.json]
+        static var writableContentTypes = [UTType.json]
+        
+        var data = Data()
+        
+        init(_ json: Data) {
+            data = json
+        }
+        
+        init(configuration: ReadConfiguration) throws {
+            if let content = configuration.file.regularFileContents {
+                data = content
+            }
+        }
+        
+        func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+            let fileWrapper = FileWrapper(regularFileWithContents: data)
+            fileWrapper.filename = "habits-export-\(Date().toString(format: .isoDate) ?? "?")"
+
+            return fileWrapper
+        }
     }
 }

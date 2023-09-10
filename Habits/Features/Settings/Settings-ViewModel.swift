@@ -5,33 +5,7 @@
 //  Created by Christian Ost on 30.03.23.
 //
 
-import Foundation
-import UniformTypeIdentifiers
 import SwiftUI
-
-struct JSONFile: FileDocument {
-    static var readableContentTypes = [UTType.json]
-    static var writableContentTypes = [UTType.json]
-    
-    var data = Data()
-    
-    init(_ json: Data) {
-        data = json
-    }
-    
-    init(configuration: ReadConfiguration) throws {
-        if let content = configuration.file.regularFileContents {
-            data = content
-        }
-    }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let fileWrapper = FileWrapper(regularFileWithContents: data)
-        fileWrapper.filename = "habits-export-\(Date().toString(format: .isoDate) ?? "?")"
-
-        return fileWrapper
-    }
-}
 
 struct ErrorAlert {
     var showing = false
@@ -47,11 +21,11 @@ extension Settings {
         
         private let habitsStorage = HabitsStorage.shared
 
-        func getDataAsJsonFile() -> JSONFile {
+        func getDataAsJsonFile() -> HabitsStorage.JSONFile? {
             do {
                 let export = try habitsStorage.exportAllHabits()
                 
-                return JSONFile(export)
+                return export
             } catch {
                 errorMessage = ErrorAlert(
                     showing: true,
@@ -59,7 +33,7 @@ extension Settings {
                     message: "Something went wrong during the export. Please try again." // TODO: original message
                 )
                 
-                return JSONFile(Data())
+                return nil
             }
         }
         
