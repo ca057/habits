@@ -33,32 +33,10 @@ struct JSONFile: FileDocument {
     }
 }
 
-struct HabitsExportItemEntry: Codable {
-    let date: Date
-}
-
-struct HabitsExportItem: Codable {
-    let id: UUID?
-    let name: String?
-    let createdAt: Date?
-    let colour: String?
-    let entries: [HabitsExportItemEntry]
-}
-
-struct HabitsExport: Codable {
-    let appVersion: String
-    let exportDate: Date
-    let habits: [HabitsExportItem]
-}
-
 struct ErrorAlert {
     var showing = false
     var title = ""
     var message = ""
-}
-
-enum SettingsError: Error {
-    case importFailed
 }
 
 extension Settings {
@@ -70,86 +48,18 @@ extension Settings {
         private let habitsStorage = HabitsStorage.shared
 
         func getDataAsJsonFile() -> JSONFile {
-            // TODO: do I need to make this async? for sure with a cool animation
-            
-            var habits: [HabitsExportItem] = []
-            habitsStorage.habits.forEach({ habit in
-                var entries: [HabitsExportItemEntry] = []
-                habit.entry?.array.forEach({
-                    guard let entryDate = ($0 as? Entry)?.date else { return }
-                    
-                    entries.append(HabitsExportItemEntry(date: entryDate))
-                })
-                
-                habits.append(HabitsExportItem(
-                    id: habit.id,
-                    name: habit.name,
-                    createdAt: habit.createdAt,
-                    colour: habit.colour,
-                    entries: entries
-                ))
-            })
-            
-            let export = HabitsExport(
-                appVersion: Bundle.main.versionAndBuildNumber,
-                exportDate: Date(),
-                habits: habits
-            )
-            
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
-            jsonEncoder.outputFormatting = .prettyPrinted
-            
             do {
-                let habitsAsJson = try jsonEncoder.encode(export)
+                let export = try habitsStorage.exportAllHabits()
                 
-                return JSONFile(habitsAsJson)
+                return JSONFile(export)
             } catch {
-                print("something failed \(error)")
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Export your data failed",
+                    message: "Something went wrong during the export. Please try again." // TODO: original message
+                )
                 
                 return JSONFile(Data())
-            }
-        }
-        
-        func getDataAsJson() -> String {
-            // TODO: do I need to make this async? for sure with a cool animation
-            
-            var habits: [HabitsExportItem] = []
-            habitsStorage.habits.forEach({ habit in
-                var entries: [HabitsExportItemEntry] = []
-                habit.entry?.array.forEach({
-                    guard let entryDate = ($0 as? Entry)?.date else { return }
-                    
-                    entries.append(HabitsExportItemEntry(date: entryDate))
-                })
-                                
-                habits.append(HabitsExportItem(
-                    id: habit.id,
-                    name: habit.name,
-                    createdAt: habit.createdAt,
-                    colour: habit.colour,
-                    entries: entries
-                ))
-            })
-            
-            let export = HabitsExport(
-                appVersion: Bundle.main.versionAndBuildNumber,
-                exportDate: Date(),
-                habits: habits
-            )
-            
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
-            jsonEncoder.outputFormatting = .prettyPrinted
-            
-            do {
-                let habitsAsJson = try jsonEncoder.encode(export)
-
-                return String(data: habitsAsJson, encoding: .utf8) ?? "export failed: N/A"
-            } catch {
-                print("something failed \(error)")
-                
-                return "export failed: \(error.localizedDescription)"
             }
         }
         
@@ -172,15 +82,8 @@ extension Settings {
                 return
             }
             
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            
             do {
-                guard let data = try String(contentsOf: url).data(using: .utf8) else {
-                    throw SettingsError.importFailed
-                }
-                
-                let backup = try decoder.decode(HabitsExport.self, from:  data)
+                try habitsStorage.importDataFromUrl(url)
             } catch {
                 print("error during import \(error)")
                 errorMessage = ErrorAlert(

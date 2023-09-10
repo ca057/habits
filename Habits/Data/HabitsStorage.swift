@@ -131,12 +131,76 @@ class HabitsStorage: NSObject, ObservableObject {
     }
     
     // MARK: - import / export
-    func exportDataToJson() throws -> String {
-        return ""
+    func exportAllHabits() throws -> Data {
+        var habitsForExport: [HabitsExportItem] = []
+        
+        habits.forEach({ habit in
+            var entries: [HabitsExportItemEntry] = []
+            habit.entry?.array.forEach({
+                guard let entryDate = ($0 as? Entry)?.date else { return }
+                
+                entries.append(HabitsExportItemEntry(date: entryDate))
+            })
+            
+            habitsForExport.append(HabitsExportItem(
+                id: habit.id,
+                name: habit.name,
+                createdAt: habit.createdAt,
+                colour: habit.colour,
+                entries: entries
+            ))
+        })
+        
+        let export = HabitsExport(
+            appVersion: Bundle.main.versionAndBuildNumber,
+            exportDate: Date(),
+            habits: habitsForExport
+        )
+        
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.dateEncodingStrategy = .iso8601
+        jsonEncoder.outputFormatting = .prettyPrinted
+        
+        do {
+            return try jsonEncoder.encode(export)
+        } catch {
+            print("something failed during the export \(error)")
+            
+            throw HabitsStorageError.exportFailed
+        }
     }
     
     func importDataFromUrl(_ url: URL) throws {
-        throw HabitsStorageError.importFailed
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        do {
+            guard let data = try String(contentsOf: url).data(using: .utf8) else {
+                throw HabitsStorageError.importFailed
+            }
+            
+            let backup = try decoder.decode(HabitsExport.self, from:  data)
+            
+            // TODO: validate app version / model compatability here
+            
+            backup.habits.forEach { habitToImport in
+                let habit = Habit(context: self.dataController.container.viewContext)
+                habit.id = habitToImport.id
+                habit.name = habitToImport.name
+                habit.createdAt = habitToImport.createdAt ?? Date()
+                habit.colour = habitToImport.colour
+    
+                habitToImport.entries.forEach { entryToImport in
+                    let entry = Entry(context: self.dataController.container.viewContext)
+                    entry.date = entryToImport.date
+                    entry.habit = habit
+                }
+            }
+            
+            self.dataController.save()
+        } catch {
+            throw HabitsStorageError.importFailed
+        }
     }
 }
 
@@ -150,6 +214,25 @@ extension HabitsStorage: NSFetchedResultsControllerDelegate {
     }
     
     enum HabitsStorageError: Error {
+        case exportFailed
         case importFailed
+    }
+    
+    struct HabitsExportItemEntry: Codable {
+        let date: Date
+    }
+
+    struct HabitsExportItem: Codable {
+        let id: UUID?
+        let name: String?
+        let createdAt: Date?
+        let colour: String?
+        let entries: [HabitsExportItemEntry]
+    }
+
+    struct HabitsExport: Codable {
+        let appVersion: String
+        let exportDate: Date
+        let habits: [HabitsExportItem]
     }
 }
