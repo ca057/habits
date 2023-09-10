@@ -18,45 +18,29 @@ struct HabitView: View {
         VStack {
             Form {                
                 Section("Overview") {
-                    VStack {
-                        ReversedCalendar(endDate: viewModel.currentEarliestScope) { date in
-                            let isInWeekend = date?.compare(.isWeekend) ?? false
-                            let dimForWeekend = isInWeekend ? 0.75 : 0
-                            var fillColor: Color {
-                                if isInWeekend {
-                                    return color == Color.primary ? Color.gray : color
-                                }
-                                return color
+                    ReversedCalendar(endDate: viewModel.earliestEntry) { date in
+                        let isInWeekend = date?.compare(.isWeekend) ?? false
+                        let dimForWeekend = isInWeekend ? 0.75 : 0
+                        var fillColor: Color {
+                            if isInWeekend {
+                                return color == Color.primary ? Color.gray : color
                             }
-                            var grayScale: Double { isInWeekend ? 0.75 : 0 }
-                            
-                            if viewModel.hasEntryForDate(date) {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(fillColor)
-                                    .grayscale(dimForWeekend)
-                            } else if let date = date {
-                                Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
-                                    .font(.footnote.monospacedDigit())
-                                    .fontWeight(isInWeekend ? .light : .regular)
-                                    .grayscale(dimForWeekend)
-                            }
+                            return color
                         }
+                        var grayScale: Double { isInWeekend ? 0.75 : 0 }
 
-                        HStack {
-                            Button("Show less") {
-                                viewModel.decreaseCurrentVisibleScope()
-                            }
-                                .disabled(viewModel.cannotLoadLess)
-                                .padding(.trailing)
-                                .font(.subheadline)
-
-                            Button("Show more") {
-                                viewModel.increaseCurrentVisibleScope()
-                            }
-                                .disabled(viewModel.cannotLoadMore)
-                                .font(.subheadline)
+                        if viewModel.hasEntryForDate(date) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(fillColor)
+                                .grayscale(dimForWeekend)
+                        } else if let date = date {
+                            Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
+                                .font(.footnote.monospacedDigit())
+                                .fontWeight(isInWeekend ? .light : .regular)
+                                .grayscale(dimForWeekend)
                         }
                     }
+                    // TODO: add load more button here
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 
@@ -92,12 +76,5 @@ struct HabitView: View {
         let wrappedViewModel = ViewModel(habit)
         _viewModel = StateObject(wrappedValue: wrappedViewModel)
         self.color = wrappedViewModel.colour.toColor()
-    }
-}
-
-struct HabitView_Previews: PreviewProvider {
-    static var previews: some View {
-//        HabitView(Habit.preview)
-        Text("preview missing")
     }
 }

@@ -94,9 +94,7 @@ extension ReversedCalendar {
             self.cell = cell
             
             if CalendarUtils.shared.isCurrentYear(year) {
-                let currentWeekNumber = CalendarUtils.shared.calendar.component(.weekOfYear, from: Date())
-
-                self.latestMondayForYear = try? CalendarUtils.shared.findDateInWeek(year: year, week: currentWeekNumber)
+                self.latestMondayForYear = try? CalendarUtils.shared.findDateInWeek(year: year, week: weeks - 1)
             } else {
                 self.latestMondayForYear = try? CalendarUtils.shared.findLastWeek(year: year)
             }

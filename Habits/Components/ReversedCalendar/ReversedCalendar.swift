@@ -25,9 +25,9 @@ struct ReversedCalendar<Content>: View where Content: View {
         return min(Int(distanceInWeeks), 52)
     }
     private var yearsCount: Int {
-        var yearsToDisplay = Double(startWeekNumber - weeksToDisplay) / Double(52)
+        var yearsToDisplay = Double(weeksToDisplay - startWeekNumber) / Double(52)
         yearsToDisplay.round(.up)
-        return Int(yearsToDisplay)
+        return Int(yearsToDisplay) + 1 // initial week
     }
     
     var body: some View {
@@ -39,8 +39,9 @@ struct ReversedCalendar<Content>: View where Content: View {
                 
                 ForEach(0..<yearsCount, id: \.self) { i in
                     let currentYear = startYear - i
+                    let weeks = currentYear == startYear ? startWeekNumber : min(weeksToDisplay - startWeekNumber - 52 * (i - 1), 52)
                     
-                    YearGridRows(currentYear, weeks: min(weeksToDisplay, 52), cell: cell)
+                    YearGridRows(currentYear, weeks: weeks, cell: cell)
                     HStack {}.padding(.bottom)
                 }
             }
