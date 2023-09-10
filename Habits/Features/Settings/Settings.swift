@@ -20,7 +20,12 @@ struct Settings: View {
                         Button(action: {
                             viewModel.showingExporter = true
                         }) {
-                            Label("Backup data", systemImage: "square.and.arrow.up")
+                            Label {
+                                Text("Backup data")
+                            } icon: {
+                                Image(systemName: "square.and.arrow.up")
+                                    .symbolRenderingMode(.hierarchical)
+                            }
                         }
                         Button(action: {
                             viewModel.showingImporter = true
@@ -34,6 +39,7 @@ struct Settings: View {
                                 }
                             } icon: {
                                 Image(systemName: "square.and.arrow.down")
+                                    .symbolRenderingMode(.hierarchical)
                             }
                         }
                     }
