@@ -51,8 +51,19 @@ struct HabitsExport: Codable {
     let habits: [HabitsExportItem]
 }
 
+struct ErrorAlert {
+    var showing = false
+    var title = ""
+    var message = ""
+}
+
+enum SettingsError: Error {
+    case importFailed
+}
+
 extension Settings {
     @MainActor final class ViewModel: ObservableObject {
+        @Published var errorMessage = ErrorAlert()
         @Published var showingExporter = false
         @Published var showingImporter = false
         
@@ -139,6 +150,44 @@ extension Settings {
                 print("something failed \(error)")
                 
                 return "export failed: \(error.localizedDescription)"
+            }
+        }
+        
+        func importDataFromJsonFileUrl(_ urls: [URL]) {
+            if urls.count > 1 {
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Importing your data failed",
+                    message: "You can only import one file at once. Please try again."
+                )
+                return
+            }
+            
+            guard let url = urls.first else {
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Importing your data failed",
+                    message: "Something went wrong retrieving the file location. Please try again."
+                )
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            
+            do {
+                guard let data = try String(contentsOf: url).data(using: .utf8) else {
+                    throw SettingsError.importFailed
+                }
+                
+                let backup = try decoder.decode(HabitsExport.self, from:  data)
+            } catch {
+                print("error during import \(error)")
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Importing your data failed",
+                    message: "The data in your export couldn’t be read. Check if it’s a valid export and try again."
+                )
             }
         }
     }

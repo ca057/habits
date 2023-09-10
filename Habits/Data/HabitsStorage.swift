@@ -129,6 +129,15 @@ class HabitsStorage: NSObject, ObservableObject {
         dataController.deleteObject(habit)
         dataController.save()
     }
+    
+    // MARK: - import / export
+    func exportDataToJson() throws -> String {
+        return ""
+    }
+    
+    func importDataFromUrl(_ url: URL) throws {
+        throw HabitsStorageError.importFailed
+    }
 }
 
 // MARK: - listener to changes
@@ -138,5 +147,9 @@ extension HabitsStorage: NSFetchedResultsControllerDelegate {
         else { return }
                 
         self.habits = habits
+    }
+    
+    enum HabitsStorageError: Error {
+        case importFailed
     }
 }

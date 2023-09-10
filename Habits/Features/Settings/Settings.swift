@@ -25,7 +25,18 @@ struct Settings: View {
                         Button(action: {
                             viewModel.showingImporter = true
                         }) {
-                            Label("Import backup", systemImage: "square.and.arrow.down")
+                            Label {
+                                VStack(spacing: 4) {
+                                    Text("Import data")
+                                        .font(.body)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    Text("Use with caution - data might be duplicated or overwritten.")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            } icon: {
+                                Image(systemName: "square.and.arrow.down")
+                            }
                         }
                     }
                     
@@ -52,7 +63,7 @@ struct Settings: View {
                 case .success(let url):
                     print("Saved to \(url)")
                 case .failure(let error):
-                    print("whoopsie \(error.localizedDescription)")
+                    print("export whoopsie \(error.localizedDescription)")
                 }
             }
             .fileImporter(
@@ -60,7 +71,18 @@ struct Settings: View {
                 allowedContentTypes: [.json],
                 allowsMultipleSelection: false
             ) { result in
-                print("import \(result)")
+                switch result {
+                case .success(let urls):
+                    viewModel.importDataFromJsonFileUrl(urls)
+                case .failure(let error):
+                    print("import whoopsie \(error.localizedDescription)")
+                }
+            }
+            .alert(isPresented: $viewModel.errorMessage.showing) {
+                Alert(
+                    title: Text(viewModel.errorMessage.title),
+                    message: Text(viewModel.errorMessage.message)
+                )
             }
         }
     }
