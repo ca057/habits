@@ -26,10 +26,8 @@ struct Settings: View {
                             viewModel.showingImporter = true
                         }) {
                             Label {
-                                VStack(spacing: 4) {
+                                VStack(alignment: .leading, spacing: 4) {
                                     Text("Import data")
-                                        .font(.body)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     Text("Use with caution - data might be duplicated or overwritten.")
                                         .font(.caption)
                                         .foregroundColor(.secondary)
@@ -41,7 +39,21 @@ struct Settings: View {
                     }
                     
                     Section("About") {
-                        Link("Source Code", destination: URL(string: "https://github.com/ca057/habits")!)
+                        if let url = URL(string: "https://github.com/ca057/habits") {
+                            
+                            Link(destination: url) {
+                                Label {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Browse the source code")
+                                        Text(url.absoluteString)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                } icon: {
+                                    Image(systemName: "link")
+                                }
+                            }
+                        }
                         VStack(alignment: .center) {
                             HStack {
                                 Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
