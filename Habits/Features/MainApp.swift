@@ -10,7 +10,7 @@ import SwiftUI
 struct MainApp: View {
     var body: some View {
         TabView {
-            Dashboard()
+            FastRowThing()
                 .tabItem {
                     Label("Habits", systemImage: "checklist")
                 }
