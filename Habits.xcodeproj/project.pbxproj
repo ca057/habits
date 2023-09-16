@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */; };
+		AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */; };
 		AA13FA272823333200B10BAE /* HabitView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */; };
 		AA13FA282823333200B10BAE /* HabitView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */; };
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
@@ -171,6 +172,7 @@
 		AAC67B0428734CC30085F2B6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
 				AA8636F829D23F2D00144373 /* ReversedCalendar */,
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
 				AACA94CB29AA489F002B6837 /* AddHabitButton.swift */,
@@ -231,7 +233,6 @@
 				AA8636ED29B68F3000144373 /* Dashboard */,
 				AA8636F329BFD93800144373 /* HabitView */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
-				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -393,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC09E827F990DC00D9B666 /* Habit.xcdatamodeld in Sources */,
+				AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */,
 				AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
