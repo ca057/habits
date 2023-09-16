@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA09A9D02AADFE4D00999CAD /* FastRowThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* FastRowThing.swift */; };
+		AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */; };
 		AA13FA272823333200B10BAE /* HabitView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */; };
 		AA13FA282823333200B10BAE /* HabitView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */; };
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
@@ -60,7 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA09A9CF2AADFE4D00999CAD /* FastRowThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRowThing.swift; sourceTree = "<group>"; };
+		AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableRows.swift; sourceTree = "<group>"; };
 		AA13FA262823333200B10BAE /* HabitView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HabitView-ViewModel.swift"; path = "Habits/Features/HabitView/HabitView-ViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA5C260927FF913A0066082C /* HabitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStorage.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				AA8636ED29B68F3000144373 /* Dashboard */,
 				AA8636F329BFD93800144373 /* HabitView */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
-				AA09A9CF2AADFE4D00999CAD /* FastRowThing.swift */,
+				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -375,7 +375,7 @@
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
 				AA86370429D4CC5600144373 /* MainApp.swift in Sources */,
 				AACA94CC29AA489F002B6837 /* AddHabitButton.swift in Sources */,
-				AA09A9D02AADFE4D00999CAD /* FastRowThing.swift in Sources */,
+				AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA86370829D62CCF00144373 /* Settings-ViewModel.swift in Sources */,
