@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ExpandableRows<Row: View, IncDecLabel: View>: View {
+struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
     @State private var rows: Int
     
+    @ViewBuilder let header: () -> Header
     @ViewBuilder let rowRenderer: (Int) -> Row
     @ViewBuilder let incRowsButton: (@escaping () -> Void) -> Button<IncDecLabel>
     @ViewBuilder let decRowsButton: (@escaping () -> Void) -> Button<IncDecLabel>
@@ -20,6 +21,7 @@ struct ExpandableRows<Row: View, IncDecLabel: View>: View {
     
     var body: some View {
         VStack {
+            header()
             ForEach(0..<rows, id: \.self) {
                 rowRenderer($0)
             }
@@ -41,6 +43,7 @@ struct ExpandableRows<Row: View, IncDecLabel: View>: View {
         minimumRows: Int = 0,
         maximumRows: Int = Int.max,
         increment: Int = 10,
+        header: @escaping () -> Header = { EmptyView() },
         @ViewBuilder incRowsButton: @escaping (@escaping () -> Void) -> Button<IncDecLabel> = { action in
             Button("show more", action: action)
         },
@@ -49,11 +52,12 @@ struct ExpandableRows<Row: View, IncDecLabel: View>: View {
         },
         @ViewBuilder rowRenderer: @escaping (Int) -> Row
     ) {
-        self.rows = max(minimumRows, 0)
         self.minimumRows = max(minimumRows, 0)
+        self.rows = self.minimumRows
         self.maximumRows = min(maximumRows, Int.max)
         self.increment = increment
         
+        self.header = header
         self.incRowsButton = incRowsButton
         self.decRowsButton = decRowsButton
         self.rowRenderer = rowRenderer
@@ -62,7 +66,10 @@ struct ExpandableRows<Row: View, IncDecLabel: View>: View {
 
 struct ExpandableRows_Previews: PreviewProvider {
     static var previews: some View {
-        ExpandableRows(minimumRows: 10) { rowIndex in
+        ExpandableRows(
+            minimumRows: 0,
+            header: { Text("header") }
+        ) { rowIndex in
             Text("row \(rowIndex)")
         }
     }
