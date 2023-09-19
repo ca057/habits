@@ -22,9 +22,12 @@ struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
     var body: some View {
         VStack {
             header()
-            ForEach(0..<rows, id: \.self) {
-                rowRenderer($0)
+            VStack {
+                ForEach(0..<rows, id: \.self) {
+                    rowRenderer($0)
+                }
             }
+            .padding(.vertical, 1)
             HStack {
                 incRowsButton({
                     rows = min(rows + increment, maximumRows)
