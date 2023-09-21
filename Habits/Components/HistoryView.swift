@@ -43,23 +43,6 @@ struct HistoryView: View {
     }
 }
 
-
-/*
- 0  2023    9       0
- 1  2023    8       0
- 2  2023    7       0
- 3  2023    6       0
- 4  2023    5       0
- 5  2023    4       0
- 6  2023    3       0
- 7  2023    2       0
- 8  2023    1       0
- 9  2022    12      1
- 10 2022    11      1
- 11 2022    10      1
- 12 2022    9       1
- */
-
 extension HistoryView {
     private struct Header: View {
         var body: some View {
@@ -84,8 +67,12 @@ extension HistoryView {
         var month: Int
 
         var body: some View {
-            Text("\(year) \(String(month).padding(leftTo: 2, withPad: "0", startingAt: 0))")
-                .monospacedDigit()
+            HStack {
+                Text("\(year) \(String(month).padding(leftTo: 2, withPad: "0", startingAt: 0))")
+                    .monospacedDigit()
+            }
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .border(.black)
         }
     }
     
