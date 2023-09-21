@@ -39,7 +39,7 @@ struct HistoryView: View {
         let monthForRow = 12 - ((index + offset) % 12)
         let yearForRow = year - Int(floor(Double((index + offset) / 12)))
         
-        return RowDateInfo(year: year, month: monthForRow)
+        return RowDateInfo(year: yearForRow, month: monthForRow)
     }
 }
 
@@ -84,7 +84,8 @@ extension HistoryView {
         var month: Int
 
         var body: some View {
-            Text("\(year)/\(month)")
+            Text("\(year) \(String(month).padding(leftTo: 2, withPad: "0", startingAt: 0))")
+                .monospacedDigit()
         }
     }
     
