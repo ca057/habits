@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: make the spacings configurable
 struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
     @State private var rows: Int
     
@@ -22,12 +23,12 @@ struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
     var body: some View {
         VStack {
             header()
-            VStack {
+            VStack(spacing: 12) {
                 ForEach(0..<rows, id: \.self) {
                     rowRenderer($0)
                 }
             }
-            .padding(.vertical, 1)
+            .padding(.vertical, 4)
             HStack {
                 incRowsButton({
                     rows = min(rows + increment, maximumRows)
@@ -70,7 +71,7 @@ struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
 struct ExpandableRows_Previews: PreviewProvider {
     static var previews: some View {
         ExpandableRows(
-            minimumRows: 0,
+            minimumRows: 10,
             header: { Text("header") }
         ) { rowIndex in
             Text("row \(rowIndex)")

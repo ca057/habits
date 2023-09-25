@@ -22,7 +22,7 @@ struct HistoryView: View {
 
     var body: some View {
         ExpandableRows(
-            minimumRows: 24,
+            minimumRows: 2,
             header: { Header() },
             incRowsButton: { action in Button("show more", action: action) },
             decRowsButton: { action in Button("show less", action: action) }
@@ -30,61 +30,120 @@ struct HistoryView: View {
             let monthYearForIndex = getYearAndMonthFor(rowIndex)
 
             Month(year: monthYearForIndex.year, month: monthYearForIndex.month)
-        }.background(.blue.opacity(0.1))
+        }
+            .padding(.vertical)
+            .border(.blue)
     }
     
-    private func getYearAndMonthFor(_ index: Int) -> RowDateInfo {
+    private func getYearAndMonthFor(_ index: Int) -> (year: Int, month: Int) {
         let offset = 12 - month
         
         let monthForRow = 12 - ((index + offset) % 12)
         let yearForRow = year - Int(floor(Double((index + offset) / 12)))
         
-        return RowDateInfo(year: yearForRow, month: monthForRow)
+        return (year: yearForRow, month: monthForRow)
     }
 }
 
 extension HistoryView {
     private struct Header: View {
         var body: some View {
-            HStack(spacing: 0) {
-                Spacer()
-                    .frame(maxWidth: .infinity)
-                ForEach(0..<CalendarUtils.shared.weekDays.count, id: \.self) { index in
-                    Text(CalendarUtils.shared.weekDays[index])
-                        .font(.subheadline)
-                        .fontDesign(.monospaced)
-                        // TODO: find a better style here
-                        .fontWeight(index < 5 ? .regular : .bold)
-                        .frame(maxWidth: .infinity)
-                        .border(.black)
+            VStack {
+                Divider()
+                HStack(spacing: 0) {
+                    ForEach(0..<CalendarUtils.shared.weekDays.count, id: \.self) { index in
+                        Text(CalendarUtils.shared.weekDays[index])
+                            .fontDesign(.monospaced)
+                            .fontWeight(index < 5 ? .bold : .regular)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                Divider()
+            }
+        }
+    }
+}
+
+fileprivate struct Month: View {
+    var year: Int
+    var month: Int
+    
+    var monthStr: String {
+        CalendarUtils.shared.months[month - 1]
+    }
+    
+    // TODO: move it out of here
+    var yearFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ""
+        
+        return formatter
+    }
+    
+    var yearStr: String {
+        yearFormatter.string(from: NSNumber(value: year))!
+    }
+    
+    private var weekNumbers: [Int] {
+        let lastWeekStartOfMonth = Date(
+            fromString: "\(yearStr)-\(monthStr)",
+            format: Date.DateFormatType.isoYearMonth
+        )?.adjust(for: .endOfMonth, calendar: CalendarUtils.shared.calendar)?.adjust(for: .startOfWeek, calendar: CalendarUtils.shared.calendar)
+        
+        guard let lastWeekStartOfMonth else { return [] }
+
+        var currentConsideredWeek = lastWeekStartOfMonth
+        var weekNumbers = [Int]()
+        
+        while true {
+            let lastConsideredWeekNumber = currentConsideredWeek.component(.week)
+            
+            guard let lastConsideredWeekNumber else { break }
+            
+            weekNumbers.append(lastConsideredWeekNumber)
+            
+            guard let nextWeekToConsider = currentConsideredWeek
+                .offset(.week, value: -1)?
+                .adjust(for: .endOfWeek, calendar: CalendarUtils.shared.calendar) else { break }
+            
+            if currentConsideredWeek.compare(.isSameMonth(as: nextWeekToConsider)) {
+                currentConsideredWeek = nextWeekToConsider
+            } else {
+                break
+            }
+        }
+        
+        return weekNumbers
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("\(monthStr) \(yearStr)")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.subheadline)
+                .fontDesign(.rounded)
+            Grid {
+                ForEach(weekNumbers, id: \.self) { weekNumber in
+                    GridRow {
+                        Text("\(weekNumber)")
+                        // TODO: one cell per day of the week
+                    }
                 }
             }
         }
+        .frame(maxWidth: .infinity)
     }
     
-    private struct Month: View {
-        var year: Int
-        var month: Int
-
-        var body: some View {
-            HStack {
-                Text("\(year) \(String(month).padding(leftTo: 2, withPad: "0", startingAt: 0))")
-                    .monospacedDigit()
-            }
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-            .border(.black)
-        }
-    }
-    
-    private struct RowDateInfo {
-        let year: Int
-        let month: Int
+    private func getDaysInWeek(_ weekNumber: Int) -> [Date?] {
+        return []
     }
 }
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView()
-            .padding()
+        ScrollView {
+            HistoryView()
+                .padding()
+        }
     }
 }
