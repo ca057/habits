@@ -7,53 +7,65 @@
 
 import SwiftUI
 
+fileprivate extension Calendar {
+    // copied from https://gist.github.com/mecid/f8859ea4bdbd02cf5d440d58e936faec
+
+    func generateDates(
+        inside interval: DateInterval,
+        matching components: DateComponents
+    ) -> [Date] {
+        var dates: [Date] = []
+        dates.append(interval.start)
+        
+        enumerateDates(
+            startingAfter: interval.start,
+            matching: components,
+            matchingPolicy: .nextTime
+        ) { date, _, stop in
+            if let date = date {
+                if date < interval.end {
+                    dates.append(date)
+                } else {
+                    stop = true
+                }
+            }
+        }
+        
+        return dates
+    }
+}
+
 struct HistoryView: View {
-    // TODO: make it work at midnight
-    private var today = Date()
-    private var year: Int {
-        CalendarUtils.shared.calendar.component(.year, from: today)
-    }
-    private var month: Int {
-        CalendarUtils.shared.calendar.component(.month, from: today)
-    }
-    private var calendarWeek: Int {
-        CalendarUtils.shared.calendar.component(.weekOfYear, from: today)
+    @Environment(\.calendar) var calendar
+
+    private var startOfCurrentMonth: Date? {
+        Date().adjust(for: .startOfMonth, calendar: calendar)
     }
 
     var body: some View {
         ExpandableRows(
             minimumRows: 2,
+            increment: 1,
             header: { Header() },
             incRowsButton: { action in Button("show more", action: action) },
             decRowsButton: { action in Button("show less", action: action) }
         ) { rowIndex in
-            let monthYearForIndex = getYearAndMonthFor(rowIndex)
-
-            Month(year: monthYearForIndex.year, month: monthYearForIndex.month)
+            Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!)
+            // TODO: year divider
         }
-            .padding(.vertical)
-            .border(.blue)
     }
     
-    private func getYearAndMonthFor(_ index: Int) -> (year: Int, month: Int) {
-        let offset = 12 - month
-        
-        let monthForRow = 12 - ((index + offset) % 12)
-        let yearForRow = year - Int(floor(Double((index + offset) / 12)))
-        
-        return (year: yearForRow, month: monthForRow)
-    }
+
 }
 
 extension HistoryView {
     private struct Header: View {
         var body: some View {
             VStack {
-                Divider()
                 HStack(spacing: 0) {
                     ForEach(0..<CalendarUtils.shared.weekDays.count, id: \.self) { index in
                         Text(CalendarUtils.shared.weekDays[index])
-                            .fontDesign(.monospaced)
+                            .fontDesign(.rounded)
                             .fontWeight(index < 5 ? .bold : .regular)
                             .frame(maxWidth: .infinity)
                     }
@@ -65,85 +77,63 @@ extension HistoryView {
 }
 
 fileprivate struct Month: View {
-    var year: Int
-    var month: Int
+    @Environment(\.calendar) var calendar
     
-    var monthStr: String {
-        CalendarUtils.shared.months[month - 1]
+    var startOfMonth: Date
+    
+    private var weeks: [Date] {
+        guard
+            let monthInterval = calendar.dateInterval(of: .month, for: startOfMonth)
+        else { return [] }
+        
+        return calendar.generateDates(
+            inside: monthInterval,
+            matching: DateComponents(weekday: calendar.firstWeekday)
+        )
     }
     
-    // TODO: move it out of here
-    var yearFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.groupingSeparator = ""
-        
-        return formatter
-    }
-    
-    var yearStr: String {
-        yearFormatter.string(from: NSNumber(value: year))!
-    }
-    
-    private var weekNumbers: [Int] {
-        let lastWeekStartOfMonth = Date(
-            fromString: "\(yearStr)-\(monthStr)",
-            format: Date.DateFormatType.isoYearMonth
-        )?.adjust(for: .endOfMonth, calendar: CalendarUtils.shared.calendar)?.adjust(for: .startOfWeek, calendar: CalendarUtils.shared.calendar)
-        
-        guard let lastWeekStartOfMonth else { return [] }
-
-        var currentConsideredWeek = lastWeekStartOfMonth
-        var weekNumbers = [Int]()
-        
-        while true {
-            let lastConsideredWeekNumber = currentConsideredWeek.component(.week)
-            
-            guard let lastConsideredWeekNumber else { break }
-            
-            weekNumbers.append(lastConsideredWeekNumber)
-            
-            guard let nextWeekToConsider = currentConsideredWeek
-                .offset(.week, value: -1)?
-                .adjust(for: .endOfWeek, calendar: CalendarUtils.shared.calendar) else { break }
-            
-            if currentConsideredWeek.compare(.isSameMonth(as: nextWeekToConsider)) {
-                currentConsideredWeek = nextWeekToConsider
-            } else {
-                break
-            }
-        }
-        
-        return weekNumbers
+    private var columns: [GridItem] {
+        Array(repeating: GridItem(spacing: 4), count: 7)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(monthStr) \(yearStr)")
+            Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.subheadline)
-                .fontDesign(.rounded)
-            Grid {
-                ForEach(weekNumbers, id: \.self) { weekNumber in
-                    GridRow {
-                        Text("\(weekNumber)")
-                        // TODO: one cell per day of the week
+
+            LazyVGrid(columns: columns, content: {
+                ForEach(weeks, id: \.self) { week in
+                    ForEach(getDaysInWeek(week), id: \.self) { day in
+                        if (day.compare(.isSameMonth(as: startOfMonth))) {
+                            // TODO: correct alignment
+                            Text("\(day.toString(format: .custom("d")) ?? "")")
+                                .monospacedDigit()
+                        } else {
+                            Spacer()
+                        }
                     }
                 }
-            }
+            })
         }
         .frame(maxWidth: .infinity)
     }
     
-    private func getDaysInWeek(_ weekNumber: Int) -> [Date?] {
-        return []
+    private func getDaysInWeek(_ week: Date) -> [Date] {
+        guard
+            let weekInterval = calendar.dateInterval(of: .weekOfYear, for: week)
+        else { return [] }
+        
+        return calendar.generateDates(
+            inside: weekInterval,
+            matching: DateComponents(hour: 0, minute: 0, second: 0)
+        )
     }
 }
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollView {
             HistoryView()
                 .padding()
-        }
     }
 }

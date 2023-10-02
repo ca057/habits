@@ -23,21 +23,23 @@ struct ExpandableRows<Header: View, Row: View, IncDecLabel: View>: View {
     var body: some View {
         VStack {
             header()
-            VStack(spacing: 12) {
-                ForEach(0..<rows, id: \.self) {
-                    rowRenderer($0)
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(0..<rows, id: \.self) {
+                        rowRenderer($0)
+                    }
                 }
-            }
-            .padding(.vertical, 4)
-            HStack {
-                incRowsButton({
-                    rows = min(rows + increment, maximumRows)
-                })
-                .disabled(rows == maximumRows)
-                decRowsButton({
-                    rows = max(rows - increment, minimumRows)
-                })
-                .disabled(rows == minimumRows)
+                .padding(.vertical, 4)
+                HStack {
+                    incRowsButton({
+                        rows = min(rows + increment, maximumRows)
+                    })
+                    .disabled(rows == maximumRows)
+                    decRowsButton({
+                        rows = max(rows - increment, minimumRows)
+                    })
+                    .disabled(rows == minimumRows)
+                }
             }
         }
         .frame(maxWidth: .infinity)
