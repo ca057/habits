@@ -38,21 +38,41 @@ fileprivate extension Calendar {
 struct HistoryView: View {
     @Environment(\.calendar) var calendar
 
+    @State private var monthsToDisplay: Int = 10
+    
+    private let increment: Int = 1
+
     private var startOfCurrentMonth: Date? {
         Date().adjust(for: .startOfMonth, calendar: calendar)
     }
 
     var body: some View {
-        ExpandableRows(
-            minimumRows: 2,
-            increment: 1,
-            header: { Header() },
-            incRowsButton: { action in Button("show more", action: action) },
-            decRowsButton: { action in Button("show less", action: action) }
-        ) { rowIndex in
-            Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!)
-            // TODO: year divider
+        VStack {
+            Header()
+            
+            ScrollView {
+                LazyVStack(spacing: 12) {
+                    ForEach(0..<monthsToDisplay, id: \.self) { rowIndex in
+                        Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex)!)
+                    }
+                }
+                    .scrollTargetLayout()
+                    .padding(.vertical, 4)
+                HStack {
+                    Button("show more") {
+                        monthsToDisplay = monthsToDisplay + increment
+                    }
+                    .buttonStyle(.bordered)
+                    Button("show less") {
+                        monthsToDisplay = max(monthsToDisplay - increment, 1)
+                    }
+                    .disabled(monthsToDisplay == 1)
+                    .buttonStyle(.bordered)
+                }
+            }
+            .scrollTargetBehavior(.viewAligned)
         }
+        .frame(maxWidth: .infinity)
     }
     
 
@@ -66,7 +86,8 @@ extension HistoryView {
                     ForEach(0..<CalendarUtils.shared.weekDays.count, id: \.self) { index in
                         Text(CalendarUtils.shared.weekDays[index])
                             .fontDesign(.rounded)
-                            .fontWeight(index < 5 ? .bold : .regular)
+                            .foregroundStyle(index < 5 ? .primary : .secondary)
+                            .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -97,24 +118,28 @@ fileprivate struct Month: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.subheadline)
+        Section {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.subheadline)
 
-            LazyVGrid(columns: columns, content: {
-                ForEach(weeks, id: \.self) { week in
-                    ForEach(getDaysInWeek(week), id: \.self) { day in
-                        if (day.compare(.isSameMonth(as: startOfMonth))) {
-                            // TODO: correct alignment
-                            Text("\(day.toString(format: .custom("d")) ?? "")")
-                                .monospacedDigit()
-                        } else {
-                            Spacer()
+                LazyVGrid(columns: columns, content: {
+                    ForEach(weeks, id: \.self) { week in
+                        ForEach(getDaysInWeek(week), id: \.self) { day in
+                            if (day.compare(.isSameMonth(as: startOfMonth))) {
+                                // TODO: correct alignment
+                                Text("\(day.toString(format: .custom("d")) ?? "")")
+                                    .monospacedDigit()
+                                    .foregroundStyle(day.compare(.isWeekend) ? .secondary : .primary)
+                            } else {
+                                Spacer()
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
+            
         }
         .frame(maxWidth: .infinity)
     }
