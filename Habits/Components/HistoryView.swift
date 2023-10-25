@@ -38,10 +38,9 @@ fileprivate extension Calendar {
 struct HistoryView: View {
     @Environment(\.calendar) var calendar
 
-    @State private var monthsToDisplay: Int = 10
-    
-    private let increment: Int = 1
+    @State private var monthsToDisplay: Int = 6
 
+    private let increment: Int = 6
     private var startOfCurrentMonth: Date? {
         Date().adjust(for: .startOfMonth, calendar: calendar)
     }
@@ -51,13 +50,6 @@ struct HistoryView: View {
             Header()
             
             ScrollView {
-                LazyVStack(spacing: 12) {
-                    ForEach(0..<monthsToDisplay, id: \.self) { rowIndex in
-                        Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex)!)
-                    }
-                }
-                    .scrollTargetLayout()
-                    .padding(.vertical, 4)
                 HStack {
                     Button("show more") {
                         monthsToDisplay = monthsToDisplay + increment
@@ -69,8 +61,16 @@ struct HistoryView: View {
                     .disabled(monthsToDisplay == 1)
                     .buttonStyle(.bordered)
                 }
+                LazyVStack(spacing: 12) {
+                    ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
+                        Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!)
+                    }
+                }
+                    .scrollTargetLayout()
+                    .padding(.vertical, 4)
             }
             .scrollTargetBehavior(.viewAligned)
+            .defaultScrollAnchor(.bottom)
         }
         .frame(maxWidth: .infinity)
     }
