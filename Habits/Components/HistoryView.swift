@@ -35,10 +35,12 @@ fileprivate extension Calendar {
     }
 }
 
-struct HistoryView: View {
+struct HistoryView<Content>: View where Content: View {
     @Environment(\.calendar) var calendar
 
     @State private var monthsToDisplay: Int = 6
+
+    @ViewBuilder var cell: (Date) -> Content
 
     private let increment: Int = 6
     private var startOfCurrentMonth: Date? {
@@ -63,7 +65,10 @@ struct HistoryView: View {
                 }
                 LazyVStack(spacing: 12) {
                     ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
-                        Month(startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!)
+                        Month(
+                            startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!,
+                            cell: cell
+                        )
                     }
                 }
                     .scrollTargetLayout()
@@ -97,10 +102,11 @@ extension HistoryView {
     }
 }
 
-fileprivate struct Month: View {
+fileprivate struct Month<Content>: View where Content: View {
     @Environment(\.calendar) var calendar
     
     var startOfMonth: Date
+    @ViewBuilder var cell: (Date) -> Content
     
     private var weeks: [Date] {
         guard
@@ -128,10 +134,7 @@ fileprivate struct Month: View {
                     ForEach(weeks, id: \.self) { week in
                         ForEach(getDaysInWeek(week), id: \.self) { day in
                             if (day.compare(.isSameMonth(as: startOfMonth))) {
-                                // TODO: correct alignment
-                                Text("\(day.toString(format: .custom("d")) ?? "")")
-                                    .monospacedDigit()
-                                    .foregroundStyle(day.compare(.isWeekend) ? .secondary : .primary)
+                                cell(day)
                             } else {
                                 Spacer()
                             }
@@ -158,7 +161,10 @@ fileprivate struct Month: View {
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-            HistoryView()
-                .padding()
+        HistoryView() { date in
+            Text("\(date.toString(format: .custom("d")) ?? "")")
+                .monospacedDigit()
+                .foregroundStyle(date.compare(.isWeekend) ? .secondary : .primary)
+        }.padding()
     }
 }
