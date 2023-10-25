@@ -53,16 +53,17 @@ struct HistoryView<Content>: View where Content: View {
             
             ScrollView {
                 HStack {
+                    Spacer()
                     Button("show more") {
                         monthsToDisplay = monthsToDisplay + increment
                     }
-                    .buttonStyle(.bordered)
+                    Spacer()
                     Button("show less") {
                         monthsToDisplay = max(monthsToDisplay - increment, 1)
                     }
                     .disabled(monthsToDisplay == 1)
-                    .buttonStyle(.bordered)
-                }
+                    Spacer()
+                }.padding(.horizontal)
                 LazyVStack(spacing: 12) {
                     ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
                         Month(
@@ -73,6 +74,7 @@ struct HistoryView<Content>: View where Content: View {
                 }
                     .scrollTargetLayout()
                     .padding(.vertical, 4)
+                    .padding(.horizontal)
             }
             .scrollTargetBehavior(.viewAligned)
             .defaultScrollAnchor(.bottom)
@@ -95,7 +97,7 @@ extension HistoryView {
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                     }
-                }
+                }.padding(.horizontal)
                 Divider()
             }
         }

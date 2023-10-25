@@ -24,6 +24,8 @@ extension HabitView {
         }
         @Published var earliestEntry: Date = Date.now
         @Published var latestEntry: Date = Date.now
+        @Published var showHistorySheet = false
+
         var createdAt: Date?
         
         func saveChanges() {

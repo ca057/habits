@@ -16,7 +16,13 @@ struct HabitView: View {
 
     var body: some View {
         VStack {
-            Form {                
+            Form {
+                Section("History") {
+                    Button("open full history") {
+                        viewModel.showHistorySheet = true
+                    }
+                }
+
                 Section("Overview") {
                     ReversedCalendar(endDate: viewModel.earliestEntry) { date in
                         let isInWeekend = date?.compare(.isWeekend) ?? false
@@ -66,6 +72,9 @@ struct HabitView: View {
                 viewModel.deleteHabit()
                 dismissView()
             }
+        }
+        .sheet(isPresented: $viewModel.showHistorySheet) {
+            HabitHistoryView()
         }
         .navigationTitle(viewModel.name)
         .navigationBarTitleDisplayMode(.inline)

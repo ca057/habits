@@ -31,10 +31,10 @@ struct AddHabitView: View {
             }
             .navigationTitle("Add habit")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel", action: { dismissView() })
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Save", action: handleSave)
                         .disabled(!viewModel.isValid)
                 }
