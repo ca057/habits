@@ -16,12 +16,12 @@ struct HabitsApp: App {
         WindowGroup {
             MainApp()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .onChange(of: scenePhase, perform: handleSceneChange)
+                .onChange(of: scenePhase, initial: false, handleSceneChange)
         }
     }
     
-    private func handleSceneChange(phase: ScenePhase) {
-        switch phase {
+    private func handleSceneChange() {
+        switch scenePhase {
         case .active:
             updateData()
             break
