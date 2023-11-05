@@ -12,6 +12,7 @@ struct HabitHistoryView: View {
     
     var body: some View {
         NavigationView {
+            // TODO: pass in initial months to render
             HistoryView() { date in
                 Text("\(date.toString(format: .custom("d")) ?? "")")
                     .monospacedDigit()
@@ -21,11 +22,9 @@ struct HabitHistoryView: View {
             .ignoresSafeArea(edges: .bottom)
             .navigationBarTitle("History", displayMode: .inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel", action: { dismissView() })
-                }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Text("")
+                    Button("Close", action: { dismissView() })
+                        .buttonStyle(CircularButtonStyle(title: "Close", systemName: "xmark.circle.fill"))
                 }
             }
         }

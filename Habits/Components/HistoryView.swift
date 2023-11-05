@@ -73,7 +73,7 @@ struct HistoryView<Content>: View where Content: View {
                     }
                 }
                     .scrollTargetLayout()
-                    .padding(.vertical, 4)
+                    .padding(.vertical)
                     .padding(.horizontal)
             }
             .scrollTargetBehavior(.viewAligned)
@@ -81,8 +81,6 @@ struct HistoryView<Content>: View where Content: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
-
 }
 
 extension HistoryView {

@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+struct CircularButtonStyle: ButtonStyle {
+    var title: String
+    var systemName: String
+
+    func makeBody(configuration: Configuration) -> some View {
+        Label(
+            title: { Text(title) },
+            icon: {
+                Image(systemName: systemName)
+                    .symbolRenderingMode(.hierarchical)
+                    .font(.title2)
+                    .foregroundColor(.secondary.opacity(configuration.isPressed ? 0.8 : 1))
+            }
+        )
+    }
+}
+
 struct TertiaryButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -24,7 +41,11 @@ extension Button {
 
 struct Button_Previews: PreviewProvider {
     static var previews: some View {
-        Button("press me", action: {} )
-            .tertiary()
+        VStack(spacing: 10) {
+            Button("press me", action: {} )
+                .tertiary()
+            Button("foo", action: {})
+                .buttonStyle(CircularButtonStyle(title: "", systemName: "xmark.circle.fill"))
+        }
     }
 }
