@@ -52,34 +52,38 @@ struct HistoryView<Content>: View where Content: View {
             Header()
             
             ScrollView {
-                HStack {
-                    Spacer()
-                    Button("show more") {
-                        monthsToDisplay = monthsToDisplay + increment
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button("show more") {
+                            monthsToDisplay = monthsToDisplay + increment
+                        }
+                        Spacer()
+                        Button("show less") {
+                            monthsToDisplay = max(monthsToDisplay - increment, 1)
+                        }
+                        .disabled(monthsToDisplay == 1)
+                        Spacer()
                     }
-                    Spacer()
-                    Button("show less") {
-                        monthsToDisplay = max(monthsToDisplay - increment, 1)
+                    .padding(.bottom)
+                    
+                    LazyVStack(spacing: 12) {
+                        ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
+                            Month(
+                                startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!,
+                                cell: cell
+                            )
+                        }
                     }
-                    .disabled(monthsToDisplay == 1)
-                    Spacer()
-                }.padding(.horizontal)
-                LazyVStack(spacing: 12) {
-                    ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
-                        Month(
-                            startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!,
-                            cell: cell
-                        )
-                    }
-                }
                     .scrollTargetLayout()
-                    .padding(.vertical)
-                    .padding(.horizontal)
+                }
+                .padding()
             }
             .scrollTargetBehavior(.viewAligned)
             .defaultScrollAnchor(.bottom)
         }
         .frame(maxWidth: .infinity)
+        .padding(.bottom)
     }
 }
 

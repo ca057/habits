@@ -18,7 +18,7 @@ struct HabitHistoryView: View {
                     .monospacedDigit()
                     .foregroundStyle(date.compare(.isWeekend) ? .secondary : .primary)
             }
-            .padding(.vertical)
+//            .padding(.vertical)
             .ignoresSafeArea(edges: .bottom)
             .navigationBarTitle("History", displayMode: .inline)
             .toolbar {
