@@ -7,34 +7,6 @@
 
 import SwiftUI
 
-fileprivate extension Calendar {
-    // copied from https://gist.github.com/mecid/f8859ea4bdbd02cf5d440d58e936faec
-
-    func generateDates(
-        inside interval: DateInterval,
-        matching components: DateComponents
-    ) -> [Date] {
-        var dates: [Date] = []
-        dates.append(interval.start)
-        
-        enumerateDates(
-            startingAfter: interval.start,
-            matching: components,
-            matchingPolicy: .nextTime
-        ) { date, _, stop in
-            if let date = date {
-                if date < interval.end {
-                    dates.append(date)
-                } else {
-                    stop = true
-                }
-            }
-        }
-        
-        return dates
-    }
-}
-
 struct HistoryView<Content>: View where Content: View {
     @Environment(\.calendar) var calendar
 
@@ -67,9 +39,9 @@ struct HistoryView<Content>: View where Content: View {
                     }
                     .padding(.bottom)
                     
-                    LazyVStack(spacing: 12) {
+                    VStack(spacing: 12) {
                         ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
-                            Month(
+                            HistoryMonthView(
                                 startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!,
                                 cell: cell
                             )
@@ -103,63 +75,6 @@ extension HistoryView {
                 Divider()
             }
         }
-    }
-}
-
-fileprivate struct Month<Content>: View where Content: View {
-    @Environment(\.calendar) var calendar
-    
-    var startOfMonth: Date
-    @ViewBuilder var cell: (Date) -> Content
-    
-    private var weeks: [Date] {
-        guard
-            let monthInterval = calendar.dateInterval(of: .month, for: startOfMonth)
-        else { return [] }
-        
-        return calendar.generateDates(
-            inside: monthInterval,
-            matching: DateComponents(weekday: calendar.firstWeekday)
-        )
-    }
-    
-    private var columns: [GridItem] {
-        Array(repeating: GridItem(spacing: 4), count: 7)
-    }
-
-    var body: some View {
-        Section {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.subheadline)
-
-                LazyVGrid(columns: columns, content: {
-                    ForEach(weeks, id: \.self) { week in
-                        ForEach(getDaysInWeek(week), id: \.self) { day in
-                            if (day.compare(.isSameMonth(as: startOfMonth))) {
-                                cell(day)
-                            } else {
-                                Spacer()
-                            }
-                        }
-                    }
-                })
-            }
-            
-        }
-        .frame(maxWidth: .infinity)
-    }
-    
-    private func getDaysInWeek(_ week: Date) -> [Date] {
-        guard
-            let weekInterval = calendar.dateInterval(of: .weekOfYear, for: week)
-        else { return [] }
-        
-        return calendar.generateDates(
-            inside: weekInterval,
-            matching: DateComponents(hour: 0, minute: 0, second: 0)
-        )
     }
 }
 

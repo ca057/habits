@@ -17,7 +17,44 @@ struct HabitView: View {
     var body: some View {
         VStack {
             Form {
-                Section("History") {
+                Section("Timeline") {
+                    HistoryMonthView(
+                        startOfMonth: Date.now,
+                        cell: { date in
+                            let isInTheFuture = date.compare(.isInTheFuture)
+                            let isWeekend = date.compare(.isWeekend)
+                            
+                            var fillColor: Color {
+                                if isWeekend {
+                                    return color == Color.primary ? Color.gray : color
+                                }
+                                return color
+                            }
+
+                            Button(action: {
+                                viewModel.toggleEntryFor(date)
+                            }, label: {
+                                VStack {
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .fill(viewModel.hasEntryForDate(date) ? fillColor : .clear)
+                                        .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
+                                        .grayscale(isWeekend ? 0.75 : 0)
+                                        .frame(width: 16, height: 24)
+                                    
+                                    Text(date.toString(format: .custom("d")) ?? "")
+                                        .font(.footnote.monospacedDigit())
+                                        .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                        .fontDesign(.rounded)
+                                    
+                                }
+                            })
+                            .disabled(isInTheFuture)
+                            .buttonStyle(.borderless)
+                            .padding(.bottom, 4)
+                            .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
+                            .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
+                        }
+                    )
                     Button("open full history") {
                         viewModel.showHistorySheet = true
                     }
@@ -86,4 +123,13 @@ struct HabitView: View {
         _viewModel = StateObject(wrappedValue: wrappedViewModel)
         self.color = wrappedViewModel.colour.toColor()
     }
+}
+
+#Preview {
+    let habit = Habit(context: DataController.shared.container.viewContext)
+
+    habit.colour = Colour.green.toLabel()
+    habit.entry = []
+    
+    return HabitView(habit)
 }
