@@ -39,7 +39,7 @@ struct HistoryView<Content>: View where Content: View {
                     }
                     .padding(.bottom)
                     
-                    VStack(spacing: 12) {
+                    VStack(spacing: 16) {
                         ForEach((0..<monthsToDisplay).reversed(), id: \.self) { rowIndex in
                             HistoryMonthView(
                                 startOfMonth: (startOfCurrentMonth!).offset(.month, value: rowIndex * -1)!,
