@@ -7,16 +7,53 @@
 
 import SwiftUI
 
+
+struct TimelineItem: Identifiable, Hashable {
+    let id = UUID()
+    var offset: Int
+}
+
 struct HabitView: View {
     var color : Color
     @StateObject var viewModel: ViewModel
     
     @Environment(\.dismiss) private var dismissView
     @State private var showDeleteConfirmation = false
+    
+    
+    @State private var timelineItems = [
+        TimelineItem(offset: 0),
+    ]
+    @State private var selectedOffset: Int = 0
+    
+    func insertTimelineItemIfRequiredFor(displayedOffset: Int) {
+        let earliestOffset = timelineItems[0].offset
+
+        if displayedOffset == earliestOffset {
+            print("inserting item")
+            timelineItems.insert(TimelineItem(offset: earliestOffset + 1), at: 0)
+        }
+    }
 
     var body: some View {
         VStack {
             Form {
+                Section {
+                    GeometryReader { geometry in
+                        TabView(selection: $selectedOffset) {
+                            ForEach(timelineItems, id: \.self) { item in
+                                Text("Month: \(item.offset)")
+                                    .frame(maxWidth: .infinity)
+                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 2)
+                                    .tag(item.offset)
+                            }
+                        }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        .onAppear { insertTimelineItemIfRequiredFor(displayedOffset: selectedOffset) }
+                        .onChange(of: selectedOffset) { _, shownOffset in insertTimelineItemIfRequiredFor(displayedOffset: shownOffset) }
+                    }
+                }
+            
                 Section("Timeline") {
                     HistoryMonthView(
                         startOfMonth: Date.now,
@@ -59,33 +96,6 @@ struct HabitView: View {
                         viewModel.showHistorySheet = true
                     }
                 }
-
-                Section("Overview") {
-                    ReversedCalendar(endDate: viewModel.earliestEntry) { date in
-                        let isInWeekend = date?.compare(.isWeekend) ?? false
-                        let dimForWeekend = isInWeekend ? 0.75 : 0
-                        var fillColor: Color {
-                            if isInWeekend {
-                                return color == Color.primary ? Color.gray : color
-                            }
-                            return color
-                        }
-                        var grayScale: Double { isInWeekend ? 0.75 : 0 }
-
-                        if viewModel.hasEntryForDate(date) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(fillColor)
-                                .grayscale(dimForWeekend)
-                        } else if let date = date {
-                            Text(CalendarUtils.shared.calendar.component(.day, from: date).description)
-                                .font(.footnote.monospacedDigit())
-                                .fontWeight(isInWeekend ? .light : .regular)
-                                .grayscale(dimForWeekend)
-                        }
-                    }
-                    // TODO: add load more button here
-                }
-                .buttonStyle(BorderlessButtonStyle())
                 
                 Section("Settings") {
                     TextField("Name", text: $viewModel.name)
