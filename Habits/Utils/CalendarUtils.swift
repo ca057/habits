@@ -39,6 +39,23 @@ class CalendarUtils {
         return weekDays
     }
     
+    var months: [String] {
+        var beginningOfMonth = Date().adjust(for: .startOfYear, calendar: calendar)
+        var months = [String]()
+        
+        for _ in 0...12 {
+            months.append(
+                beginningOfMonth?.toString(
+                    format: .custom("MMM"),
+                    locale: Locale(identifier: Locale.current.language.languageCode?.identifier ?? "en")
+                ) ?? ""
+            )
+            beginningOfMonth = beginningOfMonth?.offset(.month, value: 1)
+        }
+        
+        return months
+    }
+    
     func isCurrentYear(_ year: Int) -> Bool {
         calendar.component(.year, from: Date()) == year
     }

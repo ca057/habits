@@ -24,6 +24,8 @@ extension HabitView {
         }
         @Published var earliestEntry: Date = Date.now
         @Published var latestEntry: Date = Date.now
+        @Published var showHistorySheet = false
+
         var createdAt: Date?
         
         func saveChanges() {
@@ -31,12 +33,16 @@ extension HabitView {
         }
         
         func deleteHabit() {
-            habitsStorage.delete(self.habit)
+            habitsStorage.delete(habit)
         }
         
         func hasEntryForDate(_ date: Date?) -> Bool {
             guard let date = date else { return false }
             return habit.hasEntry(for: date)
+        }
+        
+        func toggleEntryFor(_ date: Date) {
+            habitsStorage.toggleEntry(for: habit, date: date)
         }
         
         // MARK: -
