@@ -38,65 +38,101 @@ struct HabitView: View {
     var body: some View {
         VStack {
             Form {
-                Section {
-                    GeometryReader { geometry in
-                        TabView(selection: $selectedOffset) {
-                            ForEach(timelineItems, id: \.self) { item in
-                                Text("Month: \(item.offset)")
-                                    .frame(maxWidth: .infinity)
-                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 2)
-                                    .tag(item.offset)
+                Section("Timeline") {
+                    TabView(selection: $selectedOffset) {
+                        ForEach(timelineItems, id: \.self) { item in
+                            VStack{
+                                Text("hello")
+                                HistoryMonthView(
+                                    startOfMonth: Date.now,
+                                    cell: { date in
+                                        let isInTheFuture = date.compare(.isInTheFuture)
+                                        let isWeekend = date.compare(.isWeekend)
+                                        
+                                        var fillColor: Color {
+                                            if isWeekend {
+                                                return color == Color.primary ? Color.gray : color
+                                            }
+                                            return color
+                                        }
+                                        
+                                        Button(action: {
+                                            viewModel.toggleEntryFor(date)
+                                        }, label: {
+                                            VStack {
+                                                RoundedRectangle(cornerRadius: .infinity)
+                                                    .fill(viewModel.hasEntryForDate(date) ? fillColor : .clear)
+                                                    .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
+                                                    .grayscale(isWeekend ? 0.75 : 0)
+                                                    .frame(width: 16, height: 24)
+                                                
+                                                Text(date.toString(format: .custom("d")) ?? "")
+                                                    .font(.footnote.monospacedDigit())
+                                                    .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                                    .fontDesign(.rounded)
+                                                
+                                            }
+                                        })
+                                        .disabled(isInTheFuture)
+                                        .buttonStyle(.borderless)
+                                        .padding(.bottom, 4)
+                                        .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
+                                        .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
+                                    }
+                                )
                             }
+//                            .frame(maxWidth: .infinity)
+                            .tag(item.offset)
                         }
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        .onAppear { insertTimelineItemIfRequiredFor(displayedOffset: selectedOffset) }
-                        .onChange(of: selectedOffset) { _, shownOffset in insertTimelineItemIfRequiredFor(displayedOffset: shownOffset) }
                     }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .onAppear { insertTimelineItemIfRequiredFor(displayedOffset: selectedOffset) }
+                    .onChange(of: selectedOffset) { _, shownOffset in insertTimelineItemIfRequiredFor(displayedOffset: shownOffset) }
                 }
             
-                Section("Timeline") {
-                    HistoryMonthView(
-                        startOfMonth: Date.now,
-                        cell: { date in
-                            let isInTheFuture = date.compare(.isInTheFuture)
-                            let isWeekend = date.compare(.isWeekend)
-                            
-                            var fillColor: Color {
-                                if isWeekend {
-                                    return color == Color.primary ? Color.gray : color
-                                }
-                                return color
-                            }
-
-                            Button(action: {
-                                viewModel.toggleEntryFor(date)
-                            }, label: {
-                                VStack {
-                                    RoundedRectangle(cornerRadius: .infinity)
-                                        .fill(viewModel.hasEntryForDate(date) ? fillColor : .clear)
-                                        .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
-                                        .grayscale(isWeekend ? 0.75 : 0)
-                                        .frame(width: 16, height: 24)
-                                    
-                                    Text(date.toString(format: .custom("d")) ?? "")
-                                        .font(.footnote.monospacedDigit())
-                                        .fontWeight(date.compare(.isToday) ? .bold : .regular)
-                                        .fontDesign(.rounded)
-                                    
-                                }
-                            })
-                            .disabled(isInTheFuture)
-                            .buttonStyle(.borderless)
-                            .padding(.bottom, 4)
-                            .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
-                            .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
-                        }
-                    )
-                    Button("open full history") {
-                        viewModel.showHistorySheet = true
-                    }
-                }
-                
+//                Section("Timeline") {
+//                    HistoryMonthView(
+//                        startOfMonth: Date.now,
+//                        cell: { date in
+//                            let isInTheFuture = date.compare(.isInTheFuture)
+//                            let isWeekend = date.compare(.isWeekend)
+//                            
+//                            var fillColor: Color {
+//                                if isWeekend {
+//                                    return color == Color.primary ? Color.gray : color
+//                                }
+//                                return color
+//                            }
+//
+//                            Button(action: {
+//                                viewModel.toggleEntryFor(date)
+//                            }, label: {
+//                                VStack {
+//                                    RoundedRectangle(cornerRadius: .infinity)
+//                                        .fill(viewModel.hasEntryForDate(date) ? fillColor : .clear)
+//                                        .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
+//                                        .grayscale(isWeekend ? 0.75 : 0)
+//                                        .frame(width: 16, height: 24)
+//                                    
+//                                    Text(date.toString(format: .custom("d")) ?? "")
+//                                        .font(.footnote.monospacedDigit())
+//                                        .fontWeight(date.compare(.isToday) ? .bold : .regular)
+//                                        .fontDesign(.rounded)
+//                                    
+//                                }
+//                            })
+//                            .disabled(isInTheFuture)
+//                            .buttonStyle(.borderless)
+//                            .padding(.bottom, 4)
+//                            .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
+//                            .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
+//                        }
+//                    )
+//                    Button("open full history") {
+//                        viewModel.showHistorySheet = true
+//                    }
+//                }
+//                
                 Section("Settings") {
                     TextField("Name", text: $viewModel.name)
                     VStack(alignment: .leading) {

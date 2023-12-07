@@ -29,27 +29,24 @@ struct HistoryMonthView<Content>: View where Content: View {
     }
     
     var body: some View {
-        Section {
-            VStack(alignment: .leading) {
-                Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 4)
+        VStack(alignment: .leading) {
+            Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 4)
 
-                LazyVGrid(columns: columns, content: { // TODO: consider non-lazy grid
-                    ForEach(weeks, id: \.self) { week in
-                        ForEach(getDaysInWeek(week), id: \.self) { day in
-                            if (day.compare(.isSameMonth(as: startOfMonth))) {
-                                cell(day)
-                            } else {
-                                Spacer()
-                            }
+            LazyVGrid(columns: columns, content: { // TODO: consider non-lazy grid
+                ForEach(weeks, id: \.self) { week in
+                    ForEach(getDaysInWeek(week), id: \.self) { day in
+                        if (day.compare(.isSameMonth(as: startOfMonth))) {
+                            cell(day)
+                        } else {
+                            Spacer()
                         }
                     }
-                })
-            }
-            
+                }
+            })
         }
-        .frame(maxWidth: .infinity)
+//        .frame(maxWidth: .infinity)
     }
     
     private func getDaysInWeek(_ week: Date) -> [Date] {
