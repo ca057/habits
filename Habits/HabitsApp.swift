@@ -16,6 +16,7 @@ struct HabitsApp: App {
         WindowGroup {
             MainApp()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.calendar, CalendarUtils.shared.calendar)
                 .onChange(of: scenePhase, initial: false, handleSceneChange)
         }
     }

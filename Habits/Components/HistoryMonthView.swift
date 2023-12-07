@@ -30,9 +30,9 @@ struct HistoryMonthView<Content>: View where Content: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(startOfMonth.toString(format: .custom("MMMM yyyy")) ?? "")")
+            Text("\(startOfMonth.toString(format: .custom("MMM yyyy")) ?? "")".uppercased())
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 4)
+                .padding(.bottom, 8)
 
             LazyVGrid(columns: columns, content: { // TODO: consider non-lazy grid
                 ForEach(weeks, id: \.self) { week in
