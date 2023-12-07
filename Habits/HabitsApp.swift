@@ -6,31 +6,44 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct HabitsApp: App {
-    @Environment(\.scenePhase) private var scenePhase
-    private let dataController: DataController = .shared
+//    @Environment(\.scenePhase) private var scenePhase
+    let container: ModelContainer
     
     var body: some Scene {
         WindowGroup {
             MainApp()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(\.calendar, CalendarUtils.shared.calendar)
-                .onChange(of: scenePhase, initial: false, handleSceneChange)
+//                .environment(\.managedObjectContext, dataController.container.viewContext)
+//                .onChange(of: scenePhase, initial: false, handleSceneChange)
+        }
+        .modelContainer(container)
+    }
+    
+    init() {
+        do {
+            let url = URL.applicationSupportDirectory.appending(path: "Habit.sqlite")
+            let config = ModelConfiguration(url: url)
+            
+            container = try ModelContainer(for: Habit.self, configurations: config)
+        } catch {
+            fatalError("failed to create model container")
         }
     }
     
-    private func handleSceneChange() {
-        switch scenePhase {
-        case .active:
-            updateData()
-            break
-        default: break
-        }
-    }
-    
-    private func updateData() {
-        HabitsStorage.shared.loadData()
-    }
+//    private func handleSceneChange() {
+//        switch scenePhase {
+//        case .active:
+//            updateData()
+//            break
+//        default: break
+//        }
+//    }
+//    
+//    private func updateData() {
+//        HabitsStorage.shared.loadData()
+//    }
 }

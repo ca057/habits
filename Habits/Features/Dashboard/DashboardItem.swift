@@ -92,7 +92,7 @@ struct DashboardItem: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(habit.name ?? "N/A")
+            Text(habit.name)
                 .font(.title)
                 .bold()
                 .padding(.bottom)

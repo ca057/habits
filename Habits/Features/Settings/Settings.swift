@@ -8,18 +8,23 @@
 import SwiftUI
 import Foundation
 
+fileprivate struct ErrorAlert {
+    var showing = false
+    var title = ""
+    var message = ""
+}
 
 struct Settings: View {
-    @StateObject private var viewModel = ViewModel()
-            
+    @State private var errorMessage = ErrorAlert()
+    @State private var showingExporter = false
+    @State private var showingImporter = false
+
     var body: some View {
         NavigationStack {
             VStack {
                 List {
                     Section("Data") {
-                        Button(action: {
-                            viewModel.showingExporter = true
-                        }) {
+                        Button(action: { showingExporter = true }) {
                             Label {
                                 Text("Backup data")
                             } icon: {
@@ -27,9 +32,7 @@ struct Settings: View {
                                     .symbolRenderingMode(.hierarchical)
                             }
                         }
-                        Button(action: {
-                            viewModel.showingImporter = true
-                        }) {
+                        Button(action: { showingImporter = true }) {
                             Label {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Import data")
@@ -73,8 +76,8 @@ struct Settings: View {
             }
             .navigationTitle("Settings")
             .fileExporter(
-                isPresented: $viewModel.showingExporter,
-                document: viewModel.getDataAsJsonFile(),
+                isPresented: $showingExporter,
+                document: getDataAsJsonFile(),
                 contentType: .json
             ) { result in
                 switch result {
@@ -85,27 +88,27 @@ struct Settings: View {
                 }
             }
             .fileImporter(
-                isPresented: $viewModel.showingImporter,
+                isPresented: $showingImporter,
                 allowedContentTypes: [.json],
                 allowsMultipleSelection: false
             ) { result in
                 switch result {
                 case .success(let urls):
-                    viewModel.importDataFromJsonFileUrl(urls)
+                    importDataFromJsonFileUrl(urls)
                 case .failure(let error):
                     print("import whoopsie \(error.localizedDescription)")
                 }
             }
-            .alert(isPresented: $viewModel.errorMessage.showing) {
+            .alert(isPresented: $errorMessage.showing) {
                 Alert(
-                    title: Text(viewModel.errorMessage.title),
-                    message: Text(viewModel.errorMessage.message)
+                    title: Text(errorMessage.title),
+                    message: Text(errorMessage.message)
                 )
             }
         }
     }
     
-    func getHighResolutionAppIconName() -> String? {
+    private func getHighResolutionAppIconName() -> String? {
         guard let infoPlist = Bundle.main.infoDictionary else { return nil }
         guard let bundleIcons = infoPlist["CFBundleIcons"] as? NSDictionary else { return nil }
         guard let bundlePrimaryIcon = bundleIcons["CFBundlePrimaryIcon"] as? NSDictionary else { return nil }
@@ -116,10 +119,58 @@ struct Settings: View {
 
 }
 
-struct Settings_Previews: PreviewProvider {
-    static var previews: some View {
-        Settings()
+fileprivate extension Settings {
+    func getDataAsJsonFile() -> DataExport.JSONFile? {
+        do {
+            //                let export = try habitsStorage.exportAllHabits()
+            let export: DataExport.JSONFile? = nil
+            
+            return export
+        } catch {
+            errorMessage = ErrorAlert(
+                showing: true,
+                title: "Export your data failed",
+                message: "Something went wrong during the export. Please try again." // TODO: original message
+            )
+            
+            return nil
+        }
+    }
+    
+    func importDataFromJsonFileUrl(_ urls: [URL]) {
+        if urls.count > 1 {
+            errorMessage = ErrorAlert(
+                showing: true,
+                title: "Importing your data failed",
+                message: "You can only import one file at once. Please try again."
+            )
+            return
+        }
+        
+        guard let url = urls.first else {
+            errorMessage = ErrorAlert(
+                showing: true,
+                title: "Importing your data failed",
+                message: "Something went wrong retrieving the file location. Please try again."
+            )
+            return
+        }
+        
+        do {
+            // TODO:
+            //                try habitsStorage.importDataFromUrl(url)
+        } catch {
+            print("error during import \(error)")
+            errorMessage = ErrorAlert(
+                showing: true,
+                title: "Importing your data failed",
+                message: "The data in your export couldn’t be read. Check if it’s a valid export and try again."
+            )
+        }
     }
 }
 
+#Preview {
+    Settings()
+}
 

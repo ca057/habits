@@ -3,52 +3,53 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Dashboard: View {
-    @StateObject private var viewModel = ViewModel()
     @Environment(\.editMode) private var editMode
+    
+    @State private var showingAddHabit = false
+    
+    @Query(sort: [
+        SortDescriptor(\Habit.order),
+        SortDescriptor(\Habit.createdAt, order: .reverse)
+    ]) var habits: [Habit]
 
     var body: some View {
         NavigationView {
-            Group {
-                if viewModel.habits.isEmpty {
+            VStack {
+                if habits.isEmpty {
                     VStack {
                         Spacer()
-                        EmptyState() {
-                            viewModel.showingAddHabit = true
-                        }
+                        EmptyState() { showingAddHabit = true } // TODO: make it a simple + button
                         .padding()
                         Spacer()
                         Spacer()
                     }.padding(.horizontal)
                 } else {
-                    VStack {
-                        List {
-                            ForEach(viewModel.habits) { habit in
-                                DashboardItem(habit: habit, toggleEntry: { viewModel.toggleEntry(for: $0, on: $1) } )
-                                    .background(
-                                        NavigationLink("", destination: HabitView(habit)).opacity(0)
-                                    )
-                                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                        Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
-                                            viewModel.toggleEntry(for: habit, on: Date.now)
-                                        }.tint(.blue)
-                                    }
-                            }
-                            .onMove {  viewModel.reorderElements(source: $0, destination: $1) }
+                    List {
+                        ForEach(habits) { habit in
+                            DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
+                                .background(
+                                    NavigationLink("", destination: HabitView(habit: HabitViewModel(habit: habit))).opacity(0)
+                                )
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    // TODO:
+//                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
+//                                        toggleEntry(for: habit, on: Date.now)
+//                                    }.tint(.blue)
+                                }
                         }
-//                        AddHabitButton {
-//                            viewModel.showingAddHabit = true
-//                        }
+                        .onMove {  reorderElements(source: $0, destination: $1) }
                     }
                 }
             }
             .navigationTitle("Habits")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if !viewModel.habits.isEmpty {
+                    if !habits.isEmpty {
                         Button {
-                            viewModel.showingAddHabit = true
+                            showingAddHabit = true
                         } label: {
                             Label("Add new habit", systemImage: "plus")
                                 .labelStyle(IconOnlyLabelStyle())
@@ -56,16 +57,21 @@ struct Dashboard: View {
                     }
                 }
             }
-            .sheet(isPresented: $viewModel.showingAddHabit) {
+            .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
             }
         }
     }
-}
-
-struct Dashboard_Previews: PreviewProvider {
-    static var previews: some View {
-        Dashboard()
+    
+    private func toggleEntry(for habit: Habit, on date: Date) {
+        // TODO:
+    }
+    
+    private func reorderElements(source: IndexSet, destination: Int) -> Void {
+        // TODO:
     }
 }
 
+#Preview {
+    Dashboard()
+}

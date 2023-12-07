@@ -78,12 +78,21 @@ fileprivate struct TabTimelineContainer<Content: View>: View {
     }
 }
 
-struct HabitView: View {
-    private var color : Color
-    @StateObject private var viewModel: ViewModel
+@Observable
+class HabitViewModel {
+    var habit: Habit
     
+    init(habit: Habit) {
+        self.habit = habit
+    }
+}
+
+struct HabitView: View {
+    var habit: HabitViewModel
+
     @Environment(\.calendar) private var calendar
     @Environment(\.dismiss) private var dismissView
+
     @State private var showDeleteConfirmation = false
 
     var body: some View {
@@ -98,18 +107,20 @@ struct HabitView: View {
                                 let isWeekend = date.compare(.isWeekend)
                                 
                                 var fillColor: Color {
-                                    if isWeekend {
-                                        return color == Color.primary ? Color.gray : color
-                                    }
-                                    return color
+                                    Color.blue
+                                    // TODO:
+//                                    if isWeekend {
+//                                        return habit.habit.colour.toColor() == Color.primary ? Color.gray : habit.habit.colour.toColour()
+//                                    }
+//                                    return habit.habit.colour.toColor()
                                 }
                                 
                                 Button(action: {
-                                    viewModel.toggleEntryFor(date)
+                                    toggleEntryFor(date)
                                 }, label: {
                                     VStack {
                                         RoundedRectangle(cornerRadius: .infinity)
-                                            .fill(viewModel.hasEntryForDate(date) ? fillColor : .clear)
+                                            .fill(hasEntryForDate(date) ? fillColor : .clear)
                                             .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
                                             .grayscale(isWeekend ? 0.75 : 0)
                                             .frame(width: 16, height: 24)
@@ -132,14 +143,14 @@ struct HabitView: View {
                 }
 
                 Section("Settings") {
-                    TextField("Name", text: $viewModel.name)
+//                    TextField("Name", text: habit.habit.$name)
                     VStack(alignment: .leading) {
                         Text("Colour")
-                        ColourPicker(colours: Colour.allCasesSorted, selection: $viewModel.colour)
-                            .padding(.bottom, 4)
+//                        ColourPicker(colours: Colour.allCasesSorted, selection: habit.habit.$colour)
+//                            .padding(.bottom, 4)
                     }
                 }
-                
+//                
                 Section("Danger Zone") {
                     Button("Delete habit", role: .destructive) {
                         showDeleteConfirmation = true
@@ -150,30 +161,38 @@ struct HabitView: View {
         .alert("Delete habit?", isPresented: $showDeleteConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {
-                viewModel.deleteHabit()
+                deleteHabit()
                 dismissView()
             }
         }
-        .sheet(isPresented: $viewModel.showHistorySheet) {
-            HabitHistoryView()
-        }
-        .navigationTitle(viewModel.name)
+        .navigationTitle(habit.habit.name)
         .navigationBarTitleDisplayMode(.inline)
-        .onDisappear(perform: { viewModel.saveChanges() }) // TODO: why?
+    }
+}
+
+fileprivate extension HabitView {
+    func deleteHabit() {
+        // TODO
     }
     
-    init(_ habit: Habit) {
-        let wrappedViewModel = ViewModel(habit)
-        _viewModel = StateObject(wrappedValue: wrappedViewModel)
-        self.color = wrappedViewModel.colour.toColor()
+    func hasEntryForDate(_ date: Date?) -> Bool {
+        // TODO
+        return false
+    }
+    
+    func toggleEntryFor(_ date: Date) {
+        // TODO
     }
 }
 
 #Preview {
-    let habit = Habit(context: DataController.shared.container.viewContext)
+    let habit = Habit(
+        colour: Colour.green.toLabel(),
+        createdAt: Date.now,
+        id: UUID(),
+        name: "preview",
+        order: 0
+    )
 
-    habit.colour = Colour.green.toLabel()
-    habit.entry = []
-    
-    return HabitView(habit)
+    return HabitView(habit: HabitViewModel(habit: habit))
 }
