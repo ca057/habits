@@ -37,6 +37,8 @@
 		AACCAD942B22065A008BB8FE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD922B22065A008BB8FE /* Habit.swift */; };
 		AACCAD952B22065A008BB8FE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD932B22065A008BB8FE /* Entry.swift */; };
 		AACCAD972B225882008BB8FE /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD962B225882008BB8FE /* DataExport.swift */; };
+		AACCAD982B234BA1008BB8FE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD932B22065A008BB8FE /* Entry.swift */; };
+		AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD922B22065A008BB8FE /* Habit.swift */; };
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
 		AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* Dashboard.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
@@ -81,8 +83,8 @@
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AAC67B0C287440080085F2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AACA94CB29AA489F002B6837 /* AddHabitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitButton.swift; sourceTree = "<group>"; };
-		AACCAD922B22065A008BB8FE /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Habit.swift; path = Habits/Data/Habit.swift; sourceTree = "<group>"; };
-		AACCAD932B22065A008BB8FE /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Habits/Data/Entry.swift; sourceTree = "<group>"; };
+		AACCAD922B22065A008BB8FE /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		AACCAD932B22065A008BB8FE /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		AACCAD962B225882008BB8FE /* DataExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExport.swift; sourceTree = "<group>"; };
 		AAD2E33627ECD26C00389779 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AADC1CE027BEF547007C47BE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +193,6 @@
 		AADC1CD727BEF547007C47BE = {
 			isa = PBXGroup;
 			children = (
-				AACCAD922B22065A008BB8FE /* Habit.swift */,
-				AACCAD932B22065A008BB8FE /* Entry.swift */,
 				AAD2E33627ECD26C00389779 /* README.md */,
 				AADC1CE227BEF547007C47BE /* Habits */,
 				AADC1CF327BEF548007C47BE /* HabitsTests */,
@@ -249,6 +249,8 @@
 		AAEC09DA27F8900300D9B666 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AACCAD922B22065A008BB8FE /* Habit.swift */,
+				AACCAD932B22065A008BB8FE /* Entry.swift */,
 				AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */,
 			);
 			path = Data;
@@ -404,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AACCAD982B234BA1008BB8FE /* Entry.swift in Sources */,
 				AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */,
 				AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
@@ -412,6 +415,7 @@
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */,
 				AACA94CD29AA489F002B6837 /* AddHabitButton.swift in Sources */,
+				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
 				AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
 				AAEC09FA27FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
