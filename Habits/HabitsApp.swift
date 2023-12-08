@@ -10,15 +10,12 @@ import SwiftData
 
 @main
 struct HabitsApp: App {
-//    @Environment(\.scenePhase) private var scenePhase
     let container: ModelContainer
     
     var body: some Scene {
         WindowGroup {
             MainApp()
                 .environment(\.calendar, CalendarUtils.shared.calendar)
-//                .environment(\.managedObjectContext, dataController.container.viewContext)
-//                .onChange(of: scenePhase, initial: false, handleSceneChange)
         }
         .modelContainer(container)
     }
@@ -33,17 +30,4 @@ struct HabitsApp: App {
             fatalError("failed to create model container")
         }
     }
-    
-//    private func handleSceneChange() {
-//        switch scenePhase {
-//        case .active:
-//            updateData()
-//            break
-//        default: break
-//        }
-//    }
-//    
-//    private func updateData() {
-//        HabitsStorage.shared.loadData()
-//    }
 }
