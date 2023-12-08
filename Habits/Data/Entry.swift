@@ -13,7 +13,8 @@ import SwiftData
 @Model
 class Entry {
     var date: Date
-    var habit: Habit
+
+    @Relationship var habit: Habit?
     
     init(date: Date, habit: Habit) {
         self.date = date

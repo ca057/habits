@@ -7,6 +7,8 @@ import SwiftData
 
 struct Dashboard: View {
     @Environment(\.editMode) private var editMode
+    @Environment(\.calendar) private var calendar
+    @Environment(\.modelContext) private var modelContext
     
     @State private var showingAddHabit = false
     
@@ -63,7 +65,13 @@ struct Dashboard: View {
     }
     
     private func toggleEntry(for habit: Habit, on date: Date) {
-        #warning("implement this")
+        if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
+            modelContext.delete(entry)
+            try? modelContext.save()
+        } else {
+            let entry = Entry(date: date, habit: habit)
+            modelContext.insert(entry)
+        }
     }
     
     private func reorderElements(source: IndexSet, destination: Int) -> Void {
