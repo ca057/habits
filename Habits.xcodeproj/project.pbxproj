@@ -48,8 +48,6 @@
 		AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */; };
 		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
 		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
-		AAEC09F927FB8C1700D9B666 /* Habit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */; };
-		AAEC09FA27FB8C1700D9B666 /* Habit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +94,6 @@
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
 		AAEC09E427F98FC900D9B666 /* AddHabitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewModelTests.swift; sourceTree = "<group>"; };
 		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
-		AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,7 +248,6 @@
 			children = (
 				AACCAD922B22065A008BB8FE /* Habit.swift */,
 				AACCAD932B22065A008BB8FE /* Entry.swift */,
-				AAEC09F827FB8C1700D9B666 /* Habit+Extensions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -375,7 +371,6 @@
 				AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */,
 				AA8636FA29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AA09A9D32AB5FB7500999CAD /* HistoryView.swift in Sources */,
-				AAEC09F927FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
 				AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */,
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
 				AA40AF212AE9A95E007C526D /* HabitHistoryView.swift in Sources */,
@@ -418,7 +413,6 @@
 				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
 				AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */,
 				AAEC09E527F98FC900D9B666 /* AddHabitViewModelTests.swift in Sources */,
-				AAEC09FA27FB8C1700D9B666 /* Habit+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

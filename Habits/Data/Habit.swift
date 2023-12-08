@@ -28,3 +28,11 @@ class Habit {
         self.order = order
     }
 }
+
+extension Habit {
+    func hasEntry(for date: Date) -> Bool {
+        self.entry.contains(where: { entry in
+            return CalendarUtils.shared.calendar.isDate(entry.date, equalTo: date, toGranularity: .day)
+        })
+    }
+}

@@ -34,10 +34,9 @@ struct Dashboard: View {
                                     NavigationLink("", destination: HabitView(habit: habit)).opacity(0)
                                 )
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    #warning ("fix this")
-//                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
-//                                        toggleEntry(for: habit, on: Date.now)
-//                                    }.tint(.blue)
+                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
+                                        toggleEntry(for: habit, on: Date.now)
+                                    }.tint(.blue)
                                 }
                         }
                         .onMove {  reorderElements(source: $0, destination: $1) }
@@ -64,11 +63,11 @@ struct Dashboard: View {
     }
     
     private func toggleEntry(for habit: Habit, on date: Date) {
-        // TODO:
+        #warning("implement this")
     }
     
     private func reorderElements(source: IndexSet, destination: Int) -> Void {
-        // TODO:
+        #warning("implement this")
     }
 }
 
