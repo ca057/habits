@@ -34,7 +34,7 @@ struct Dashboard: View {
                                     NavigationLink("", destination: HabitView(habit: habit)).opacity(0)
                                 )
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    // TODO:
+                                    #warning ("fix this")
 //                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
 //                                        toggleEntry(for: habit, on: Date.now)
 //                                    }.tint(.blue)
