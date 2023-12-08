@@ -78,17 +78,8 @@ fileprivate struct TabTimelineContainer<Content: View>: View {
     }
 }
 
-@Observable
-class HabitViewModel {
-    var habit: Habit
-    
-    init(habit: Habit) {
-        self.habit = habit
-    }
-}
-
 struct HabitView: View {
-    var habit: HabitViewModel
+    @Bindable var habit: Habit
 
     @Environment(\.calendar) private var calendar
     @Environment(\.dismiss) private var dismissView
@@ -108,11 +99,11 @@ struct HabitView: View {
                                 
                                 var fillColor: Color {
                                     Color.blue
-                                    // TODO:
+                                    // TODO
 //                                    if isWeekend {
-//                                        return habit.habit.colour.toColor() == Color.primary ? Color.gray : habit.habit.colour.toColour()
+//                                        return habit.colour.toColor() == Color.primary ? Color.gray : habit.colour.toColour()
 //                                    }
-//                                    return habit.habit.colour.toColor()
+//                                    return habit.colour.toColor()
                                 }
                                 
                                 Button(action: {
@@ -143,14 +134,15 @@ struct HabitView: View {
                 }
 
                 Section("Settings") {
-//                    TextField("Name", text: habit.habit.$name)
+                    TextField("Name", text: $habit.name)
                     VStack(alignment: .leading) {
                         Text("Colour")
-//                        ColourPicker(colours: Colour.allCasesSorted, selection: habit.habit.$colour)
+                        // TODO:
+//                        ColourPicker(colours: Colour.allCasesSorted, selection: $habit.colour)
 //                            .padding(.bottom, 4)
                     }
                 }
-//                
+
                 Section("Danger Zone") {
                     Button("Delete habit", role: .destructive) {
                         showDeleteConfirmation = true
@@ -165,7 +157,7 @@ struct HabitView: View {
                 dismissView()
             }
         }
-        .navigationTitle(habit.habit.name)
+        .navigationTitle(habit.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -194,5 +186,5 @@ fileprivate extension HabitView {
         order: 0
     )
 
-    return HabitView(habit: HabitViewModel(habit: habit))
+    return HabitView(habit: habit)
 }
