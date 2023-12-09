@@ -164,12 +164,13 @@ struct HabitView: View {
 
 fileprivate extension HabitView {
     func deleteHabit() {
-        // TODO
+        // 
     }
     
     func hasEntryForDate(_ date: Date?) -> Bool {
-        // TODO
-        return false
+        guard let date = date else { return false }
+        
+        return habit.hasEntry(for: date)
     }
     
     func toggleEntryFor(_ date: Date) {
