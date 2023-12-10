@@ -14,11 +14,22 @@ import SwiftData
 class Habit {
     @Attribute(.unique) var id: UUID
 
+    // TODO: rename
     var colour: String = "base"
     var createdAt: Date
     var name: String
     var order: Int16 = 0
+    // TODO: rename
     @Relationship(deleteRule: .cascade, inverse: \Entry.habit) var entry = [Entry]()
+    
+    var asColour: Colour {
+        get {
+            Colour.fromRawValue(colour)
+        }
+        set {
+            colour = newValue.toLabel()
+        }
+    }
     
     init(colour: String, createdAt: Date, id: UUID, name: String, order: Int16) {
         self.colour = colour

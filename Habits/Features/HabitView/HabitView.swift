@@ -142,9 +142,8 @@ struct HabitView: View {
                     TextField("Name", text: Bindable(habit).name)
                     VStack(alignment: .leading) {
                         Text("Colour")
-                        // TODO:
-                        //                        ColourPicker(colours: Colour.allCasesSorted, selection: $habit.colour)
-                        //                            .padding(.bottom, 4)
+                        ColourPicker(colours: Colour.allCasesSorted, selection: Bindable(habit).asColour)
+                            .padding(.bottom, 4)
                     }
                 }
                 
