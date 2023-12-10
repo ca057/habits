@@ -85,83 +85,88 @@ struct HabitView: View {
     @Environment(\.dismiss) private var dismissView
     
     @Query private var queriedHabits: [Habit]
-    private var habit: Habit {
-        queriedHabits.first! // TODO: get rid of !
+    private var habit: Habit? {
+        queriedHabits.first
     }
     
     @State private var showDeleteConfirmation = false
     
     var body: some View {
-        VStack {
-            Form {
-                Section("Timeline") {
-                    TabTimelineContainer { positiveOffset in
-                        HistoryMonthView(
-                            startOfMonth: Date().adjust(for: .startOfMonth, calendar: calendar)!.offset(.month, value: positiveOffset * -1)!, // TODO: get rid of !
-                            cell: { date in
-                                let isInTheFuture = date.compare(.isInTheFuture)
-                                let isWeekend = date.compare(.isWeekend)
-                                
-                                var fillColor: Color {
-                                    let asColor = habit.asColour.toColor()
-                                    if isWeekend {
-                                        return asColor == Color.primary ? Color.gray : asColor
+        // TODO: make this a bit nicer
+        if let habit = habit {
+            VStack {
+                Form {
+                    Section("Timeline") {
+                        TabTimelineContainer { positiveOffset in
+                            HistoryMonthView(
+                                startOfMonth: Date().adjust(for: .startOfMonth, calendar: calendar)!.offset(.month, value: positiveOffset * -1)!, // TODO: get rid of !
+                                cell: { date in
+                                    let isInTheFuture = date.compare(.isInTheFuture)
+                                    let isWeekend = date.compare(.isWeekend)
+                                    
+                                    var fillColor: Color {
+                                        let asColor = habit.asColour.toColor()
+                                        if isWeekend {
+                                            return asColor == Color.primary ? Color.gray : asColor
+                                        }
+                                        return asColor
                                     }
-                                    return asColor
+                                    
+                                    Button(action: {
+                                        toggleEntryFor(date)
+                                    }, label: {
+                                        VStack {
+                                            RoundedRectangle(cornerRadius: .infinity)
+                                                .fill(habit.hasEntry(for: date) ? fillColor : .clear)
+                                                .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
+                                                .grayscale(isWeekend ? 0.75 : 0)
+                                                .frame(width: 16, height: 24)
+                                            
+                                            Text(date.toString(format: .custom("d")) ?? "")
+                                                .font(.footnote.monospacedDigit())
+                                                .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                                .fontDesign(.rounded)
+                                            
+                                        }
+                                    })
+                                    .disabled(isInTheFuture)
+                                    .buttonStyle(.borderless)
+                                    .padding(.bottom, 4)
+                                    .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
+                                    .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
                                 }
-                                
-                                Button(action: {
-                                    toggleEntryFor(date)
-                                }, label: {
-                                    VStack {
-                                        RoundedRectangle(cornerRadius: .infinity)
-                                            .fill(habit.hasEntry(for: date) ? fillColor : .clear)
-                                            .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
-                                            .grayscale(isWeekend ? 0.75 : 0)
-                                            .frame(width: 16, height: 24)
-                                        
-                                        Text(date.toString(format: .custom("d")) ?? "")
-                                            .font(.footnote.monospacedDigit())
-                                            .fontWeight(date.compare(.isToday) ? .bold : .regular)
-                                            .fontDesign(.rounded)
-                                        
-                                    }
-                                })
-                                .disabled(isInTheFuture)
-                                .buttonStyle(.borderless)
+                            ).tag(habit.entry.count)
+                        }
+                    }
+                    
+                    Section("Settings") {
+                        TextField("Name", text: Bindable(habit).name)
+                        VStack(alignment: .leading) {
+                            Text("Colour")
+                            ColourPicker(colours: Colour.allCasesSorted, selection: Bindable(habit).asColour)
                                 .padding(.bottom, 4)
-                                .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
-                                .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
-                            }
-                        ).tag(habit.entry.count)
+                        }
                     }
-                }
-                
-                Section("Settings") {
-                    TextField("Name", text: Bindable(habit).name)
-                    VStack(alignment: .leading) {
-                        Text("Colour")
-                        ColourPicker(colours: Colour.allCasesSorted, selection: Bindable(habit).asColour)
-                            .padding(.bottom, 4)
-                    }
-                }
-                
-                Section("Danger Zone") {
-                    Button("Delete habit", role: .destructive) {
-                        showDeleteConfirmation = true
+                    
+                    Section("Danger Zone") {
+                        Button("Delete habit", role: .destructive) {
+                            showDeleteConfirmation = true
+                        }
                     }
                 }
             }
-        }
-        .alert("Delete habit?", isPresented: $showDeleteConfirmation) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) {
-                deleteHabit()
-                dismissView()
+            .alert("Delete habit?", isPresented: $showDeleteConfirmation) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete", role: .destructive) {
+                    deleteHabit()
+                    dismissView()
+                }
             }
+            .navigationTitle(habit.name)
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            EmptyView()
         }
-        .navigationTitle(habit.name)
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     init(id: UUID) {
@@ -173,11 +178,15 @@ struct HabitView: View {
 
 fileprivate extension HabitView {
     func deleteHabit() {
+        guard let habit = habit else { return }
+
         modelContext.delete(habit)
         try? modelContext.save()
     }
     
     func toggleEntryFor(_ date: Date) {
+        guard let habit = habit else { return }
+
         if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
             modelContext.delete(entry)
         } else {
