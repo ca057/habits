@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import Foundation
 
 fileprivate struct ErrorAlert {
@@ -15,6 +16,8 @@ fileprivate struct ErrorAlert {
 }
 
 struct Settings: View {
+    @Environment(\.modelContext) private var modelContext
+
     @State private var errorMessage = ErrorAlert()
     @State private var showingExporter = false
     @State private var showingImporter = false
@@ -122,10 +125,30 @@ struct Settings: View {
 fileprivate extension Settings {
     func getDataAsJsonFile() -> DataExport.JSONFile? {
         do {
-            //                let export = try habitsStorage.exportAllHabits()
-            let export: DataExport.JSONFile? = nil
+            let allHabitsDescriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.createdAt)])
+            let allHabits = try modelContext.fetch(allHabitsDescriptor)
             
-            return export
+            let export = DataExport.HabitsExport(
+                appVersion: Bundle.main.versionAndBuildNumber,
+                exportDate: Date(),
+                habits: allHabits.map { habit in
+                    DataExport.HabitsExportItem(
+                        id: habit.id,
+                        name: habit.name,
+                        createdAt: habit.createdAt,
+                        colour: habit.colour,
+                        entries: habit.entry.map { entry in
+                            DataExport.HabitsExportItemEntry(date: entry.date)
+                        }
+                    )
+                }
+            )
+            
+            let jsonEncoder = JSONEncoder()
+            jsonEncoder.dateEncodingStrategy = .iso8601
+            jsonEncoder.outputFormatting = .prettyPrinted
+            
+            return DataExport.JSONFile(try jsonEncoder.encode(export))
         } catch {
             errorMessage = ErrorAlert(
                 showing: true,
@@ -157,8 +180,31 @@ fileprivate extension Settings {
         }
         
         do {
-            // TODO:
-            //                try habitsStorage.importDataFromUrl(url)
+            guard let data = try String(contentsOf: url).data(using: .utf8) else {
+                throw DataExport.HabitsStorageError.importFailed
+            }
+
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+
+            let decodedData = try decoder.decode(DataExport.HabitsExport.self, from: data)
+            
+            decodedData.habits.forEach { habitToImport in
+                let habit = Habit(
+                    colour: habitToImport.colour,
+                    createdAt: habitToImport.createdAt,
+                    id: habitToImport.id,
+                    name: habitToImport.name,
+                    order: 0
+                )
+                modelContext.insert(habit)
+                
+                habitToImport.entries.forEach { entryToImport in
+                    let entry = Entry(date: entryToImport.date, habit: habit)
+                    modelContext.insert(entry)
+                }
+            }
+            try modelContext.save()
         } catch {
             print("error during import \(error)")
             errorMessage = ErrorAlert(

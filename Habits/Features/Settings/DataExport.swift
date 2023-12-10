@@ -17,14 +17,18 @@ struct DataExport {
     
     struct HabitsExportItemEntry: Codable {
         let date: Date
+        
+        // TODO: create from & to methods
     }
     
     struct HabitsExportItem: Codable {
-        let id: UUID?
-        let name: String?
-        let createdAt: Date?
-        let colour: String?
+        let id: UUID
+        let name: String
+        let createdAt: Date
+        let colour: String
         let entries: [HabitsExportItemEntry]
+        
+        // TODO: create from & to methods
     }
     
     struct HabitsExport: Codable {
@@ -51,7 +55,7 @@ struct DataExport {
         
         func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
             let fileWrapper = FileWrapper(regularFileWithContents: data)
-            fileWrapper.filename = "habits-export-\(Date().toString(format: .isoDate) ?? "?")"
+            fileWrapper.filename = "habits-export-\(Date().toString(format: .isoDateTime) ?? "?")"
             
             return fileWrapper
         }
