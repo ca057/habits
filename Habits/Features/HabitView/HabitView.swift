@@ -97,18 +97,17 @@ struct HabitView: View {
                 Section("Timeline") {
                     TabTimelineContainer { positiveOffset in
                         HistoryMonthView(
-                            startOfMonth: Date().adjust(for: .startOfMonth, calendar: calendar)!.offset(.month, value: positiveOffset * -1)!, // get rid of !
+                            startOfMonth: Date().adjust(for: .startOfMonth, calendar: calendar)!.offset(.month, value: positiveOffset * -1)!, // TODO: get rid of !
                             cell: { date in
                                 let isInTheFuture = date.compare(.isInTheFuture)
                                 let isWeekend = date.compare(.isWeekend)
                                 
                                 var fillColor: Color {
-                                    Color.blue
-                                    // TODO
-                                    //                                    if isWeekend {
-                                    //                                        return habit.colour.toColor() == Color.primary ? Color.gray : habit.colour.toColour()
-                                    //                                    }
-                                    //                                    return habit.colour.toColor()
+                                    let asColor = habit.asColour.toColor()
+                                    if isWeekend {
+                                        return asColor == Color.primary ? Color.gray : asColor
+                                    }
+                                    return asColor
                                 }
                                 
                                 Button(action: {
