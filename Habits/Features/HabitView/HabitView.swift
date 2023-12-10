@@ -177,12 +177,6 @@ fileprivate extension HabitView {
         modelContext.delete(habit)
         try? modelContext.save()
     }
-//    
-//    func hasEntryForDate(_ date: Date?) -> Bool {
-//        guard let date = date else { return false }
-//        
-//        return habit.hasEntry(for: date)
-//    }
     
     func toggleEntryFor(_ date: Date) {
         if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
