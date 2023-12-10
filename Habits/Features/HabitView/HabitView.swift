@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 fileprivate struct TabTimelineContainer<Content: View>: View {
     @State private var timelineItems = [
@@ -79,13 +80,17 @@ fileprivate struct TabTimelineContainer<Content: View>: View {
 }
 
 struct HabitView: View {
-    @Bindable var habit: Habit
-
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
     @Environment(\.dismiss) private var dismissView
-
+    
+    @Query private var queriedHabits: [Habit]
+    private var habit: Habit {
+        queriedHabits.first! // TODO: get rid of !
+    }
+    
     @State private var showDeleteConfirmation = false
-
+    
     var body: some View {
         VStack {
             Form {
@@ -100,10 +105,10 @@ struct HabitView: View {
                                 var fillColor: Color {
                                     Color.blue
                                     // TODO
-//                                    if isWeekend {
-//                                        return habit.colour.toColor() == Color.primary ? Color.gray : habit.colour.toColour()
-//                                    }
-//                                    return habit.colour.toColor()
+                                    //                                    if isWeekend {
+                                    //                                        return habit.colour.toColor() == Color.primary ? Color.gray : habit.colour.toColour()
+                                    //                                    }
+                                    //                                    return habit.colour.toColor()
                                 }
                                 
                                 Button(action: {
@@ -111,7 +116,7 @@ struct HabitView: View {
                                 }, label: {
                                     VStack {
                                         RoundedRectangle(cornerRadius: .infinity)
-                                            .fill(hasEntryForDate(date) ? fillColor : .clear)
+                                            .fill(habit.hasEntry(for: date) ? fillColor : .clear)
                                             .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
                                             .grayscale(isWeekend ? 0.75 : 0)
                                             .frame(width: 16, height: 24)
@@ -129,20 +134,20 @@ struct HabitView: View {
                                 .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
                                 .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
                             }
-                        )
+                        ).tag(habit.entry.count)
                     }
                 }
-
+                
                 Section("Settings") {
-                    TextField("Name", text: $habit.name)
+                    TextField("Name", text: Bindable(habit).name)
                     VStack(alignment: .leading) {
                         Text("Colour")
                         // TODO:
-//                        ColourPicker(colours: Colour.allCasesSorted, selection: $habit.colour)
-//                            .padding(.bottom, 4)
+                        //                        ColourPicker(colours: Colour.allCasesSorted, selection: $habit.colour)
+                        //                            .padding(.bottom, 4)
                     }
                 }
-
+                
                 Section("Danger Zone") {
                     Button("Delete habit", role: .destructive) {
                         showDeleteConfirmation = true
@@ -160,21 +165,34 @@ struct HabitView: View {
         .navigationTitle(habit.name)
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    init(id: UUID) {
+        _queriedHabits = Query(filter: #Predicate { queriedHabit in
+            queriedHabit.id == id
+        })
+    }
 }
 
 fileprivate extension HabitView {
     func deleteHabit() {
-        // 
+        modelContext.delete(habit)
+        try? modelContext.save()
     }
-    
-    func hasEntryForDate(_ date: Date?) -> Bool {
-        guard let date = date else { return false }
-        
-        return habit.hasEntry(for: date)
-    }
+//    
+//    func hasEntryForDate(_ date: Date?) -> Bool {
+//        guard let date = date else { return false }
+//        
+//        return habit.hasEntry(for: date)
+//    }
     
     func toggleEntryFor(_ date: Date) {
-        // TODO
+        if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
+            modelContext.delete(entry)
+        } else {
+            let entry = Entry(date: date, habit: habit)
+            modelContext.insert(entry)
+        }
+        try? modelContext.save()
     }
 }
 
@@ -186,6 +204,8 @@ fileprivate extension HabitView {
         name: "preview",
         order: 0
     )
+    
+    #warning("make the preview work")
 
-    return HabitView(habit: habit)
+    return HabitView(id: habit.id)
 }

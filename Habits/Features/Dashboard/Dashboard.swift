@@ -33,7 +33,7 @@ struct Dashboard: View {
                         ForEach(habits) { habit in
                             DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
                                 .background(
-                                    NavigationLink("", destination: HabitView(habit: habit)).opacity(0)
+                                    NavigationLink("", destination: HabitView(id: habit.id)).opacity(0)
                                 )
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
