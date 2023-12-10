@@ -75,7 +75,14 @@ struct Dashboard: View {
     }
     
     private func reorderElements(source: IndexSet, destination: Int) -> Void {
-        #warning("implement this")
+        var habitsCopy = habits
+        
+        habitsCopy.move(fromOffsets: source, toOffset: destination)
+        for index in 0..<habitsCopy.count {
+            habitsCopy[index].order = Int16(index)
+        }
+        
+        try? modelContext.save()
     }
 }
 
