@@ -11,18 +11,17 @@ struct AddHabitView: View {
     @Environment(\.dismiss) private var dismissView
     
     @State private var isValid = false
-    @State private var name = "" {
-        didSet {
-            isValid = !name.isEmpty
-        }
-    }
+    @State private var name = ""
     @State private var bgColour = Colour.allCasesSorted[0]
 
     var body: some View {
         NavigationView {
             Form {
-                TextField("I want to track...", text: $name)
-                    .accessibilityLabel("Name of your new habit")
+                Section {
+                    TextField("I want to track...", text: $name)
+                        .accessibilityLabel("Name of your new habit")
+                }
+                
                 Section {
                     VStack(alignment: .leading) {
                         Text("Pick a colour")
@@ -32,7 +31,7 @@ struct AddHabitView: View {
                         )
                         .accessibilityLabel("Background colour")
                     }
-                    .padding(.vertical)
+                    .padding(.bottom, 4)
                 }
             }
             .navigationTitle("Add habit")
@@ -45,6 +44,9 @@ struct AddHabitView: View {
                         .disabled(!isValid)
                 }
             }
+        }
+        .onChange(of: name) {
+            isValid = !name.isEmpty
         }
     }
     
