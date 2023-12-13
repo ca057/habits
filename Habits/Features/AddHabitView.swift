@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismissView
+    @Environment(\.modelContext) private var modelContext
     
     @State private var isValid = false
     @State private var name = ""
@@ -51,8 +52,9 @@ struct AddHabitView: View {
     }
     
     func handleSave() {
-        // TODO: save data
-        // TODO: show error if saving wasn’t successful
+        modelContext.insert(Habit(name: name, colour: bgColour))
+        // TODO: show error if it fails
+        try? modelContext.save()
         dismissView()
     }
 }

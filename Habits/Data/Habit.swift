@@ -31,12 +31,17 @@ class Habit {
         }
     }
     
+    // TODO: resort the parameters
     init(colour: String, createdAt: Date, id: UUID, name: String, order: Int16) {
         self.colour = colour
         self.createdAt = createdAt
         self.id = id
         self.name = name
         self.order = order
+    }
+
+    convenience init(name: String, colour: Colour) {
+        self.init(colour: colour.toLabel(), createdAt: Date.now, id: UUID(), name: name, order: 0)
     }
 }
 
