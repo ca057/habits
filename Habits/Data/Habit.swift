@@ -22,15 +22,6 @@ class Habit {
     // TODO: rename
     @Relationship(deleteRule: .cascade, inverse: \Entry.habit) var entry = [Entry]()
     
-    var asColour: Colour {
-        get {
-            Colour.fromRawValue(colour)
-        }
-        set {
-            colour = newValue.toLabel()
-        }
-    }
-    
     // TODO: resort the parameters
     init(colour: String, createdAt: Date, id: UUID, name: String, order: Int16) {
         self.colour = colour
@@ -43,9 +34,28 @@ class Habit {
     convenience init(name: String, colour: Colour) {
         self.init(colour: colour.toLabel(), createdAt: Date.now, id: UUID(), name: name, order: 0)
     }
+    
+    static var sortedWithEntries: FetchDescriptor<Habit> {
+        var fetchDescriptor = FetchDescriptor<Habit>(sortBy: [
+            SortDescriptor(\Habit.order),
+            SortDescriptor(\Habit.createdAt, order: .reverse)
+        ])
+        fetchDescriptor.relationshipKeyPathsForPrefetching = [\.entry]
+    
+        return fetchDescriptor
+    }
 }
 
 extension Habit {
+    var asColour: Colour {
+        get {
+            Colour.fromRawValue(colour)
+        }
+        set {
+            colour = newValue.toLabel()
+        }
+    }
+
     func hasEntry(for date: Date) -> Bool {
         self.entry.contains(where: { entry in
             return CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date)

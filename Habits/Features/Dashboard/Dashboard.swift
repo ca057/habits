@@ -11,11 +11,8 @@ struct Dashboard: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var showingAddHabit = false
-    
-    @Query(sort: [
-        SortDescriptor(\Habit.order),
-        SortDescriptor(\Habit.createdAt, order: .reverse)
-    ]) var habits: [Habit]
+
+    @Query(Habit.sortedWithEntries) var habits: [Habit]
 
     var body: some View {
         NavigationView {
