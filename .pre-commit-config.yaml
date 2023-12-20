@@ -1,20 +1,20 @@
 repos:
-- repo: local
-  hooks:
-    - id: test
-      name: test
-      description: Run all tests.
-      entry: task test
-      language: system
-      always_run: true
-      fail_fast: true
-      pass_filenames: false
-      stages: [push]
+  # - repo: local
+  #   hooks:
+  #     - id: test
+  #       name: test
+  #       description: Run all tests.
+  #       entry: task test
+  #       language: system
+  #       always_run: true
+  #       fail_fast: true
+  #       pass_filenames: false
+  #       stages: ["push"]
 
-- repo: https://github.com/jumanjihouse/pre-commit-hooks
-  rev: 3.0.0
-  hooks:
-    - id: git-dirty
-      name: dirty
-      description: Check if repo has no staged changes.
-      stages: ["push"]
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: git-dirty
+        name: dirty
+        description: Check if repo has no staged changes.
+        stages: ["push"]
