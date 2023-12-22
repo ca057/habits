@@ -119,8 +119,10 @@ struct DashboardItem: View {
     
     init(habit: Habit, toggleEntry: @escaping (Habit, Date) -> Void) {
         let habitModelId = habit.persistentModelID
+
         var descriptor = FetchDescriptor<Entry>(
-            predicate: #Predicate<Entry> { $0.habit?.id == habitModelId },
+            // TODO: limit based on date?
+            predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
             sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
         )
         descriptor.fetchLimit = elementDisplayCount
