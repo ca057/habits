@@ -208,6 +208,9 @@ fileprivate extension HabitView {
 }
 
 #Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Habit.self, configurations: config)
+    
     let habit = Habit(
         colour: Colour.green.toLabel(),
         createdAt: Date.now,
@@ -216,7 +219,13 @@ fileprivate extension HabitView {
         order: 0
     )
     
-    #warning("make the preview work")
+    container.mainContext.insert(habit)
+
+    for i in 1..<10 {
+        let entry = Entry(date: Date().adjust(day: i * Int.random(in: 1..<5)) ?? Date(), habit: habit)
+        container.mainContext.insert(entry)
+    }
 
     return HabitView(id: habit.id)
+        .modelContainer(container)
 }
