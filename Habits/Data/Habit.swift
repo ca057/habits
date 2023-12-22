@@ -55,10 +55,4 @@ extension Habit {
             colour = newValue.toLabel()
         }
     }
-
-    func hasEntry(for date: Date) -> Bool {
-        self.entry.contains(where: { entry in
-            return CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date)
-        })
-    }
 }

@@ -88,6 +88,7 @@ struct HabitView: View {
     private var habit: Habit? {
         queriedHabits.first
     }
+    @Query private var entries: [Entry]
     
     @State private var showDeleteConfirmation = false
     
@@ -117,7 +118,7 @@ struct HabitView: View {
                                     }, label: {
                                         VStack {
                                             RoundedRectangle(cornerRadius: .infinity)
-                                                .fill(habit.hasEntry(for: date) ? fillColor : .clear)
+                                                .fill(hasEntry(for: date) ? fillColor : .clear)
                                                 .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
                                                 .grayscale(isWeekend ? 0.75 : 0)
                                                 .frame(width: 16, height: 24)
@@ -173,18 +174,23 @@ struct HabitView: View {
         _queriedHabits = Query(filter: #Predicate { queriedHabit in
             queriedHabit.id == id
         })
+
+        _entries = Query(
+            filter: #Predicate<Entry> { $0.habit?.id == id },
+            sort: [SortDescriptor(\Entry.date, order: .reverse)]
+        )
     }
 }
 
 fileprivate extension HabitView {
-    func deleteHabit() {
+    private func deleteHabit() {
         guard let habit = habit else { return }
 
         modelContext.delete(habit)
         try? modelContext.save()
     }
     
-    func toggleEntryFor(_ date: Date) {
+    private func toggleEntryFor(_ date: Date) {
         guard let habit = habit else { return }
 
         if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
@@ -194,6 +200,10 @@ fileprivate extension HabitView {
             modelContext.insert(entry)
         }
         try? modelContext.save()
+    }
+    
+    private func hasEntry(for date: Date) -> Bool {
+        entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
     }
 }
 
