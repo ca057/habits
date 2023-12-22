@@ -5,6 +5,7 @@
 //  Created by Christian Ost on 24.03.22.
 //
 
+import SwiftData
 import SwiftUI
 
 struct DayElement: View {
@@ -84,11 +85,13 @@ private extension Date {
 let elementDisplayCount = 7
 
 struct DashboardItem: View {
-    let habit: Habit
-    let toggleEntry: (Habit, Date) -> Void
+    var habit: Habit
+    var toggleEntry: (Habit, Date) -> Void
 
     private let now = Date.now
     private let today = Calendar.current.dateComponents([.day], from: Date.now)
+    
+    @Query private var entries: [Entry]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -104,7 +107,7 @@ struct DashboardItem: View {
 
                     DayElement(
                         date,
-                        selected: habit.hasEntry(for: date),
+                        selected: hasEntry(for: date),
                         color: Colour(rawValue: habit.colour)?.toColor() ?? Colour.base.toColor(),
                         onEntrySelect: { toggleEntry(habit, $0)}
                     )
@@ -112,5 +115,23 @@ struct DashboardItem: View {
             }
         }
         .padding(.vertical)
+    }
+    
+    init(habit: Habit, toggleEntry: @escaping (Habit, Date) -> Void) {
+        let habitModelId = habit.persistentModelID
+        var descriptor = FetchDescriptor<Entry>(
+            predicate: #Predicate<Entry> { $0.habit?.id == habitModelId },
+            sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
+        )
+        descriptor.fetchLimit = elementDisplayCount
+        
+        _entries = Query(descriptor)
+
+        self.habit = habit
+        self.toggleEntry = toggleEntry
+    }
+    
+    private func hasEntry(for date: Date) -> Bool {
+        entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
     }
 }
