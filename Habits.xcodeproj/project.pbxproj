@@ -45,6 +45,7 @@
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1E27C13ACC007C47BE /* HabitView.swift */; };
+		AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5FBED2B35C5F10052D047 /* LazyView.swift */; };
 		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
 		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,7 @@
 		AADC1CF027BEF548007C47BE /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
+		AAE5FBED2B35C5F10052D047 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +183,7 @@
 				AA09A9D22AB5FB7500999CAD /* HistoryView.swift */,
 				AA06F1C12AB8341400079B33 /* TextFormats.swift */,
 				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
+				AAE5FBED2B35C5F10052D047 /* LazyView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */,
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
 				AA40AF212AE9A95E007C526D /* HabitHistoryView.swift in Sources */,
+				AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */,
 				AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */,
 				AACCAD942B22065A008BB8FE /* Habit.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,

@@ -30,13 +30,8 @@ struct Dashboard: View {
                         ForEach(habits) { habit in
                             DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
                                 .background(
-                                    NavigationLink("", destination: HabitView(id: habit.id)).opacity(0)
+                                    NavigationLink("", destination: LazyView(HabitView(id: habit.id))).opacity(0)
                                 )
-                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    Button(habit.hasEntry(for: Date.now) ? "Untick" : "Tick") {
-                                        toggleEntry(for: habit, on: Date.now)
-                                    }.tint(.blue)
-                                }
                         }
                         .onMove {  reorderElements(source: $0, destination: $1) }
                     }
