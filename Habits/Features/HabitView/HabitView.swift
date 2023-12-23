@@ -90,6 +90,9 @@ struct HabitView: View {
         queriedHabits.first
     }
     @Query private var entries: [Entry]
+    private var daysWithEntries: Set<String> {
+        Set(entries.map { $0.date.toString(format: .isoDate)! })
+    }
     
     @State private var showDeleteConfirmation = false
     
@@ -215,7 +218,9 @@ fileprivate extension HabitView {
     }
     
     private func hasEntry(for date: Date) -> Bool {
-        entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
+        guard let isoDate = date.toString(format: .isoDate) else { return false }
+        
+        return daysWithEntries.contains(isoDate)
     }
 }
 
