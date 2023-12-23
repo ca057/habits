@@ -79,6 +79,7 @@ fileprivate struct TabTimelineContainer<Content: View>: View {
     }
 }
 
+
 struct HabitView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
@@ -117,24 +118,24 @@ struct HabitView: View {
                                         toggleEntryFor(date)
                                     }, label: {
                                         VStack {
-                                            RoundedRectangle(cornerRadius: .infinity)
-                                                .fill(hasEntry(for: date) ? fillColor : .clear)
-                                                .stroke(isInTheFuture ? .secondary : fillColor, lineWidth: 4)
-                                                .grayscale(isWeekend ? 0.75 : 0)
-                                                .frame(width: 16, height: 24)
-                                            
                                             Text(date.toString(format: .custom("d")) ?? "")
-                                                .font(.footnote.monospacedDigit())
-                                                .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                                .font(.footnote)
                                                 .fontDesign(.rounded)
-                                            
+                                                .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                                .background {
+                                                    RoundedRectangle(cornerRadius: .infinity)
+                                                        .fill(hasEntry(for: date) ? fillColor : .clear)
+                                                        .grayscale(isWeekend ? 0.75 : 0)
+                                                        .frame(width: 24, height: 32)
+                                                }
+                                                .frame(minHeight: 32)
                                         }
                                     })
                                     .disabled(isInTheFuture)
                                     .buttonStyle(.borderless)
-                                    .padding(.bottom, 4)
+                                    // make this work for all designs
                                     .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
-                                    .opacity(isInTheFuture && isWeekend ? 0.75 : 1)
+                                    .opacity(isInTheFuture ? 0.5 : isWeekend ? 0.75 : 1)
                                 }
                             ).tag(habit.entry.count)
                         }
