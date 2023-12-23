@@ -93,6 +93,17 @@ struct HabitView: View {
     
     @State private var showDeleteConfirmation = false
     
+    private var selectedForegroundColor: Color {
+        if habit?.asColour.toColor() == Color.primary {
+        #if os(macOS)
+            return Color(NSColor.windowBackgroundColor)
+        #else
+            return Color(UIColor.systemBackground)
+        #endif
+        }
+        return Color.primary
+    }
+    
     var body: some View {
         // TODO: make this a bit nicer
         if let habit = habit {
@@ -134,7 +145,7 @@ struct HabitView: View {
                                     .disabled(isInTheFuture)
                                     .buttonStyle(.borderless)
                                     // make this work for all designs
-                                    .foregroundStyle(isInTheFuture || isWeekend ? .secondary : .primary)
+                                    .foregroundStyle(isInTheFuture || isWeekend ? .secondary : hasEntry(for: date) ? selectedForegroundColor : .primary)
                                     .opacity(isInTheFuture ? 0.5 : isWeekend ? 0.75 : 1)
                                 }
                             ).tag(habit.entry.count)
