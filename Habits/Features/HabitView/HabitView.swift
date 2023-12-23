@@ -80,36 +80,30 @@ fileprivate struct TabTimelineContainer<Content: View>: View {
 }
 
 
-struct HabitView: View {
+struct HabitViewContent: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
     @Environment(\.dismiss) private var dismissView
     
-    @Query private var queriedHabits: [Habit]
-    private var habit: Habit? {
-        queriedHabits.first
-    }
-    @Query private var entries: [Entry]
-    private var daysWithEntries: Set<String> {
-        Set(entries.map { $0.date.toString(format: .isoDate)! })
-    }
+    var habit: Habit
+    var entries: [Entry]
     
+    @State private var daysWithEntries: Set<String>
     @State private var showDeleteConfirmation = false
     
     private var selectedForegroundColor: Color {
-        if habit?.asColour.toColor() == Color.primary {
-        #if os(macOS)
+        if habit.asColour.toColor() == Color.primary {
+#if os(macOS)
             return Color(NSColor.windowBackgroundColor)
-        #else
+#else
             return Color(UIColor.systemBackground)
-        #endif
+#endif
         }
         return Color.primary
     }
     
     var body: some View {
         // TODO: make this a bit nicer
-        if let habit = habit {
             VStack {
                 Form {
                     Section("Timeline") {
@@ -180,34 +174,27 @@ struct HabitView: View {
             }
             .navigationTitle(habit.name)
             .navigationBarTitleDisplayMode(.inline)
-        } else {
-            EmptyView()
-        }
+            .onChange(of: entries, computeDaysWithEntries)
     }
     
-    init(id: UUID) {
-        _queriedHabits = Query(filter: #Predicate { queriedHabit in
-            queriedHabit.id == id
-        })
-
-        _entries = Query(
-            filter: #Predicate<Entry> { $0.habit?.id == id },
-            sort: [SortDescriptor(\Entry.date, order: .reverse)]
-        )
+    init(habit: Habit, entries: [Entry]) {
+        self._daysWithEntries = State(initialValue: Set(entries.map { $0.date.toString(format: .isoDate)! }))
+        self.habit = habit
+        self.entries = entries
     }
-}
 
-fileprivate extension HabitView {
+    
+    private func computeDaysWithEntries() {
+        // TODO: get rid of !
+        daysWithEntries = Set(entries.map { $0.date.toString(format: .isoDate)! })
+    }
+
     private func deleteHabit() {
-        guard let habit = habit else { return }
-
         modelContext.delete(habit)
         try? modelContext.save()
     }
     
     private func toggleEntryFor(_ date: Date) {
-        guard let habit = habit else { return }
-
         if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
             modelContext.delete(entry)
         } else {
@@ -221,6 +208,35 @@ fileprivate extension HabitView {
         guard let isoDate = date.toString(format: .isoDate) else { return false }
         
         return daysWithEntries.contains(isoDate)
+    }
+}
+
+struct HabitView: View {
+    private var id: UUID
+
+    @Query private var queriedHabits: [Habit]
+    private var habit: Habit? {
+        queriedHabits.first
+    }
+    @Query private var entries: [Entry]
+
+    var body: some View {
+        if let habit = habit {
+            HabitViewContent(habit: habit, entries: entries)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    init(id: UUID) {
+        self.id = id
+        
+        _queriedHabits = Query(filter: #Predicate { $0.id == id })
+        
+        _entries = Query(
+            filter: #Predicate<Entry> { $0.habit?.id == id },
+            sort: [SortDescriptor(\Entry.date, order: .reverse)]
+        )
     }
 }
 
