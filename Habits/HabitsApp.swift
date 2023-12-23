@@ -10,14 +10,20 @@ import SwiftData
 
 @main
 struct HabitsApp: App {
-    let container: ModelContainer
+    @Environment(\.scenePhase) private var scenePhase
+    
+    @State private var currentDate = Date().toString(format: .isoDate) ?? ""
+    
+    private let container: ModelContainer
     
     var body: some Scene {
         WindowGroup {
             MainApp()
                 .environment(\.calendar, CalendarUtils.shared.calendar)
+                .tag(currentDate) // hacky workaround to make the app reload when opened on another day, might not be needed anymore when we track the app openings in a separate habit
         }
         .modelContainer(container)
+        .onChange(of: scenePhase, handleScenePhaseChange)
     }
     
     init() {
@@ -29,5 +35,15 @@ struct HabitsApp: App {
         } catch {
             fatalError("failed to create model container")
         }
+    }
+    
+    private func handleScenePhaseChange() -> Void {
+        switch scenePhase {
+        case .active:
+            currentDate = Date().toString(format: .isoDate) ?? ""
+            break
+        default: break
+        }
+        
     }
 }
