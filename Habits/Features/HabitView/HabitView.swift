@@ -131,10 +131,10 @@ struct HabitViewContent: View {
                                                 .fontDesign(.rounded)
                                                 .fontWeight(date.compare(.isToday) ? .bold : .regular)
                                                 .background {
-                                                    RoundedRectangle(cornerRadius: .infinity)
-                                                        .fill(hasEntry(for: date) ? fillColor : .clear)
-                                                        .grayscale(isWeekend ? 0.75 : 0)
-                                                        .frame(width: 24, height: 32)
+                                                    if hasEntry(for: date) {
+                                                        Pill(color: fillColor)
+                                                            .grayscale(isWeekend ? 0.75 : 0)
+                                                    }
                                                 }
                                                 .frame(minHeight: 32)
                                         }
@@ -142,8 +142,8 @@ struct HabitViewContent: View {
                                     .disabled(isInTheFuture)
                                     .buttonStyle(.borderless)
                                     // make this work for all designs
-                                    .foregroundStyle(isInTheFuture || isWeekend ? .secondary : hasEntry(for: date) ? selectedForegroundColor : .primary)
-                                    .opacity(isInTheFuture ? 0.5 : isWeekend ? 0.75 : 1)
+                                    .foregroundStyle((isInTheFuture || isWeekend) && !hasEntry(for: date) ? .secondary : hasEntry(for: date) ? selectedForegroundColor : .primary)
+                                    .opacity(isInTheFuture ? 0.5 : 1)
                                 }
                             ).tag(habit.entry.count)
                         }
