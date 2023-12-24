@@ -39,6 +39,7 @@
 		AACCAD972B225882008BB8FE /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD962B225882008BB8FE /* DataExport.swift */; };
 		AACCAD982B234BA1008BB8FE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD932B22065A008BB8FE /* Entry.swift */; };
 		AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD922B22065A008BB8FE /* Habit.swift */; };
+		AACF17962B38237A00020C78 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF17952B38237A00020C78 /* Pill.swift */; };
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
 		AADC1CE627BEF547007C47BE /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE527BEF547007C47BE /* Dashboard.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		AACCAD922B22065A008BB8FE /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		AACCAD932B22065A008BB8FE /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		AACCAD962B225882008BB8FE /* DataExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExport.swift; sourceTree = "<group>"; };
+		AACF17952B38237A00020C78 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		AAD2E33627ECD26C00389779 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AADC1CE027BEF547007C47BE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1CE327BEF547007C47BE /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				AA06F1C12AB8341400079B33 /* TextFormats.swift */,
 				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
 				AAE5FBED2B35C5F10052D047 /* LazyView.swift */,
+				AACF17952B38237A00020C78 /* Pill.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				AA86370129D23FBD00144373 /* CalendarUtils.swift in Sources */,
 				AADC1D1F27C13ACC007C47BE /* HabitView.swift in Sources */,
 				AA86370629D4D0C900144373 /* Settings.swift in Sources */,
+				AACF17962B38237A00020C78 /* Pill.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
