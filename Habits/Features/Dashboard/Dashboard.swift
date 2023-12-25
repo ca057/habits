@@ -11,6 +11,7 @@ struct Dashboard: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var showingAddHabit = false
+    @State private var showingSettings = false
 
     @Query(Habit.sortedWithEntries) var habits: [Habit]
 
@@ -49,7 +50,7 @@ struct Dashboard: View {
             }
             .navigationTitle("Habits")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     if !habits.isEmpty {
                         Button {
                             showingAddHabit = true
@@ -59,10 +60,18 @@ struct Dashboard: View {
                         }
                     }
                 }
+
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Settings", systemImage: "gearshape.fill")
+                            .labelStyle(.iconOnly)
+                    }
+                }
             }
-            .sheet(isPresented: $showingAddHabit) {
-                AddHabitView()
-            }
+            .sheet(isPresented: $showingAddHabit) { AddHabitView() }
+            .sheet(isPresented: $showingSettings) { Settings() }
         }
     }
     

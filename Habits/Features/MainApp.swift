@@ -6,25 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainApp: View {
     var body: some View {
-        TabView {
-            Dashboard()
-                .tabItem {
-                    Label("Habits", systemImage: "checklist")
-                }
-            
-            Settings()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                }
-        }
-    }
-}
-
-struct MainApp_Previews: PreviewProvider {
-    static var previews: some View {
-        MainApp()
+        Dashboard()
     }
 }
