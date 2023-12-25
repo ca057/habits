@@ -17,7 +17,6 @@
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
 		AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */; };
 		AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
-		AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636EE29B68F4100144373 /* EmptyState.swift */; };
 		AA8636FA29D23F5300144373 /* ReversedCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636F929D23F5300144373 /* ReversedCalendar.swift */; };
 		AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636F929D23F5300144373 /* ReversedCalendar.swift */; };
 		AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */; };
@@ -32,8 +31,6 @@
 		AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0828739D290085F2B6 /* UIColor.swift */; };
 		AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0828739D290085F2B6 /* UIColor.swift */; };
-		AACA94CC29AA489F002B6837 /* AddHabitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA94CB29AA489F002B6837 /* AddHabitButton.swift */; };
-		AACA94CD29AA489F002B6837 /* AddHabitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA94CB29AA489F002B6837 /* AddHabitButton.swift */; };
 		AACCAD942B22065A008BB8FE /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD922B22065A008BB8FE /* Habit.swift */; };
 		AACCAD952B22065A008BB8FE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD932B22065A008BB8FE /* Entry.swift */; };
 		AACCAD972B225882008BB8FE /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD962B225882008BB8FE /* DataExport.swift */; };
@@ -71,7 +68,6 @@
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
 		AA6F58C12B1DFA0A009BB876 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
-		AA8636EE29B68F4100144373 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
 		AA8636F929D23F5300144373 /* ReversedCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedCalendar.swift; sourceTree = "<group>"; };
 		AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReversedCalendar+Extensions.swift"; sourceTree = "<group>"; };
 		AA86370029D23FBD00144373 /* CalendarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtils.swift; sourceTree = "<group>"; };
@@ -81,7 +77,6 @@
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AAC67B0C287440080085F2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AACA94CB29AA489F002B6837 /* AddHabitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitButton.swift; sourceTree = "<group>"; };
 		AACCAD922B22065A008BB8FE /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		AACCAD932B22065A008BB8FE /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		AACCAD962B225882008BB8FE /* DataExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExport.swift; sourceTree = "<group>"; };
@@ -121,7 +116,6 @@
 		AA8636ED29B68F3000144373 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				AA8636EE29B68F4100144373 /* EmptyState.swift */,
 				AADC1CE527BEF547007C47BE /* Dashboard.swift */,
 				AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */,
 			);
@@ -181,7 +175,6 @@
 				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
 				AA8636F829D23F2D00144373 /* ReversedCalendar */,
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
-				AACA94CB29AA489F002B6837 /* AddHabitButton.swift */,
 				AA09A9D22AB5FB7500999CAD /* HistoryView.swift */,
 				AA06F1C12AB8341400079B33 /* TextFormats.swift */,
 				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
@@ -378,7 +371,6 @@
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
 				AA40AF212AE9A95E007C526D /* HabitHistoryView.swift in Sources */,
 				AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */,
-				AA8636EF29B68F4100144373 /* EmptyState.swift in Sources */,
 				AACCAD942B22065A008BB8FE /* Habit.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */,
@@ -386,7 +378,6 @@
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
 				AACCAD972B225882008BB8FE /* DataExport.swift in Sources */,
 				AA86370429D4CC5600144373 /* MainApp.swift in Sources */,
-				AACA94CC29AA489F002B6837 /* AddHabitButton.swift in Sources */,
 				AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */,
 				AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */,
 				AA06F1C22AB8341400079B33 /* TextFormats.swift in Sources */,
@@ -414,7 +405,6 @@
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */,
-				AACA94CD29AA489F002B6837 /* AddHabitButton.swift in Sources */,
 				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
 				AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */,
 			);

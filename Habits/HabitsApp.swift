@@ -40,6 +40,7 @@ struct HabitsApp: App {
     private func handleScenePhaseChange() -> Void {
         switch scenePhase {
         case .active:
+            // TODO: make this work
             currentDate = Date().toString(format: .isoDate) ?? ""
             break
         default: break

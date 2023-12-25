@@ -137,3 +137,37 @@ struct DashboardItem: View {
         entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
     }
 }
+
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Habit.self, configurations: config)
+    
+    let habit = Habit(
+        colour: Colour.green.toLabel(),
+        createdAt: Date.now,
+        id: UUID(),
+        name: "preview",
+        order: 0
+    )
+    
+    container.mainContext.insert(habit)
+    
+    for i in 1..<10 {
+        let entry = Entry(date: Date().adjust(day: i * Int.random(in: 1..<5)) ?? Date(), habit: habit)
+        container.mainContext.insert(entry)
+    }
+    
+    @MainActor
+    func toggleEntry(for habit: Habit, on date: Date) {
+        if let entry = habit.entry.first(where: { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }) {
+            container.mainContext.delete(entry)
+            try? container.mainContext.save()
+        } else {
+            let entry = Entry(date: date, habit: habit)
+            container.mainContext.insert(entry)
+        }
+    }
+    
+    return DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) })
+        .modelContainer(container)
+}

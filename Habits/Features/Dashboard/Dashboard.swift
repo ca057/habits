@@ -20,8 +20,18 @@ struct Dashboard: View {
                 if habits.isEmpty {
                     VStack {
                         Spacer()
-                        EmptyState() { showingAddHabit = true } // TODO: make it a simple + button
+                        Spacer()
+                        
+                        Button {
+                            showingAddHabit = true
+                        } label: {
+                            Label("Add new habit", systemImage: "plus")
+                                .labelStyle(.iconOnly)
+                                .font(.title)
+                        }
                         .padding()
+                        
+                        Spacer()
                         Spacer()
                         Spacer()
                     }.padding(.horizontal)
@@ -78,6 +88,6 @@ struct Dashboard: View {
     }
 }
 
-#Preview {
+#Preview("empty state") {
     Dashboard()
 }
