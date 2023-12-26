@@ -43,6 +43,7 @@ struct AddHabitView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save", action: handleSave)
                         .disabled(!isValid)
+                        .fontWeight(isValid ? .bold : .regular)
                 }
             }
         }

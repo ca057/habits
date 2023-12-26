@@ -83,7 +83,7 @@ struct Settings: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
                         dismissView()
-                    }.fontWeight(.medium)
+                    }.fontWeight(.bold)
                 }
             }
             .fileExporter(
