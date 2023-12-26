@@ -100,3 +100,14 @@ struct Dashboard: View {
 #Preview("empty state") {
     Dashboard()
 }
+
+#Preview("default") {
+    do {
+        let previewer = try Previewer()
+        
+        return Dashboard()
+            .modelContainer(previewer.container)
+    } catch {
+        return Text("error creating preview: \(error.localizedDescription)")
+    }
+}

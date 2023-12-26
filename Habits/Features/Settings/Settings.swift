@@ -17,6 +17,7 @@ fileprivate struct ErrorAlert {
 
 struct Settings: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismissView
 
     @State private var errorMessage = ErrorAlert()
     @State private var showingExporter = false
@@ -78,6 +79,13 @@ struct Settings: View {
                 }
             }
             .navigationTitle("Settings")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        dismissView()
+                    }.fontWeight(.medium)
+                }
+            }
             .fileExporter(
                 isPresented: $showingExporter,
                 document: getDataAsJsonFile(),
@@ -110,7 +118,9 @@ struct Settings: View {
             }
         }
     }
-    
+}
+
+fileprivate extension Settings {
     private func getHighResolutionAppIconName() -> String? {
         guard let infoPlist = Bundle.main.infoDictionary else { return nil }
         guard let bundleIcons = infoPlist["CFBundleIcons"] as? NSDictionary else { return nil }
@@ -120,9 +130,6 @@ struct Settings: View {
         return appIcon
     }
 
-}
-
-fileprivate extension Settings {
     func getDataAsJsonFile() -> DataExport.JSONFile? {
         do {
             let allHabitsDescriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.createdAt)])
@@ -217,6 +224,13 @@ fileprivate extension Settings {
 }
 
 #Preview {
-    Settings()
+    do {
+        let previewer = try Previewer()
+
+        return Settings()
+            .modelContainer(previewer.container)
+    } catch {
+        return Text("error creating preview: \(error.localizedDescription)")
+    }
 }
 
