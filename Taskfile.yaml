@@ -3,6 +3,7 @@ version: "3"
 tasks:
   beta:
     cmds:
+      # TODO: commit automatically and push? check if it’s the main branch
       - bundle exec fastlane ios beta
   test:
     cmds:
