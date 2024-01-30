@@ -14,6 +14,8 @@ struct Dashboard: View {
     @State private var showingSettings = false
 
     @Query(Habit.sortedWithEntries) var habits: [Habit]
+    
+    var showUntil: Date
 
     var body: some View {
         NavigationView {
@@ -39,7 +41,7 @@ struct Dashboard: View {
                 } else {
                     List {
                         ForEach(habits) { habit in
-                            DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
+                            DashboardItem(showUntil: showUntil, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
                                 .background(
                                     NavigationLink("", destination: LazyView(HabitView(id: habit.id))).opacity(0)
                                 )
@@ -98,14 +100,14 @@ struct Dashboard: View {
 }
 
 #Preview("empty state") {
-    Dashboard()
+    Dashboard(showUntil: Date.now)
 }
 
 #Preview("default") {
     do {
         let previewer = try Previewer()
         
-        return Dashboard()
+        return Dashboard(showUntil: Date.now)
             .modelContainer(previewer.container)
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")

@@ -85,11 +85,9 @@ private extension Date {
 let elementDisplayCount = 7
 
 struct DashboardItem: View {
+    var now: Date
     var habit: Habit
     var toggleEntry: (Habit, Date) -> Void
-
-    private let now = Date.now
-    private let today = Calendar.current.dateComponents([.day], from: Date.now)
     
     @Query private var entries: [Entry]
     
@@ -117,7 +115,7 @@ struct DashboardItem: View {
         .padding(.vertical)
     }
     
-    init(habit: Habit, toggleEntry: @escaping (Habit, Date) -> Void) {
+    init(showUntil now: Date, forHabit habit: Habit, toggleEntry: @escaping (Habit, Date) -> Void) {
         let habitModelId = habit.persistentModelID
 
         var descriptor = FetchDescriptor<Entry>(
@@ -129,6 +127,7 @@ struct DashboardItem: View {
         
         _entries = Query(descriptor)
 
+        self.now = now
         self.habit = habit
         self.toggleEntry = toggleEntry
     }
@@ -168,6 +167,6 @@ struct DashboardItem: View {
         }
     }
     
-    return DashboardItem(habit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) })
+    return DashboardItem(showUntil: Date.now, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) })
         .modelContainer(container)
 }
