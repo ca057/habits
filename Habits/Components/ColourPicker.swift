@@ -77,6 +77,7 @@ private struct ColourPickerButton: View {
         Button(action: {
             perform(colour)
         }) {
+            Pill(color: color)
             Text("")
                 .padding()
                 .background(
@@ -113,11 +114,16 @@ struct ColourPicker: View {
     }
 }
 
-struct ColourPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        ColourPicker(
-            colours: Colour.allCasesSorted,
-            selection: .constant(Colour.allCasesSorted[0])
-        )
-    }
+#Preview("light mode") {
+    ColourPicker(
+        colours: Colour.allCasesSorted,
+        selection: .constant(Colour.allCasesSorted[0])
+    ).preferredColorScheme(.light)
+}
+
+#Preview("dark mode") {
+    ColourPicker(
+        colours: Colour.allCasesSorted,
+        selection: .constant(Colour.allCasesSorted[0])
+    ).preferredColorScheme(.dark)
 }
