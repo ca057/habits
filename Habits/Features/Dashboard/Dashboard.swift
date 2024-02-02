@@ -60,6 +60,7 @@ struct Dashboard: View {
                             Label("Add new habit", systemImage: "plus")
                                 .labelStyle(IconOnlyLabelStyle())
                         }
+                        .tint(Color(UIColor.label))
                     }
                 }
 
@@ -70,6 +71,7 @@ struct Dashboard: View {
                         Label("Settings", systemImage: "gearshape.fill")
                             .labelStyle(.iconOnly)
                     }
+                    .tint(Color(UIColor.label))
                 }
             }
             .sheet(isPresented: $showingAddHabit) { AddHabitView() }
@@ -109,6 +111,23 @@ struct Dashboard: View {
         
         return Dashboard(showUntil: Date.now)
             .modelContainer(previewer.container)
+    } catch {
+        return Text("error creating preview: \(error.localizedDescription)")
+    }
+}
+
+#Preview("empty state (dark)") {
+    Dashboard()
+        .preferredColorScheme(.dark)
+}
+
+#Preview("default (dark)") {
+    do {
+        let previewer = try Previewer()
+        
+        return Dashboard()
+            .modelContainer(previewer.container)
+            .preferredColorScheme(.dark)
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")
     }
