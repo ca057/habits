@@ -67,7 +67,7 @@ extension Colour {
 
 private struct ColourPickerButton: View {
     var colour: Colour
-    var selected: Bool
+    @Binding var selected: Bool
     var perform: (Colour) -> Void
     private var color: Color {
         colour.toColor()
@@ -77,16 +77,8 @@ private struct ColourPickerButton: View {
         Button(action: {
             perform(colour)
         }) {
-            Pill(color: color)
-            Text("")
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .fill(selected ? color : .clear)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: .infinity).stroke(color, lineWidth: 4)
-                )
+            // TODO: make this size dynamic
+            Pill(color: color, filled: $selected)
         }
         .buttonStyle(BorderlessButtonStyle())
         .accessibilityLabel(colour.toLabel())
@@ -105,7 +97,7 @@ struct ColourPicker: View {
             ForEach(colours, id: \.self) { colour in
                 ColourPickerButton(
                     colour: colour,
-                    selected: selection == colour,
+                    selected: Binding(get: { selection == colour }, set: { _ in }),
                     perform: { selection = $0 }
                 )
             }
