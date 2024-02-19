@@ -117,7 +117,7 @@ struct Dashboard: View {
 }
 
 #Preview("empty state (dark)") {
-    Dashboard()
+    Dashboard(showUntil: Date.now)
         .preferredColorScheme(.dark)
 }
 
@@ -125,7 +125,7 @@ struct Dashboard: View {
     do {
         let previewer = try Previewer()
         
-        return Dashboard()
+        return Dashboard(showUntil: Date.now)
             .modelContainer(previewer.container)
             .preferredColorScheme(.dark)
     } catch {

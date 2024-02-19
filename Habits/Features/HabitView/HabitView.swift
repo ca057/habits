@@ -130,13 +130,13 @@ struct HabitViewContent: View {
                                                 .font(.footnote)
                                                 .fontDesign(.rounded)
                                                 .fontWeight(date.compare(.isToday) ? .bold : .regular)
-                                                .background {
-                                                    if hasEntry(for: date) {
-                                                        Pill(color: fillColor, filled: Binding.constant(true))
-                                                            .grayscale(isWeekend ? 0.75 : 0)
-                                                            .transition(.scale.animation(.easeIn(duration: 0.05)))
-                                                    }
-                                                }
+//                                                .background {
+//                                                    if hasEntry(for: date) {
+//                                                        Pill(color: fillColor, filled: Binding.constant(true))
+//                                                            .grayscale(isWeekend ? 0.75 : 0)
+//                                                            .transition(.scale.animation(.easeIn(duration: 0.05)))
+//                                                    }
+//                                                }
                                                 .frame(minHeight: 32)
                                         }
                                     })

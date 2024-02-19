@@ -65,57 +65,53 @@ extension Colour {
     }
 }
 
-private struct ColourPickerButton: View {
-    var colour: Colour
-    @Binding var selected: Bool
-    var perform: (Colour) -> Void
-    private var color: Color {
-        colour.toColor()
-    }
-
-    var body: some View {
-        Button(action: {
-            perform(colour)
-        }) {
-            // TODO: make this size dynamic
-            Pill(color: color, filled: $selected)
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .accessibilityLabel(colour.toLabel())
-        .frame(maxWidth: .infinity)
-    }
-}
-
-
-
 struct ColourPicker: View {
     var colours: [Colour]
     @Binding var selection: Colour
 
     var body: some View {
-        HStack(spacing: 4) {
-            ForEach(colours, id: \.self) { colour in
-                ColourPickerButton(
-                    colour: colour,
-                    selected: Binding(get: { selection == colour }, set: { _ in }),
-                    perform: { selection = $0 }
-                )
+        GeometryReader { geometry in
+            HStack(spacing: 4) {
+                let itemWidth = (geometry.size.width - CGFloat((colours.count - 1) * 4)) / CGFloat(colours.count)
+
+                ForEach(colours, id: \.self) { colour in
+                    Button(action: { selection = colour }) {
+                        Pill(
+                            color: colour.toColor(),
+                            width: itemWidth,
+                            filled: Binding(get: { selection == colour }, set: { _ in })
+                        )
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    .accessibilityLabel(colour.toLabel())
+                }
             }
         }
-        .frame(maxWidth: .infinity)
     }
 }
 
-#Preview("light mode") {
-    ColourPicker(
-        colours: Colour.allCasesSorted,
-        selection: .constant(Colour.allCasesSorted[0])
-    ).preferredColorScheme(.light)
-}
+#Preview {
+    struct Container: View {
+        @State var colorScheme = ColorScheme.light
+        @State var selected = Colour.allCasesSorted[0]
 
-#Preview("dark mode") {
-    ColourPicker(
-        colours: Colour.allCasesSorted,
-        selection: .constant(Colour.allCasesSorted[0])
-    ).preferredColorScheme(.dark)
+        var body: some View {
+            VStack(spacing: 32) {
+                Spacer().frame(height: .infinity)
+
+                VStack {
+                    ColourPicker(colours: Colour.allCasesSorted, selection: $selected)
+                    
+                    Button("switch to \(colorScheme == .dark ? "light" : "dark")") {
+                        colorScheme = colorScheme == .dark ? .light : .dark
+                    }
+                }
+                Spacer().frame(height: .infinity)
+            }
+            .padding()
+            .preferredColorScheme(colorScheme)
+        }
+    }
+    
+    return Container()
 }
