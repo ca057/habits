@@ -38,10 +38,18 @@ echo "setting up dev environment for Habits"
 echo "---"
 command_exists brew
 command_exists gem
+command_exists asdf
+
+echo "install all runtimes"
+asdf install
+echo "---"
 
 install_with_brew "pre-commit"
+echo "---"
 install_with_gem "xcpretty" 
+echo "---"
 install_with_brew "task" "go-task/tap/go-task"
+echo "---"
 
 pre-commit install --hook-type pre-push
 
