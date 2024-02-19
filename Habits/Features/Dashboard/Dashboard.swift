@@ -101,10 +101,6 @@ struct Dashboard: View {
     }
 }
 
-#Preview("empty state") {
-    Dashboard(showUntil: Date.now)
-}
-
 #Preview("default") {
     do {
         let previewer = try Previewer()
@@ -114,6 +110,10 @@ struct Dashboard: View {
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")
     }
+}
+
+#Preview("empty state") {
+    Dashboard(showUntil: Date.now)
 }
 
 #Preview("empty state (dark)") {

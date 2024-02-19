@@ -15,6 +15,7 @@ struct DayElement: View {
     let selected: Bool
     let color: Color
     let onEntrySelect: (Date) -> Void
+    let width: CGFloat
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -46,28 +47,30 @@ struct DayElement: View {
                 .padding(.horizontal, 4)
                 .padding(.vertical, 20)
                 .background(
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .fill(selected ? fillColor : .clear)
-                        .grayscale(grayScale)
+                    Pill(color: fillColor, width: width, filled: .constant(selected))
+//                    RoundedRectangle(cornerRadius: .infinity)
+//                        .fill(selected ? fillColor : .clear)
+//                        .grayscale(grayScale)
                 )
-                .overlay(
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .stroke(fillColor, lineWidth: 4)
-                        .grayscale(grayScale)
-                )
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: .infinity)
+//                        .stroke(fillColor, lineWidth: 4)
+//                        .grayscale(grayScale)
+//                )
                 .lineLimit(1)
         })
         .buttonStyle(BorderlessButtonStyle())
         .foregroundColor(.primary)
     }
     
-    init(_ date: Date, selected: Bool, color: Color, onEntrySelect: @escaping (Date) -> Void) {
+    init(_ date: Date, selected: Bool, color: Color, onEntrySelect: @escaping (Date) -> Void, width: CGFloat) {
         self.date = date
         self.formattedDay = "\(Calendar.current.dateComponents([.day], from: date).day ?? 0)"
         self.isInWeekend = Calendar.current.isDateInWeekend(date)
         self.selected = selected
         self.color = color
         self.onEntrySelect = onEntrySelect
+        self.width = width
     }
     
     func handlePress() {
@@ -98,17 +101,21 @@ struct DashboardItem: View {
                 .bold()
                 .padding(.bottom)
                 .lineLimit(1)
-                        
-            HStack(spacing: 8) {
-                ForEach(0..<elementDisplayCount, id: \.self) { index in
-                    let date = now.getDayWithDistance(by: index - (elementDisplayCount - 1))
+            
+            GeometryReader { geometry in
+                let itemWidth = (geometry.size.width - CGFloat((elementDisplayCount - 1) * 8)) / CGFloat(elementDisplayCount)
+                HStack(spacing: 8) {
+                    ForEach(0..<elementDisplayCount, id: \.self) { index in
+                        let date = now.getDayWithDistance(by: index - (elementDisplayCount - 1))
 
-                    DayElement(
-                        date,
-                        selected: hasEntry(for: date),
-                        color: Colour(rawValue: habit.colour)?.toColor() ?? Colour.base.toColor(),
-                        onEntrySelect: { toggleEntry(habit, $0)}
-                    )
+                        DayElement(
+                            date,
+                            selected: hasEntry(for: date),
+                            color: Colour(rawValue: habit.colour)?.toColor() ?? Colour.base.toColor(),
+                            onEntrySelect: { toggleEntry(habit, $0)},
+                            width: itemWidth
+                        )
+                    }
                 }
             }
         }
@@ -167,6 +174,11 @@ struct DashboardItem: View {
         }
     }
     
-    return DashboardItem(showUntil: Date.now, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) })
+    return DashboardItem(
+            showUntil: Date.now,
+            forHabit: habit,
+            toggleEntry: { toggleEntry(for: $0, on: $1) }
+        )
+        .padding()
         .modelContainer(container)
 }
