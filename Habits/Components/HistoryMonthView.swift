@@ -46,7 +46,6 @@ struct HistoryMonthView<Content>: View where Content: View {
                 }
             })
         }
-//        .frame(maxWidth: .infinity)
     }
     
     private func getDaysInWeek(_ week: Date) -> [Date] {
@@ -65,8 +64,16 @@ struct HistoryMonthView<Content>: View where Content: View {
     HistoryMonthView(
         startOfMonth: Date.now,
         cell: { date in
-            Text(date.toString(format: .custom("d")) ?? "")
-                .opacity(date.compare(.isInTheFuture) ? 0.5 : 1)
+//            GeometryReader { g in
+//                Text(date.toString(format: .custom("d")) ?? "")
+//                    .frame(width: g.size.width)
+//                    .background {
+                        Pill(.brown, filled: Binding.constant(date.compare(.isWeekend)))
+                            .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+//                    }
+//                    .opacity(date.compare(.isInTheFuture) ? 0.5 : 1)
+//                    .padding(.vertical, 40)
+//            }
         }
     )
 }

@@ -125,26 +125,29 @@ struct HabitViewContent: View {
                                     Button(action: {
                                         toggleEntryFor(date)
                                     }, label: {
-                                        VStack {
-                                            Text(date.toString(format: .custom("d")) ?? "")
-                                                .font(.footnote)
-                                                .fontDesign(.rounded)
-                                                .fontWeight(date.compare(.isToday) ? .bold : .regular)
-//                                                .background {
-//                                                    if hasEntry(for: date) {
-//                                                        Pill(color: fillColor, filled: Binding.constant(true))
-//                                                            .grayscale(isWeekend ? 0.75 : 0)
-//                                                            .transition(.scale.animation(.easeIn(duration: 0.05)))
-//                                                    }
-//                                                }
-                                                .frame(minHeight: 32)
+                                        HStack {
+                                            VStack {
+                                                Spacer()
+                                                Text(date.toString(format: .custom("d")) ?? "")
+                                                    .font(.footnote)
+                                                    .fontDesign(.rounded)
+                                                    .fontWeight(date.compare(.isToday) ? .bold : .regular)
+                                                Spacer()
+                                            }
+                                            .frame(minWidth: 24)
+                                            .background {
+                                                if hasEntry(for: date) {
+                                                    Pill(fillColor, filled: Binding.constant(true))
+                                                }
+                                            }
                                         }
                                     })
                                     .disabled(isInTheFuture)
                                     .buttonStyle(.borderless)
-                                    // make this work for all designs
+                                    // TODO: make this work for all designs
                                     .foregroundStyle((isInTheFuture || isWeekend) && !hasEntry(for: date) ? .secondary : hasEntry(for: date) ? selectedForegroundColor : .primary)
                                     .opacity(isInTheFuture ? 0.5 : 1)
+                                    .padding(.vertical, 4)
                                 }
                             ).tag(habit.entry.count)
                         }
@@ -155,8 +158,9 @@ struct HabitViewContent: View {
                         VStack(alignment: .leading) {
                             Text("Colour")
                             ColourPicker(colours: Colour.allCasesSorted, selection: Bindable(habit).asColour)
-                                .padding(.bottom, 4)
+                                .frame(minHeight: 32)
                         }
+                        .padding(.bottom)
                     }
                     
                     Section("Danger Zone") {

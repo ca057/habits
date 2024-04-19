@@ -30,6 +30,7 @@ struct AddHabitView: View {
                             colours: Colour.allCasesSorted,
                             selection: $bgColour
                         )
+                        .frame(minHeight: 32)
                         .accessibilityLabel("Background colour")
                     }
                     .padding(.bottom, 4)

@@ -46,17 +46,7 @@ struct DayElement: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 20)
-                .background(
-                    Pill(color: fillColor, width: width, filled: .constant(selected))
-//                    RoundedRectangle(cornerRadius: .infinity)
-//                        .fill(selected ? fillColor : .clear)
-//                        .grayscale(grayScale)
-                )
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: .infinity)
-//                        .stroke(fillColor, lineWidth: 4)
-//                        .grayscale(grayScale)
-//                )
+                .background(Pill(fillColor, filled: .constant(selected)))
                 .lineLimit(1)
         })
         .buttonStyle(BorderlessButtonStyle())
@@ -97,9 +87,8 @@ struct DashboardItem: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(habit.name)
-                .font(.title)
-                .bold()
-                .padding(.bottom)
+                .font(.title2)
+                .padding(.bottom, 4)
                 .lineLimit(1)
             
             GeometryReader { geometry in

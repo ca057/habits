@@ -70,21 +70,13 @@ struct ColourPicker: View {
     @Binding var selection: Colour
 
     var body: some View {
-        GeometryReader { geometry in
-            HStack(spacing: 4) {
-                let itemWidth = (geometry.size.width - CGFloat((colours.count - 1) * 4)) / CGFloat(colours.count)
-
-                ForEach(colours, id: \.self) { colour in
-                    Button(action: { selection = colour }) {
-                        Pill(
-                            color: colour.toColor(),
-                            width: itemWidth,
-                            filled: Binding(get: { selection == colour }, set: { _ in })
-                        )
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                    .accessibilityLabel(colour.toLabel())
+        HStack(spacing: 4) {
+            ForEach(colours, id: \.self) { colour in
+                Button(action: { selection = colour }) {
+                    Pill(colour.toColor(), filled: Binding(get: { selection == colour }, set: { _ in }))
                 }
+                .buttonStyle(BorderlessButtonStyle())
+                .accessibilityLabel(colour.toLabel())
             }
         }
     }
@@ -96,17 +88,18 @@ struct ColourPicker: View {
         @State var selected = Colour.allCasesSorted[0]
 
         var body: some View {
-            VStack(spacing: 32) {
-                Spacer().frame(height: .infinity)
-
-                VStack {
-                    ColourPicker(colours: Colour.allCasesSorted, selection: $selected)
-                    
-                    Button("switch to \(colorScheme == .dark ? "light" : "dark")") {
-                        colorScheme = colorScheme == .dark ? .light : .dark
+            VStack {
+                ColourPicker(colours: Colour.allCasesSorted, selection: $selected)
+                
+                Form {
+                    Section {
+                        ColourPicker(colours: Colour.allCasesSorted, selection: $selected)
                     }
                 }
-                Spacer().frame(height: .infinity)
+                
+                Button("switch to \(colorScheme == .dark ? "light" : "dark")") {
+                    colorScheme = colorScheme == .dark ? .light : .dark
+                }
             }
             .padding()
             .preferredColorScheme(colorScheme)
