@@ -33,36 +33,55 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
 
     var year: Date
     var achieved: [Date]
+    
+    private var countOfDays: Int {
+        guard let startOfYear = Date.now.adjust(for: .startOfYear),
+              let endOfToday = Date.now.adjust(for: .endOfDay)
+        else { return 0 }
+
+        let hours = calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour
+        
+        return Int(ceil(Double(hours ?? 0) / 24))
+    }
+    private var achievedPercentage: Double {
+        (Double(achieved.count) / Double(countOfDays) * 100).rounded() / 100
+    }
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            ForEach(getMonthsWithDaysInYear(year), id: \.self) { days in
-                VStack(spacing: 4) {
-                    ForEach(days, id: \.self) { day in
-                        Circle()
-                            .frame(width: 12, height: 12)
-                            .foregroundStyle(
-                                // TODO: make this more efficient!
-                                achieved.contains(where: {
-                                    $0.compare(.isSameDay(as: day))
-                                })
-                                ? .green.opacity(day.compare(.isWeekend) ? 0.5 : 1)
-                                : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
-                            )
-                            .overlay {
-                                if day.compare(.isToday) {
-                                    Circle()
-                                        .stroke(.black, lineWidth: 2)
-                                        .fill(.clear)
-                                        .frame(width: 16, height: 16)
+        VStack(alignment: .leading) {
+            HStack(alignment: .top, spacing: 12) {
+                ForEach(getMonthsWithDaysInYear(year), id: \.self) { days in
+                    VStack(spacing: 4) {
+                        ForEach(days, id: \.self) { day in
+                            Circle()
+                                .frame(width: 12, height: 12)
+                                .foregroundStyle(
+                                    // TODO: make this more efficient!
+                                    achieved.contains(where: {
+                                        $0.compare(.isSameDay(as: day))
+                                    })
+                                    ? .green.opacity(day.compare(.isWeekend) ? 0.5 : 1)
+                                    : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
+                                )
+                                .overlay {
+                                    if day.compare(.isToday) {
+                                        Circle()
+                                            .stroke(.black, lineWidth: 2)
+                                            .fill(.clear)
+                                            .frame(width: 16, height: 16)
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
-            }
+            }.padding(.bottom)
+            
+            // TODO: move this out of this component
+            Text("\(achieved.count) out of \(countOfDays) days (\(achievedPercentage.formatted(.percent)))")
+                .fontDesign(.rounded)
         }
     }
-    
+
     private func getMonthsWithDaysInYear(_ year: Date) -> [[Date]] {
         guard
             let yearInteral = calendar.dateInterval(of: .year, for: year)
@@ -115,7 +134,7 @@ struct FrequencyAchievementOverview: View {
                     inside: interval,
                     matching: DateComponents(hour: 0)
                 ).reduce(into: [Date]()) { res, d in
-                    if Int.random(in: 1..<100) < 75 {
+                    if Int.random(in: 1..<100) < 70 {
                         res.append(d)
                     }
                 }
