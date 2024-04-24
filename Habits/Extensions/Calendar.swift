@@ -8,12 +8,12 @@
 import Foundation
 
 extension Calendar {
-    // copied from https://gist.github.com/mecid/f8859ea4bdbd02cf5d440d58e936faec
-    
     func generateDates(
         inside interval: DateInterval,
         matching components: DateComponents
     ) -> [Date] {
+        // copied from https://gist.github.com/mecid/f8859ea4bdbd02cf5d440d58e936faec
+
         var dates: [Date] = []
         dates.append(interval.start)
         

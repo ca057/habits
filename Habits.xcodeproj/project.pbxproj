@@ -47,6 +47,7 @@
 		AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5FBED2B35C5F10052D047 /* LazyView.swift */; };
 		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
 		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
+		AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		AADC1D1E27C13ACC007C47BE /* HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitView.swift; sourceTree = "<group>"; };
 		AAE5FBED2B35C5F10052D047 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
+		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				AADC1D1E27C13ACC007C47BE /* HabitView.swift */,
 				AA40AF202AE9A95E007C526D /* HabitHistoryView.swift */,
+				AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */,
 			);
 			path = HabitView;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				AA40AF212AE9A95E007C526D /* HabitHistoryView.swift in Sources */,
 				AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */,
 				AACCAD942B22065A008BB8FE /* Habit.swift in Sources */,
+				AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */,
 				AA06F1C42AB8354700079B33 /* Button.swift in Sources */,
