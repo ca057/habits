@@ -46,43 +46,7 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
     private var achievedPercentage: Double {
         (Double(achieved.count) / Double(countOfDays) * 100).rounded() / 100
     }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 12) {
-                ForEach(getMonthsWithDaysInYear(year), id: \.self) { days in
-                    VStack(spacing: 4) {
-                        ForEach(days, id: \.self) { day in
-                            Circle()
-                                .frame(width: 12, height: 12)
-                                .foregroundStyle(
-                                    // TODO: make this more efficient!
-                                    achieved.contains(where: {
-                                        $0.compare(.isSameDay(as: day))
-                                    })
-                                    ? .green.opacity(day.compare(.isWeekend) ? 0.5 : 1)
-                                    : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
-                                )
-                                .overlay {
-                                    if day.compare(.isToday) {
-                                        Circle()
-                                            .stroke(.black, lineWidth: 2)
-                                            .fill(.clear)
-                                            .frame(width: 16, height: 16)
-                                    }
-                                }
-                        }
-                    }
-                }
-            }.padding(.bottom)
-            
-            // TODO: move this out of this component
-            Text("\(achieved.count) out of \(countOfDays) days (\(achievedPercentage.formatted(.percent)))")
-                .fontDesign(.rounded)
-        }
-    }
-
-    private func getMonthsWithDaysInYear(_ year: Date) -> [[Date]] {
+    private var daysOfMonth: [[Date]] {
         guard
             let yearInteral = calendar.dateInterval(of: .year, for: year)
         else { return [] }
@@ -91,6 +55,49 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
             inside: yearInteral,
             matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
         ).map { getDaysInMonth($0) }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                ForEach(daysOfMonth, id: \.self) { days in
+                    HStack {
+                        VStack(spacing: 4) {
+                            ForEach(days, id: \.self) { day in
+                                Circle()
+                                    .frame(width: 12, height: 12)
+                                    .foregroundStyle(
+                                        // TODO: make this more efficient!
+                                        achieved.contains(where: {
+                                            $0.compare(.isSameDay(as: day))
+                                        })
+                                        ? .green.opacity(day.compare(.isWeekend) ? 0.5 : 1)
+                                        : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
+                                    )
+                                    .overlay {
+                                        if day.compare(.isToday) {
+                                            Circle()
+                                                .stroke(.black, lineWidth: 2)
+                                                .fill(.clear)
+                                                .frame(width: 16, height: 16)
+                                        }
+                                    }
+                            }
+                        }
+                        if daysOfMonth.last != days {
+                            Spacer()
+                        }
+                    }
+                }
+            }.padding(.bottom)
+            
+            // TODO: move this out of this component
+            Text("\(achieved.count)").fontDesign(.rounded) +
+            Text(" out of ").fontDesign(.rounded) +
+            Text("\(countOfDays)").fontDesign(.rounded) +
+            Text(" days ") +
+            Text("(\(achievedPercentage.formatted(.percent))").fontDesign(.rounded).monospacedDigit().fontWeight(.bold)
+        }
     }
     
     private func getDaysInMonth(_ month: Date) -> [Date] {
