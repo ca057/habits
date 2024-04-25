@@ -43,7 +43,7 @@ struct Dashboard: View {
                         ForEach(habits) { habit in
                             DashboardItem(showUntil: showUntil, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
                                 .background(
-                                    NavigationLink("", destination: LazyView(HabitView(id: habit.id))).opacity(0)
+                                    NavigationLink("", destination: LazyView(SingleHabitView(id: habit.id))).opacity(0)
                                 )
                         }
                         .onMove {  reorderElements(source: $0, destination: $1) }

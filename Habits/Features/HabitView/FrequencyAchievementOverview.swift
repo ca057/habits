@@ -33,19 +33,8 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
 
     var year: Date
     var achieved: [Date]
-    
-    private var countOfDays: Int {
-        guard let startOfYear = Date.now.adjust(for: .startOfYear),
-              let endOfToday = Date.now.adjust(for: .endOfDay)
-        else { return 0 }
+    var color: Color
 
-        let hours = calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour
-        
-        return Int(ceil(Double(hours ?? 0) / 24))
-    }
-    private var achievedPercentage: Double {
-        (Double(achieved.count) / Double(countOfDays) * 100).rounded() / 100
-    }
     private var daysOfMonth: [[Date]] {
         guard
             let yearInteral = calendar.dateInterval(of: .year, for: year)
@@ -71,7 +60,7 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                         achieved.contains(where: {
                                             $0.compare(.isSameDay(as: day))
                                         })
-                                        ? .green.opacity(day.compare(.isWeekend) ? 0.5 : 1)
+                                        ? color.opacity(day.compare(.isWeekend) ? 0.5 : 1)
                                         : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
                                     )
                                     .overlay {
@@ -90,13 +79,6 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                     }
                 }
             }.padding(.bottom)
-            
-            // TODO: move this out of this component
-            Text("\(achieved.count)").fontDesign(.rounded) +
-            Text(" out of ").fontDesign(.rounded) +
-            Text("\(countOfDays)").fontDesign(.rounded) +
-            Text(" days ") +
-            Text("(\(achievedPercentage.formatted(.percent)))").fontDesign(.rounded).fontWeight(.bold)
         }
     }
     
@@ -114,18 +96,22 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
 
 struct FrequencyAchievementOverview: View {
     var frequency: Frequency = .daily
+    var year: Date
     var achieved: [Date]
+    var color: Color
 
     var body: some View {
         switch frequency {
-        case .daily: DailyFrequencyAchievementOverview(year: Date.now, achieved: achieved)
+        case .daily: DailyFrequencyAchievementOverview(year: year, achieved: achieved, color: color)
 //        case .weekly: WeeklyFrequencyAchievementOverview(year: Date.now)
         }
     }
     
-    init(_ frequency: Frequency = .daily, achieved: [Date]) {
+    init(_ frequency: Frequency = .daily, year: Date, achieved: [Date], color: Color) {
         self.frequency = frequency
+        self.year = year
         self.achieved = achieved
+        self.color = color
     }
 }
 
@@ -149,7 +135,7 @@ struct FrequencyAchievementOverview: View {
 
         var body: some View {
             VStack {
-                FrequencyAchievementOverview(frequency, achieved: achievedDays)
+                FrequencyAchievementOverview(frequency, year: Date.now, achieved: achievedDays, color: .green)
                 
                 Spacer()
 
