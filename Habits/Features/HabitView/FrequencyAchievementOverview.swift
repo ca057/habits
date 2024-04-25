@@ -96,7 +96,7 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
             Text(" out of ").fontDesign(.rounded) +
             Text("\(countOfDays)").fontDesign(.rounded) +
             Text(" days ") +
-            Text("(\(achievedPercentage.formatted(.percent))").fontDesign(.rounded).monospacedDigit().fontWeight(.bold)
+            Text("(\(achievedPercentage.formatted(.percent)))").fontDesign(.rounded).fontWeight(.bold)
         }
     }
     
