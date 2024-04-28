@@ -71,6 +71,8 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                                 .frame(width: 16, height: 16)
                                         }
                                     }
+                                    // TODO: fix magic number
+                                    .padding(.bottom, day.component(.weekday) == 1 ? 8 : 0)
                             }
                         }
                         if daysOfMonth.last != days {
