@@ -32,7 +32,7 @@ fileprivate struct SingleHabitViewContent: View {
     var habit: Habit
     var entries: [Entry]
     
-    @State private var year = Date.now.adjust(for: .startOfYear) ?? Date.now
+    @State private var year = Date.now
     private var achievedOfYear: [Date] {
         entries.reduce(into: [Date]()) { res, e in
             if e.date.compare(.isSameYear(as: year)) {
@@ -41,15 +41,12 @@ fileprivate struct SingleHabitViewContent: View {
         }
     }
 
-    // TODO: make this an external thingy
     private var countOfDays: Int {
         guard let startOfYear = year.adjust(for: .startOfYear),
               let endOfToday = year.adjust(for: year.compare(.isThisYear) ? .endOfDay : .endOfYear)
         else { return 0 }
         
-        let hours = calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour
-        
-        return Int(ceil(Double(hours ?? 0) / 24))
+        return Int(ceil(Double(calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour ?? 0) / 24))
     }
     private var achievedPercentage: Double {
         (Double(achievedOfYear.count) / Double(countOfDays) * 100).rounded() / 100
