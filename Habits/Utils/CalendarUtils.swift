@@ -17,6 +17,7 @@ class CalendarUtils {
     
     var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale.autoupdatingCurrent
         calendar.firstWeekday = 2 // Monday
         calendar.minimumDaysInFirstWeek = 4 // TODO: figure out why
         return calendar

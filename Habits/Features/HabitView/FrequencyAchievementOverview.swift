@@ -78,10 +78,10 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                         }
                     }
                 }
-            }.padding(.bottom, 4)
+            }.padding(.bottom, 2)
             HStack {
-                ForEach(calendar.veryShortStandaloneMonthSymbols, id: \.self) { month in
-                    Text(month)
+                ForEach(0..<calendar.veryShortStandaloneMonthSymbols.count, id: \.self) { index in
+                    Text(calendar.veryShortStandaloneMonthSymbols[index])
                         .monospaced()
                         .frame(maxWidth: .infinity)
                 }

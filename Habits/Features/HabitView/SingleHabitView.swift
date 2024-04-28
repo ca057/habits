@@ -77,6 +77,7 @@ fileprivate struct SingleHabitViewContent: View {
                     .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    // TODO: make a tap on it reset the graph to the initial state
                     Text(year.component(.year)?.description ?? "").monospaced()
                     
                     Button {
