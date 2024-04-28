@@ -59,16 +59,20 @@ fileprivate struct SingleHabitViewContent: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                // TODO: pass in year for leap years
                 FrequencyAchievementOverview(
                     .daily,
-                    year: Date.now, // TODO:
+                    year: year,
                     achieved: achievedOfYear,
                     color: habit.asColour.toColor()
                 )
                 HStack {
-                    Button("", systemImage: "arrow.backward") {
+                    Button {
                         year = year.offset(.year, value: -1) ?? Date.now
+                    } label: {
+                        Label(
+                            title: { Text("Show previous year") },
+                            icon: { Image(systemName: "arrow.backward") }
+                        ).labelStyle(.iconOnly)
                     }
                     .disabled(year.component(.year) ?? 0 <= 0)
                     .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
@@ -76,9 +80,13 @@ fileprivate struct SingleHabitViewContent: View {
                     
                     Text(year.component(.year)?.description ?? "").monospaced()
                     
-                    // TODO: make label trailing
-                    Button("", systemImage: "arrow.forward") {
+                    Button {
                         year = year.offset(.year, value: 1) ?? Date.now
+                    } label: {
+                        Label(
+                            title: { Text("Show next year") },
+                            icon: { Image(systemName: "arrow.forward") }
+                        ).labelStyle(.iconOnly)
                     }
                     .disabled(year.compare(.isThisYear))
                     .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)

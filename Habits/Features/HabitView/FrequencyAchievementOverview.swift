@@ -117,6 +117,7 @@ struct FrequencyAchievementOverview: View {
 
 #Preview {
     struct Container: View {
+        @State private var theme: ColorScheme = .dark
         @State private var frequency = Frequency.daily
 
         private var achievedDays: [Date] {
@@ -144,7 +145,14 @@ struct FrequencyAchievementOverview: View {
                         Text(f.rawValue.capitalized).tag(f)
                     }
                 }.pickerStyle(.segmented)
+//
+                Picker("theme", selection: $theme) {
+                    ForEach(ColorScheme.allCases, id: \.self) { f in
+                        Text(f == .dark ? "dark" : "light").tag(f)
+                    }
+                }.pickerStyle(.segmented)
             }
+            .preferredColorScheme(theme)
             .padding()
         }
     }
