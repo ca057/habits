@@ -62,6 +62,8 @@ fileprivate struct SingleHabitViewContent: View {
                     achieved: achievedOfYear,
                     color: habit.asColour.toColor()
                 )
+                .padding(.bottom)
+
                 HStack {
                     Button {
                         year = year.offset(.year, value: -1) ?? Date.now

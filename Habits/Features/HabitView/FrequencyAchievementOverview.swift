@@ -56,7 +56,7 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                 Circle()
                                     .frame(width: 12, height: 12)
                                     .foregroundStyle(
-                                        // TODO: make this more efficient!
+                                        // TODO: test this first but propably make this more efficient!
                                         achieved.contains(where: {
                                             $0.compare(.isSameDay(as: day))
                                         })
@@ -66,21 +66,26 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                     .overlay {
                                         if day.compare(.isToday) {
                                             Circle()
-                                                .stroke(.black, lineWidth: 2)
+                                                .stroke(Color.primary, lineWidth: 2)
                                                 .fill(.clear)
                                                 .frame(width: 16, height: 16)
                                         }
                                     }
                                     // TODO: fix magic number
-                                    .padding(.bottom, day.component(.weekday) == 1 ? 8 : 0)
+                                    .padding(.bottom, day.component(.weekday) == 1 && day != days.last ? 8 : 0)
+                                    .frame(maxWidth: .infinity)
                             }
-                        }
-                        if daysOfMonth.last != days {
-                            Spacer()
                         }
                     }
                 }
-            }.padding(.bottom)
+            }.padding(.bottom, 4)
+            HStack {
+                ForEach(calendar.veryShortStandaloneMonthSymbols, id: \.self) { month in
+                    Text(month)
+                        .monospaced()
+                        .frame(maxWidth: .infinity)
+                }
+            }
         }
     }
     
