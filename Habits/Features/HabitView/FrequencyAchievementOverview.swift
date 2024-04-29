@@ -28,6 +28,28 @@ enum Frequency: String, CaseIterable, Identifiable {
 //    }
 //}
 
+fileprivate struct VerticalLabel: View {
+    // copied from https://stackoverflow.com/a/76570744
+    var text: Text
+    
+    var body: some View {
+        VerticalLayout() {
+            text
+        }.rotationEffect(.degrees(-90))
+    }
+    
+    private struct VerticalLayout: Layout {
+        func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+            let size = subviews.first!.sizeThatFits(.unspecified)
+            return .init(width: size.height, height: size.width)
+        }
+        
+        func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+            subviews.first!.place(at: .init(x: bounds.midX, y: bounds.midY), anchor: .center, proposal: .unspecified)
+        }
+    }
+}
+
 fileprivate struct DailyFrequencyAchievementOverview: View {
     @Environment(\.calendar) private var calendar
 
@@ -75,17 +97,17 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 12)
                                 .padding(.bottom, 2)
-                                
                             }
                         }
                     }
                 }
             }.padding(.bottom, 2)
             HStack {
-                ForEach(0..<calendar.veryShortStandaloneMonthSymbols.count, id: \.self) { index in
-                    Text(calendar.veryShortStandaloneMonthSymbols[index])
-                        .monospaced()
-                        .frame(maxWidth: .infinity)
+                ForEach(0..<calendar.shortStandaloneMonthSymbols.count, id: \.self) { index in
+                    VerticalLabel(
+                        text: Text(calendar.shortStandaloneMonthSymbols[index].uppercased())
+                            .monospaced()
+                    ).frame(maxWidth: .infinity)
                 }
             }
         }
