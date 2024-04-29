@@ -53,27 +53,29 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                     HStack {
                         VStack(spacing: 4) {
                             ForEach(days, id: \.self) { day in
-                                Circle()
-                                    .frame(width: 12, height: 12)
-                                    .foregroundStyle(
-                                        // TODO: test this first but propably make this more efficient!
-                                        achieved.contains(where: {
-                                            $0.compare(.isSameDay(as: day))
-                                        })
-                                        ? color.opacity(day.compare(.isWeekend) ? 0.5 : 1)
-                                        : .gray.opacity(day.compare(.isWeekend) ? 0.75 : 1)
-                                    )
-                                    .overlay {
-                                        if day.compare(.isToday) {
-                                            Circle()
-                                                .stroke(Color.primary, lineWidth: 2)
-                                                .fill(.clear)
-                                                .frame(width: 16, height: 16)
+                                VStack {
+                                    // TODO: test this first but propably make this more efficient!
+                                    let isAchieved = achieved.contains(where: {
+                                        $0.compare(.isSameDay(as: day))
+                                    })
+                                    let size = CGFloat(isAchieved ? 12 : 4)
+
+                                    Circle()
+                                        .frame(width: size, height: size)
+                                        .foregroundStyle(isAchieved ? color : .gray)
+                                        .opacity(day.compare(.isWeekend) ? 0.75 : 1)
+                                        .overlay {
+                                            if day.compare(.isToday) {
+                                                Circle()
+                                                    .stroke(Color.primary, lineWidth: 2)
+                                                    .fill(.clear)
+                                                    .frame(width: 16, height: 16)
+                                            }
                                         }
-                                    }
-                                    // TODO: fix magic number
-                                    .padding(.bottom, day.component(.weekday) == 1 && day != days.last ? 8 : 0)
-                                    .frame(maxWidth: .infinity)
+                                }
+                                .frame(maxWidth: .infinity, minHeight: 12)
+                                .padding(.bottom, 2)
+                                
                             }
                         }
                     }
