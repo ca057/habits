@@ -23,9 +23,6 @@ fileprivate struct NotFoundSingleHabitView: View {
     }
 }
 
-// TODO: is there better way to do this?!
-let currentYear = 2024
-
 fileprivate struct SingleHabitViewContent: View {
     @Environment(\.calendar) private var calendar
 
@@ -56,6 +53,7 @@ fileprivate struct SingleHabitViewContent: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                // TODO: inline the overview, make a switch to the histogramm perspective
                 FrequencyAchievementOverview(
                     .daily,
                     year: year,
@@ -76,9 +74,16 @@ fileprivate struct SingleHabitViewContent: View {
                     .disabled(year.component(.year) ?? 0 <= 0)
                     .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    // TODO: make a tap on it reset the graph to the initial state
-                    Text(year.component(.year)?.description ?? "").monospaced()
+
+                    Button {
+                        year = Date.now
+                    } label: {
+                        Label(
+                            title: { Text(year.component(.year)?.description ?? "").monospaced() },
+                            icon: { EmptyView() }
+                        ).labelStyle(.titleOnly)
+                    }
+                    .foregroundStyle(.primary)
                     
                     Button {
                         year = year.offset(.year, value: 1) ?? Date.now
@@ -123,6 +128,7 @@ struct SingleHabitView: View {
         }
         .navigationTitle(habit?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
+        // TODO: add settings to toolbar
     }
     
     init(id: UUID) {

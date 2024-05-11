@@ -84,8 +84,8 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
 
                                     Circle()
                                         .frame(width: size, height: size)
-                                        .foregroundStyle(isAchieved ? color : .gray)
-                                        .opacity(day.compare(.isWeekend) ? 0.75 : 1)
+                                        .foregroundStyle(isAchieved ? color : .secondary)
+                                        .opacity(day.compare(.isWeekend) ? 0.5 : 1)
                                         .overlay {
                                             if day.compare(.isToday) {
                                                 Circle()
@@ -106,6 +106,8 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                 ForEach(0..<calendar.shortStandaloneMonthSymbols.count, id: \.self) { index in
                     VerticalLabel(
                         text: Text(calendar.shortStandaloneMonthSymbols[index].uppercased())
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                             .monospaced()
                     ).frame(maxWidth: .infinity)
                 }
