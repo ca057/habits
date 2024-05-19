@@ -86,7 +86,6 @@ struct Settings: View {
                     Button("Done") {
                         dismissView()
                     }.fontWeight(.bold)
-                        .tint(.primary)
                 }
             }
             .fileExporter(

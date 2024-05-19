@@ -19,7 +19,7 @@ struct Dashboard: View {
 
     var body: some View {
         // TODO: refactor this to a NavigationStack
-        NavigationView {
+        NavigationStack {
             VStack {
                 if habits.isEmpty {
                     VStack {
@@ -60,7 +60,6 @@ struct Dashboard: View {
                             Label("New habit", systemImage: "plus")
                                 .labelStyle(.iconOnly)
                         }
-                        .tint(Color(UIColor.label)) // TODO: check if foreground style is possible
                     }
                 }
 
@@ -71,12 +70,12 @@ struct Dashboard: View {
                         Label("Settings", systemImage: "gearshape")
                             .labelStyle(.iconOnly)
                     }
-                    .tint(Color(UIColor.label))
                 }
             }
             .sheet(isPresented: $showingAddHabit) { AddHabitView() }
             .sheet(isPresented: $showingSettings) { Settings() }
         }
+        .tint(.primary)
     }
     
     private func toggleEntry(for habit: Habit, on date: Date) {

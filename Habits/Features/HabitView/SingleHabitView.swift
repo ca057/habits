@@ -144,7 +144,6 @@ struct SingleHabitView: View {
                     Label("Settings", systemImage: "gearshape")
                         .labelStyle(.iconOnly)
                 }
-                .tint(.primary)
             }
         }
     }

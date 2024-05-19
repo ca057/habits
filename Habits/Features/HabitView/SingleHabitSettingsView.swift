@@ -32,7 +32,6 @@ struct SingleHabitSettingsView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Done", action: { dismissView() })
                     .fontWeight(.bold)
-                    .tint(.primary)
             }
         }
     }
