@@ -18,23 +18,23 @@ struct Dashboard: View {
     var showUntil: Date
 
     var body: some View {
+        // TODO: refactor this to a NavigationStack
         NavigationView {
             VStack {
                 if habits.isEmpty {
                     VStack {
                         Spacer()
-                        Spacer()
-                        
+
                         Button {
                             showingAddHabit = true
                         } label: {
-                            Label("Add new habit", systemImage: "plus")
-                                .labelStyle(.iconOnly)
-                                .font(.title)
+                            Label("New habit", systemImage: "plus")
+                                .font(.headline)
                         }
+                        .buttonStyle(.bordered)
+                        .foregroundStyle(.primary)
                         .padding()
                         
-                        Spacer()
                         Spacer()
                         Spacer()
                     }.padding(.horizontal)
@@ -57,10 +57,10 @@ struct Dashboard: View {
                         Button {
                             showingAddHabit = true
                         } label: {
-                            Label("Add new habit", systemImage: "plus")
-                                .labelStyle(IconOnlyLabelStyle())
+                            Label("New habit", systemImage: "plus")
+                                .labelStyle(.iconOnly)
                         }
-                        .tint(Color(UIColor.label))
+                        .tint(Color(UIColor.label)) // TODO: check if foreground style is possible
                     }
                 }
 
@@ -68,7 +68,7 @@ struct Dashboard: View {
                     Button {
                         showingSettings = true
                     } label: {
-                        Label("Settings", systemImage: "gearshape.fill")
+                        Label("Settings", systemImage: "gearshape")
                             .labelStyle(.iconOnly)
                     }
                     .tint(Color(UIColor.label))

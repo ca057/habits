@@ -85,7 +85,7 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                                     Circle()
                                         .frame(width: size, height: size)
                                         .foregroundStyle(isAchieved ? color : .secondary)
-                                        .opacity(day.compare(.isWeekend) ? 0.5 : 1)
+//                                        .opacity(day.compare(.isWeekend) ? 0.5 : 1)
                                         .overlay {
                                             if day.compare(.isToday) {
                                                 Circle()

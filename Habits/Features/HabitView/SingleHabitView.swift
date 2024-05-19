@@ -106,7 +106,6 @@ fileprivate struct SingleHabitViewContent: View {
                 Text("(\(achievedPercentage.formatted(.percent)))").fontDesign(.rounded).fontWeight(.bold)
             }
             .padding()
-            .padding(.horizontal)
         }
     }
 }
@@ -118,6 +117,8 @@ struct SingleHabitView: View {
     private var habit: Habit? { queriedHabits.first }
     @Query private var entries: [Entry]
     
+    @State private var showingSettings = false
+    
     var body: some View {
         Group {
             if let habit = habit {
@@ -128,7 +129,24 @@ struct SingleHabitView: View {
         }
         .navigationTitle(habit?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        // TODO: add settings to toolbar
+        .sheet(isPresented: $showingSettings) {
+            if let habit = habit {
+                NavigationStack {
+                    SingleHabitSettingsView(habit: habit)
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingSettings = true
+                } label: {
+                    Label("Settings", systemImage: "gearshape")
+                        .labelStyle(.iconOnly)
+                }
+                .tint(.primary)
+            }
+        }
     }
     
     init(id: UUID) {

@@ -24,6 +24,7 @@ struct Settings: View {
     @State private var showingImporter = false
 
     var body: some View {
+        // TODO: move this a level up, this is wrong here
         NavigationStack {
             VStack {
                 List {
@@ -85,6 +86,7 @@ struct Settings: View {
                     Button("Done") {
                         dismissView()
                     }.fontWeight(.bold)
+                        .tint(.primary)
                 }
             }
             .fileExporter(
