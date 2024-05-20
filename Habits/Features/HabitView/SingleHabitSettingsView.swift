@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SingleHabitSettingsView: View {
     @Environment(\.dismiss) private var dismissView
+    @Environment(\.navigation) private var navigation
     @Environment(\.modelContext) private var modelContext
     var habit: Habit
     
@@ -54,6 +55,9 @@ struct SingleHabitSettingsView: View {
     }
 
     private func deleteHabit() {
+        dismissView()
+        navigation.path = NavigationPath()
+
         modelContext.delete(habit)
         try? modelContext.save()
     }
