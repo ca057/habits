@@ -24,6 +24,7 @@ extension EnvironmentValues {
     }
 }
 
+// TODO: kill this file
 struct MainApp: View {
     private let dayChangedPublisher = NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
     

@@ -16,36 +16,37 @@ struct AddHabitView: View {
     @State private var bgColour = Colour.allCasesSorted[0]
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
+        Form {
+            Section {
+                VStack(alignment: .leading, spacing: 2) {
                     TextField("I want to track...", text: $name)
                         .accessibilityLabel("Name of your new habit")
-                }
-                
-                Section {
-                    VStack(alignment: .leading) {
-                        Text("Pick a colour")
-                        ColourPicker(
-                            colours: Colour.allCasesSorted,
-                            selection: $bgColour
-                        )
-                        .frame(minHeight: 32)
-                        .accessibilityLabel("Background colour")
-                    }
-                    .padding(.bottom, 4)
+                        .textFieldStyle(LTTextFieldStyle(label: "Name"))
                 }
             }
-            .navigationTitle("Add habit")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel", action: { dismissView() })
+            
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Pick a colour")
+                    ColourPicker(
+                        colours: Colour.allCasesSorted,
+                        selection: $bgColour
+                    )
+                    .frame(minHeight: 32)
+                    .accessibilityLabel("Background colour")
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save", action: handleSave)
-                        .disabled(!isValid)
-                        .fontWeight(isValid ? .bold : .regular)
-                }
+                .padding(.bottom, 4)
+            }
+        }
+        .navigationTitle("Add habit")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Cancel", action: { dismissView() })
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Save", action: handleSave)
+                    .disabled(!isValid)
+                    .fontWeight(isValid ? .bold : .regular)
             }
         }
         .onChange(of: name) {
@@ -62,5 +63,7 @@ struct AddHabitView: View {
 }
 
 #Preview {
-    AddHabitView()
+    NavigationStack {
+        AddHabitView()
+    }
 }
