@@ -15,7 +15,6 @@ struct HabitsApp: App {
     var body: some Scene {
         WindowGroup {
             MainApp()
-                .environment(\.calendar, CalendarUtils.shared.calendar)
         }
         .modelContainer(container)
     }
