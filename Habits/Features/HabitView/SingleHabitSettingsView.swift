@@ -20,6 +20,7 @@ struct SingleHabitSettingsView: View {
             Form {
                 Section("Name") {
                     TextField("Name", text: Bindable(habit).name)
+                        .textFieldStyle(LTTextFieldStyle())
                 }
 
                 Section("Colour") {

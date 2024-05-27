@@ -28,3 +28,26 @@ struct LTTextFieldStyle: TextFieldStyle {
         }
     }
 }
+
+struct LTLabeledContentStyle: LabeledContentStyle {
+    func _body(configuration: LabeledContentStyleConfiguration) -> some View {
+        configuration
+    }
+}
+
+#Preview {
+    VStack(spacing: 4) {
+        TextField("foo", text: Binding.constant(""))
+            .textFieldStyle(LTTextFieldStyle())
+        
+        TextField("foo", text: Binding.constant(""))
+            .textFieldStyle(LTTextFieldStyle(label: "bar"))
+        
+        LabeledContent {
+            TextField("foo", text: Binding.constant(""))
+        } label: {
+            Text("foofofof")
+        }
+    }
+    .padding(.horizontal)
+}
