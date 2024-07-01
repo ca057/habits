@@ -18,9 +18,10 @@ struct SingleHabitSettingsView: View {
     var body: some View {
         VStack {
             Form {
-                Section("Name") {
-                    TextField("Name", text: Bindable(habit).name)
-                        .textFieldStyle(LTTextFieldStyle())
+                Section("Details") {
+                    LabeledContent("Name") {
+                        TextField("Name", text: Bindable(habit).name)
+                    }.labeledContentStyle(LTLabeledContentStyle())
                 }
 
                 Section("Colour") {
