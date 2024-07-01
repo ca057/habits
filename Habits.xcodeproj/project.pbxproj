@@ -13,6 +13,7 @@
 		AA3C9B7D2B8E876C00312206 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C9B7C2B8E876C00312206 /* Pill.swift */; };
 		AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */; };
 		AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */; };
+		AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
 		AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */; };
 		AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
 		AA7318532BFBE55400988128 /* LTTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */; };
@@ -65,6 +66,7 @@
 		AA3C9B7C2B8E876C00312206 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AA46C97827ED22A900A0B4E1 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
+		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
 		AA6F58C12B1DFA0A009BB876 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTextFieldStyle.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				AAE5FBED2B35C5F10052D047 /* LazyView.swift */,
 				AA3C9B7C2B8E876C00312206 /* Pill.swift */,
 				AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */,
+				AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -310,7 +313,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					AADC1CDF27BEF547007C47BE = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -382,6 +385,7 @@
 				AACCAD972B225882008BB8FE /* DataExport.swift in Sources */,
 				AA7318532BFBE55400988128 /* LTTextFieldStyle.swift in Sources */,
 				AA86370429D4CC5600144373 /* MainApp.swift in Sources */,
+				AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */,
 				AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */,
 				AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */,
 				AA46C97927ED22A900A0B4E1 /* DashboardItem.swift in Sources */,
@@ -429,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -493,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

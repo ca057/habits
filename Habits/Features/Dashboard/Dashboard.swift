@@ -98,29 +98,37 @@ struct Dashboard: View {
     do {
         let previewer = try Previewer()
         
-        return Dashboard(showUntil: Date.now)
-            .modelContainer(previewer.container)
+        return NavigationStack {
+            Dashboard(showUntil: Date.now)
+                .modelContainer(previewer.container)
+        }
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")
     }
 }
 
 #Preview("empty state") {
-    Dashboard(showUntil: Date.now)
+    NavigationStack {
+        Dashboard(showUntil: Date.now)
+    }
 }
 
 #Preview("empty state (dark)") {
-    Dashboard(showUntil: Date.now)
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        Dashboard(showUntil: Date.now)
+            .preferredColorScheme(.dark)
+    }
 }
 
 #Preview("default (dark)") {
     do {
         let previewer = try Previewer()
         
-        return Dashboard(showUntil: Date.now)
-            .modelContainer(previewer.container)
-            .preferredColorScheme(.dark)
+        return NavigationStack {
+            Dashboard(showUntil: Date.now)
+                .modelContainer(previewer.container)
+                .preferredColorScheme(.dark)
+        }
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")
     }
