@@ -14,6 +14,7 @@ struct LTLabeledContentStyle: LabeledContentStyle {
                 .font(.footnote)
                 .fontDesign(.rounded)
                 .foregroundStyle(.secondary)
+                .padding(.horizontal, 8)
             
             configuration.content
                 .textFieldStyle(LTTextFieldStyle())
@@ -22,7 +23,7 @@ struct LTLabeledContentStyle: LabeledContentStyle {
 }
 
 #Preview {
-    VStack(spacing: 4) {        
+    VStack(spacing: 4) {
         LabeledContent("foo foo") {
             TextField("foo", text: Binding.constant(""))
         }.labeledContentStyle(LTLabeledContentStyle())
