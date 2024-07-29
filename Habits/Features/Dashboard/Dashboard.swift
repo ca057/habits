@@ -5,8 +5,30 @@
 import SwiftUI
 import SwiftData
 
+struct EntryElement: View {
+    var body: some View {
+        VStack {
+            Circle()
+            Text("foo")
+        }
+    }
+}
+
+struct HabitRow: View {
+    var habit: Habit
+
+    var body: some View {
+        VStack {
+            Text(habit.name)
+        }
+    }
+    
+    init(for habit: Habit) {
+        self.habit = habit
+    }
+}
+
 struct Dashboard: View {
-    @Environment(\.editMode) private var editMode
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
     
@@ -39,23 +61,21 @@ struct Dashboard: View {
             } else {
                 List {
                     ForEach(habits) { habit in
-                        DashboardItem(showUntil: showUntil, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
-                            .background(NavigationLink("", value: habit).opacity(0))
+                        HabitRow(for: habit)
+//                        DashboardItem(showUntil: showUntil, forHabit: habit, toggleEntry: { toggleEntry(for: $0, on: $1) } )
+//                            .background(NavigationLink("", value: habit).opacity(0))
                     }
                     .onMove {  reorderElements(source: $0, destination: $1) }
                 }
             }
         }
-        .navigationTitle("Habits")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                if !habits.isEmpty {
-                    Button {
-                        showingAddHabit = true
-                    } label: {
-                        Label("New habit", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                    }
+                Button {
+                    showingAddHabit = true
+                } label: {
+                    Label("New habit", systemImage: "plus")
+                        .labelStyle(.iconOnly)
                 }
             }
 

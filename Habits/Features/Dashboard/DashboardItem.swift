@@ -134,40 +134,18 @@ struct DashboardItem: View {
 }
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Habit.self, configurations: config)
-    
-    let habit = Habit(
-        colour: Colour.green.toLabel(),
-        createdAt: Date.now,
-        id: UUID(),
-        name: "preview",
-        order: 0
-    )
-    
-    container.mainContext.insert(habit)
-    
-    for i in 1..<10 {
-        let entry = Entry(date: Date().adjust(day: i * Int.random(in: 1..<5)) ?? Date(), habit: habit)
-        container.mainContext.insert(entry)
+    do {
+        let previewer = try Previewer()
+        
+        return DashboardItem(
+                showUntil: Date.now,
+                forHabit: previewer.habits[0],
+                toggleEntry: { _, __ in }
+            )
+            .padding()
+            .modelContainer(previewer.container)
+    } catch {
+        return Text("error creating preview: \(error.localizedDescription)")
     }
     
-    @MainActor
-    func toggleEntry(for habit: Habit, on date: Date) {
-        if let entry = habit.entry.first(where: { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }) {
-            container.mainContext.delete(entry)
-            try? container.mainContext.save()
-        } else {
-            let entry = Entry(date: date, habit: habit)
-            container.mainContext.insert(entry)
-        }
-    }
-    
-    return DashboardItem(
-            showUntil: Date.now,
-            forHabit: habit,
-            toggleEntry: { toggleEntry(for: $0, on: $1) }
-        )
-        .padding()
-        .modelContainer(container)
 }

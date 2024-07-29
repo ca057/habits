@@ -17,6 +17,7 @@ struct HabitsApp: App {
             MainApp()
         }
         .modelContainer(container)
+        .environment(\.calendar, CalendarUtils.shared.calendar)
     }
     
     init() {

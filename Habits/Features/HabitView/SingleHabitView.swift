@@ -162,7 +162,7 @@ struct SingleHabitView: View {
 #Preview {
     do {
         let previewer = try Previewer()
-        return SingleHabitView(id: previewer.habit.id)
+        return SingleHabitView(id: previewer.habits[0].id)
             .modelContainer(previewer.container)
     } catch {
         return Text("failed to create preview: \(error.localizedDescription)")

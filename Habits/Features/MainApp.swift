@@ -40,7 +40,6 @@ struct MainApp: View {
         }
         .tint(.primary)
         .environment(\.navigation, navigation)
-        .environment(\.calendar, CalendarUtils.shared.calendar)
         .onReceive(dayChangedPublisher, perform: { _ in today = Date.now })
     }
 }

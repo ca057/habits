@@ -69,7 +69,7 @@ struct SingleHabitSettingsView: View {
     do {
         let previewer = try Previewer()
         return NavigationStack {
-            SingleHabitSettingsView(habit: previewer.habit)
+            SingleHabitSettingsView(habit: previewer.habits[0])
         }
         .modelContainer(previewer.container)
     } catch {
