@@ -46,7 +46,8 @@ echo "---"
 
 install_with_brew "pre-commit"
 echo "---"
-install_with_gem "xcpretty" 
+# TODO: add it to Gemfile and install all gems
+install_with_gem "xcpretty"
 echo "---"
 install_with_brew "task" "go-task/tap/go-task"
 echo "---"

@@ -3,8 +3,17 @@ version: "3"
 tasks:
   beta:
     cmds:
-      # TODO: commit automatically and push? check if it’s the main branch
+      # TODO: check dirty state
+      # TODO: commit version change automatically and push? check if it’s the main branch
       - bundle exec fastlane ios beta
   test:
     cmds:
       - xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' | xcpretty && exit ${PIPESTATUS[0]}
+
+  cert-development:
+    cmds:
+      - bundle exec fastlane match development
+
+  cert-appstore:
+    cmds:
+      - bundle exec fastlane match appstore
