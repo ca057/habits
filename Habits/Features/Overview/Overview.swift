@@ -27,7 +27,7 @@ struct EmptyOverview: View {
     }
 }
 
-struct OverviewItem: View {
+struct HabitOverviewItem: View {
     var habit: Habit
     
     var days: [Date]
@@ -37,11 +37,12 @@ struct OverviewItem: View {
             Text(habit.name)
                 .font(.title3)
             
-            HStack {
+            HStack(spacing: 16) {
                 ForEach(days, id: \.self) { day in
                     VStack {
                         Circle()
-                            .strokeBorder(.green, lineWidth: 2)
+                            .stroke(.blue, lineWidth: 4)
+//                            .fill(.blue)
 
                         Text(
                             day.toString(
@@ -56,7 +57,6 @@ struct OverviewItem: View {
                 }.frame(maxWidth: .infinity)
             }
         }
-//        .background(.red.opacity(0.5))
     }
     
     init(for habit: Habit, days: [Date]) {
@@ -95,7 +95,7 @@ struct Overview: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         ForEach(habits) { habit in
-                            OverviewItem(for: habit, days: weekDays)
+                            HabitOverviewItem(for: habit, days: weekDays)
                         }
                     }
                     .padding(.horizontal)
