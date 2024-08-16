@@ -28,31 +28,32 @@ struct EmptyOverview: View {
 }
 
 struct HabitOverviewItem: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     var habit: Habit
-    
     var days: [Date]
+    
+    @State private var itemHeight = 48.0
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(habit.name)
-                .font(.title3)
             
             HStack(spacing: 16) {
                 ForEach(days, id: \.self) { day in
                     VStack {
-                        Circle()
-                            .stroke(.blue, lineWidth: 4)
-//                            .fill(.blue)
+                        RoundedRectangle(cornerSize: CGSize(width: 12, height: 12))
+                            .fill(habit.asColour.toColor().opacity(0.15))
+                            .strokeBorder(
+                                colorScheme == .dark ? habit.asColour.toColor().opacity(0.5) : .clear,
+                                lineWidth: 1
+                            )
+                            .frame(height: 48)
 
-                        Text(
-                            day.toString(
-                                format: .custom("dd"),
-                                locale: Locale(identifier: Locale.current.language.languageCode?.identifier ?? "en")
-                            ) ?? ""
-                                .padding(leftTo: 2, withPad: " ") // TODO: test this
-                        )
-                        .font(.subheadline)
-                        .monospaced()
+                        Text(day.formatted(Date.FormatStyle().weekday(.abbreviated)))
+                            .font(.footnote)
+                            .foregroundStyle(.primary.secondary)
+                            .monospaced()
                     }
                 }.frame(maxWidth: .infinity)
             }
@@ -93,6 +94,7 @@ struct Overview: View {
                     .padding(.horizontal)
             } else {
                 ScrollView {
+                    // TODO: add numeric days as section to top
                     VStack(spacing: 16) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: weekDays)
