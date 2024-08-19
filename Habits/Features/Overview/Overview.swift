@@ -33,8 +33,8 @@ struct HabitOverviewItem: View {
     var habit: Habit
     var days: [Date]
     
-    @State private var itemHeight = 48.0
-    
+    @Query private var entries: [Entry]
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(habit.name)
@@ -42,8 +42,8 @@ struct HabitOverviewItem: View {
             HStack(spacing: 16) {
                 ForEach(days, id: \.self) { day in
                     VStack {
-                        RoundedRectangle(cornerSize: CGSize(width: 12, height: 12))
-                            .fill(habit.asColour.toColor().opacity(0.15))
+                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                            .fill(habit.asColour.toColor().opacity(hasEntry(for: day) ? 1 : 0.15))
                             .strokeBorder(
                                 colorScheme == .dark ? habit.asColour.toColor().opacity(0.5) : .clear,
                                 lineWidth: 1
@@ -52,7 +52,7 @@ struct HabitOverviewItem: View {
 
                         Text(day.formatted(Date.FormatStyle().weekday(.abbreviated)))
                             .font(.footnote)
-                            .foregroundStyle(.primary.secondary)
+                            .foregroundStyle(day.compare(.isWeekend) ? Color.secondary.opacity(0.5) : Color.secondary)
                             .monospaced()
                     }
                 }.frame(maxWidth: .infinity)
@@ -63,6 +63,22 @@ struct HabitOverviewItem: View {
     init(for habit: Habit, days: [Date]) {
         self.habit = habit
         self.days = days
+        
+        let habitModelId = habit.persistentModelID
+        
+        
+        var descriptor = FetchDescriptor<Entry>(
+            // TODO: limit based on date?
+            predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
+            sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
+        )
+        descriptor.fetchLimit = days.count
+                
+        _entries = Query(descriptor)
+    }
+    
+    private func hasEntry(for date: Date) -> Bool {
+        entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
     }
 }
 
