@@ -34,7 +34,6 @@ struct MainApp: View {
     var body: some View {
         NavigationStack(path: $navigation.path) {
             Overview(forWeekOf: today)
-//            Dashboard(showUntil: today)
                 .navigationDestination(for: Habit.self) { habit in
                     SingleHabitView(id: habit.id) // TODO: pass in habit
                 }

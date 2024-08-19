@@ -29,6 +29,8 @@ struct EmptyOverview: View {
 
 struct HabitOverviewItem: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.calendar) private var calendar
 
     var habit: Habit
     var days: [Date]
@@ -49,6 +51,7 @@ struct HabitOverviewItem: View {
                                 lineWidth: 1
                             )
                             .frame(height: 48)
+                            .onTapGesture(perform: { toggleEntry(on: day) })
 
                         Text(day.formatted(Date.FormatStyle().weekday(.abbreviated)))
                             .font(.footnote)
@@ -68,7 +71,6 @@ struct HabitOverviewItem: View {
         
         
         var descriptor = FetchDescriptor<Entry>(
-            // TODO: limit based on date?
             predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
             sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
         )
@@ -80,12 +82,21 @@ struct HabitOverviewItem: View {
     private func hasEntry(for date: Date) -> Bool {
         entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
     }
+    
+    private func toggleEntry(on date: Date) {
+        if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
+            modelContext.delete(entry)
+            try? modelContext.save()
+        } else {
+            let entry = Entry(date: date, habit: habit)
+            modelContext.insert(entry)
+        }
+    }
 }
 
 struct Overview: View {
     @Environment(\.calendar) private var calendar
-//    @Environment(\.modelContext) private var modelContext
-    
+
     @State private var showingAddHabit = false
     @State private var showingSettings = false
 
