@@ -53,13 +53,18 @@ struct HabitOverviewItem: View {
 
                         Text(day.formatted(Date.FormatStyle().weekday(.abbreviated)))
                             .font(.footnote)
-                            .foregroundStyle(day.compare(.isWeekend) ? Color.secondary.opacity(0.5) : Color.secondary)
+//                            .foregroundStyle(
+//                                day.compare(.isWeekend) ? Color.secondary.opacity(0.5) : Color.secondary
+//                            )
                             .monospaced()
                     }
                 }.frame(maxWidth: .infinity)
             }
         }
-        .padding(.vertical, 8)
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: 8).fill(.gray.opacity(0.15))
+        )
         .onTapGesture {
             navigation.path.append(habit)
         }
@@ -124,7 +129,7 @@ struct Overview: View {
             } else {
                 ScrollView {
                     // TODO: add numeric days as section to top
-                    VStack(spacing: 4) {
+                    VStack(spacing: 8) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: weekDays)
                         }
