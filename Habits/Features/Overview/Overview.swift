@@ -45,12 +45,9 @@ struct HabitOverviewItem: View {
             HStack(spacing: 16) {
                 ForEach(days, id: \.self) { day in
                     VStack {
-                        RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                        RoundedRectangle(cornerSize: CGSize(width: 48, height: 48))
                             .fill(habit.asColour.toColor().opacity(hasEntry(for: day) ? 1 : 0.15))
-                            .strokeBorder(
-                                colorScheme == .dark ? habit.asColour.toColor().opacity(0.5) : .clear,
-                                lineWidth: 1
-                            )
+                            .strokeBorder(habit.asColour.toColor().opacity(0.5), lineWidth: 0.5)
                             .frame(height: 48)
                             .onTapGesture(perform: { toggleEntry(on: day) })
 
@@ -61,7 +58,9 @@ struct HabitOverviewItem: View {
                     }
                 }.frame(maxWidth: .infinity)
             }
-        }.onTapGesture {
+        }
+        .padding(.vertical, 8)
+        .onTapGesture {
             navigation.path.append(habit)
         }
     }
@@ -125,7 +124,7 @@ struct Overview: View {
             } else {
                 ScrollView {
                     // TODO: add numeric days as section to top
-                    VStack(spacing: 16) {
+                    VStack(spacing: 4) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: weekDays)
                         }
