@@ -31,6 +31,7 @@ struct HabitOverviewItem: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
+    @Environment(\.navigation) private var navigation
 
     var habit: Habit
     var days: [Date]
@@ -60,6 +61,8 @@ struct HabitOverviewItem: View {
                     }
                 }.frame(maxWidth: .infinity)
             }
+        }.onTapGesture {
+            navigation.path.append(habit)
         }
     }
     
