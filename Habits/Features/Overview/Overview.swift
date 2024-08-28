@@ -199,12 +199,8 @@ struct Overview: View {
 }
 
 #Preview("empty") {
-    do {
-        return NavigationStack {
-            Overview(forWeekOf: Date.now)
-        }
-        .tint(.primary)
-    } catch {
-        return Text("error creating preview: \(error.localizedDescription)")
+    NavigationStack {
+        Overview(forWeekOf: Date.now)
     }
+    .tint(.primary)
 }
