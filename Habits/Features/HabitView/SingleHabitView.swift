@@ -51,61 +51,65 @@ fileprivate struct SingleHabitViewContent: View {
 
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                // TODO: inline the overview, make a switch to the histogramm perspective
-                FrequencyAchievementOverview(
-                    .daily,
-                    year: year,
-                    achieved: achievedOfYear,
-                    color: habit.asColour.toColor()
-                )
-                .padding(.bottom)
+        ZStack {
+            // TODO: introduce background
 
-                HStack {
-                    Button {
-                        year = year.offset(.year, value: -1) ?? Date.now
-                    } label: {
-                        Label(
-                            title: { Text("Show previous year") },
-                            icon: { Image(systemName: "arrow.backward") }
-                        ).labelStyle(.iconOnly)
-                    }
-                    .disabled(year.component(.year) ?? 0 <= 0)
-                    .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Button {
-                        year = Date.now
-                    } label: {
-                        Label(
-                            title: { Text(year.component(.year)?.description ?? "").monospaced() },
-                            icon: { EmptyView() }
-                        ).labelStyle(.titleOnly)
-                    }
-                    .foregroundStyle(.primary)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    // TODO: inline the overview, make a switch to the histogramm perspective
+                    FrequencyAchievementOverview(
+                        .daily,
+                        year: year,
+                        achieved: achievedOfYear,
+                        color: habit.asColour.toColor()
+                    )
+                    .padding(.bottom)
                     
-                    Button {
-                        year = year.offset(.year, value: 1) ?? Date.now
-                    } label: {
-                        Label(
-                            title: { Text("Show next year") },
-                            icon: { Image(systemName: "arrow.forward") }
-                        ).labelStyle(.iconOnly)
+                    HStack {
+                        Button {
+                            year = year.offset(.year, value: -1) ?? Date.now
+                        } label: {
+                            Label(
+                                title: { Text("Show previous year") },
+                                icon: { Image(systemName: "arrow.backward") }
+                            ).labelStyle(.iconOnly)
+                        }
+                        .disabled(year.component(.year) ?? 0 <= 0)
+                        .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Button {
+                            year = Date.now
+                        } label: {
+                            Label(
+                                title: { Text(year.component(.year)?.description ?? "").monospaced() },
+                                icon: { EmptyView() }
+                            ).labelStyle(.titleOnly)
+                        }
+                        .foregroundStyle(.primary)
+                        
+                        Button {
+                            year = year.offset(.year, value: 1) ?? Date.now
+                        } label: {
+                            Label(
+                                title: { Text("Show next year") },
+                                icon: { Image(systemName: "arrow.forward") }
+                            ).labelStyle(.iconOnly)
+                        }
+                        .disabled(year.compare(.isThisYear))
+                        .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
-                    .disabled(year.compare(.isThisYear))
-                    .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.bottom)
+                    
+                    Text("\(achievedOfYear.count)").fontDesign(.rounded) +
+                    Text(" out of ") +
+                    Text("\(countOfDays)").fontDesign(.rounded) +
+                    Text(" days ") +
+                    Text("(\(achievedPercentage.formatted(.percent)))").fontDesign(.rounded).fontWeight(.bold)
                 }
-                .padding(.bottom)
-
-                Text("\(achievedOfYear.count)").fontDesign(.rounded) +
-                Text(" out of ") +
-                Text("\(countOfDays)").fontDesign(.rounded) +
-                Text(" days ") +
-                Text("(\(achievedPercentage.formatted(.percent)))").fontDesign(.rounded).fontWeight(.bold)
+                .padding()
             }
-            .padding()
         }
     }
 }
@@ -162,8 +166,12 @@ struct SingleHabitView: View {
 #Preview {
     do {
         let previewer = try Previewer()
-        return SingleHabitView(id: previewer.habits[0].id)
-            .modelContainer(previewer.container)
+
+        return NavigationStack {
+            SingleHabitView(id: previewer.habits[0].id)
+        }
+        .tint(.primary)
+        .modelContainer(previewer.container)
     } catch {
         return Text("failed to create preview: \(error.localizedDescription)")
     }
