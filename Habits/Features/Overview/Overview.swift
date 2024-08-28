@@ -37,34 +37,50 @@ struct HabitOverviewItem: View {
     var days: [Date]
     
     @Query private var entries: [Entry]
+    
+    private let cornerSize = CGSize(width: 4, height: 4)
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(habit.name)
-            
-            HStack(spacing: 16) {
-                ForEach(days, id: \.self) { day in
-                    VStack {
-                        RoundedRectangle(cornerSize: CGSize(width: 48, height: 48))
-                            .fill(habit.asColour.toColor().opacity(hasEntry(for: day) ? 1 : 0.15))
-                            .strokeBorder(habit.asColour.toColor().opacity(0.5), lineWidth: 0.5)
-                            .frame(height: 48)
-                            .onTapGesture(perform: { toggleEntry(on: day) })
+        ZStack {
+            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+                .fill(.gray.tertiary.opacity(0.5))
 
-                        Text(day.formatted(Date.FormatStyle().weekday(.abbreviated)))
-                            .font(.footnote)
-//                            .foregroundStyle(
-//                                day.compare(.isWeekend) ? Color.secondary.opacity(0.5) : Color.secondary
-//                            )
-                            .monospaced()
-                    }
-                }.frame(maxWidth: .infinity)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(habit.name)
+                
+                HStack(spacing: 16) {
+                    ForEach(days, id: \.self) { day in
+                        VStack {
+                            RoundedRectangle(cornerSize: cornerSize)
+                                .fill(habit.asColour.toColor().opacity(hasEntry(for: day) ? 1 : 0.1))
+                                .frame(height: 48)
+                                .onTapGesture(perform: { toggleEntry(on: day) })
+                                .overlay(alignment: .bottom) {
+                                    Rectangle()
+                                        .fill(habit.asColour.toColor())
+                                        .frame(height: 2)
+                                }
+                                .overlay(alignment: .bottom) {
+                                    Text(day.formatted(Date.FormatStyle().weekday(.short)))
+                                        .font(.footnote)
+                                        .monospaced()
+                                        .fontWeight(.thin)
+                                        .foregroundStyle(
+                                            hasEntry(for: day) ? Color(UIColor.systemBackground) : Color.secondary
+                                        )
+                                        .padding(.bottom, 4)
+                                }
+                                .clipShape(RoundedRectangle(cornerSize: cornerSize))
+                            
+                        }
+                    }.frame(maxWidth: .infinity)
+                    
+                }
             }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 8)
         }
-        .padding(8)
-        .background(
-            RoundedRectangle(cornerRadius: 8).fill(.gray.opacity(0.15))
-        )
+        .background(.background)
         .onTapGesture {
             navigation.path.append(habit)
         }
@@ -129,7 +145,7 @@ struct Overview: View {
             } else {
                 ScrollView {
                     // TODO: add numeric days as section to top
-                    VStack(spacing: 8) {
+                    VStack(spacing: 4) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: weekDays)
                         }
