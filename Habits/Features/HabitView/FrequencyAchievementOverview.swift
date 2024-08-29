@@ -75,19 +75,19 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
                     HStack {
                         VStack(spacing: 4) {
                             ForEach(days, id: \.self) { day in
-                                VStack {
+                                    VStack {
                                     // TODO: test this first but propably make this more efficient!
                                     let isAchieved = achieved.contains(where: {
-                                        $0.compare(.isSameDay(as: day))
+                                        calendar.compare($0, to: day, toGranularity: .day) == .orderedSame
                                     })
                                     let size = CGFloat(isAchieved ? 12 : 4)
 
                                     Circle()
                                         .frame(width: size, height: size)
                                         .foregroundStyle(isAchieved ? color : .secondary)
-                                        .opacity(day.compare(.isWeekend) ? 0.5 : 1)
+                                        .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
                                         .overlay {
-                                            if day.compare(.isToday) {
+                                            if calendar.isDateInToday(day) {
                                                 Circle()
                                                     .stroke(Color.primary, lineWidth: 2)
                                                     .fill(.clear)
