@@ -64,7 +64,7 @@ struct HabitOverviewItem: View {
                                     Text(day.formatted(Date.FormatStyle().weekday(.short)))
                                         .font(.footnote)
                                         .monospaced()
-                                        .fontWeight(.thin)
+                                        .fontWeight(calendar.isDateInToday(day) ? .bold : .thin)
                                         .foregroundStyle(
                                             hasEntry(for: day) ? Color(UIColor.systemBackground) : Color.secondary
                                         )
