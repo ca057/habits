@@ -145,7 +145,7 @@ struct Overview: View {
             } else {
                 ScrollView {
                     // TODO: add numeric days as section to top
-                    VStack(spacing: 4) {
+                    VStack(spacing: 8) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: weekDays)
                         }
