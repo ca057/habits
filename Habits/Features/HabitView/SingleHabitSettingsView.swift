@@ -11,16 +11,24 @@ struct SingleHabitSettingsView: View {
     @Environment(\.dismiss) private var dismissView
     @Environment(\.navigation) private var navigation
     @Environment(\.modelContext) private var modelContext
+    
     var habit: Habit
     
+    @State private var name = ""
+    
     @State private var showingDeleteConfirmation = false
+    @State private var showingCloseConfirmation = false
+    
+    private var isDirty: Bool {
+        name != habit.name
+    }
 
     var body: some View {
         VStack {
             Form {
                 Section("Details") {
                     LabeledContent("Name") {
-                        TextField("Name", text: Bindable(habit).name)
+                        TextField("Name", text: $name)
                     }.labeledContentStyle(LTLabeledContentStyle())
                 }
 
@@ -36,15 +44,19 @@ struct SingleHabitSettingsView: View {
                 }
             }
         }
-        .navigationTitle("Settings (\(habit.name))")
+        .navigationTitle("Settings (\(name))")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Cancel", action: { attemptCloseView() })
+            }
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Done", action: { dismissView() })
-                    .fontWeight(.bold)
+                Button("Save", action: { saveChanges() })
+                    .disabled(!isDirty)
+                    .fontWeight(isDirty ? .bold : .regular)
             }
         }
-        .alert("Confirm deletion",
+        .confirmationDialog("Confirm deletion",
                isPresented: $showingDeleteConfirmation,
                actions: {
                     Group {
@@ -52,8 +64,22 @@ struct SingleHabitSettingsView: View {
                         Button("Delete", role: .destructive, action: deleteHabit)
                     }
                 },
-               message: { Text("Do you really want to delete “\(habit.name)”?") }
+               message: { Text("Do you really want to delete “\(name)”?") }
         )
+        .confirmationDialog(
+            "Discard changes",
+            isPresented: $showingCloseConfirmation,
+            actions: {
+                Group {
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Discard", role: .destructive, action: { dismissView() })
+                }
+            },
+            message: { Text("Do you want to discard the changes you made?") }
+        )
+        .onAppear {
+            name = habit.name
+        }
     }
 
     private func deleteHabit() {
@@ -62,6 +88,20 @@ struct SingleHabitSettingsView: View {
 
         modelContext.delete(habit)
         try? modelContext.save()
+    }
+    
+    private func attemptCloseView() {
+        if isDirty {
+            showingCloseConfirmation = true
+        } else {
+            dismissView()
+        }
+    }
+    
+    private func saveChanges() {
+        habit.name = name
+        
+        dismissView()
     }
 }
 
