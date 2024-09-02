@@ -26,8 +26,6 @@ extension EnvironmentValues {
 
 // TODO: kill this file
 struct MainApp: View {
-    private let dayChangedPublisher = NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
-    
     @State private var today = Date.now
     @State private var navigation = Navigation()
 
@@ -40,6 +38,6 @@ struct MainApp: View {
         }
         .tint(.primary)
         .environment(\.navigation, navigation)
-        .onReceive(dayChangedPublisher, perform: { _ in today = Date.now })
+        .reactOnDayChange(perform: { today = $0 })
     }
 }

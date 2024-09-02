@@ -150,6 +150,7 @@ struct SingleHabitView: View {
                 }
             }
         }
+        .reactOnDayChange()
     }
     
     init(id: UUID) {
