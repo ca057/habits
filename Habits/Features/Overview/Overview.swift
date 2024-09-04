@@ -125,14 +125,12 @@ struct Overview: View {
 
     @Query(Habit.sortedWithEntries) var habits: [Habit]
 
-    private var weekOf: Date
-    private var weekDays: [Date] {
-        let weekInterval = calendar.dateInterval(of: .weekOfYear, for: weekOf)
-        
-        guard let weekInterval = weekInterval else { return [] }
-        
+    var from: Date
+    var to: Date
+
+    private var days: [Date] {
         return calendar.generateDates(
-            inside: weekInterval,
+            inside: DateInterval(start: from, end: to),
             matching: DateComponents(hour: 0, minute: 0, second: 0)
         )
     }
@@ -147,7 +145,7 @@ struct Overview: View {
                     // TODO: add numeric days as section to top
                     VStack(spacing: 8) {
                         ForEach(habits) { habit in
-                            HabitOverviewItem(for: habit, days: weekDays)
+                            HabitOverviewItem(for: habit, days: days)
                         }
                     }
                     .padding(.horizontal)
@@ -177,10 +175,6 @@ struct Overview: View {
         .sheet(isPresented: $showingAddHabit) { AddHabitView() }
         .sheet(isPresented: $showingSettings) { Settings() }
     }
-    
-    init(forWeekOf weekOf: Date) {
-        self.weekOf = weekOf
-    }
 }
 
 #Preview("default") {
@@ -188,7 +182,7 @@ struct Overview: View {
         let previewer = try Previewer()
         
         return NavigationStack {
-            Overview(forWeekOf: Date.now)
+            Overview(from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
                 .modelContainer(previewer.container)
                 .environment(\.calendar, CalendarUtils.shared.calendar)
         }
@@ -200,7 +194,7 @@ struct Overview: View {
 
 #Preview("empty") {
     NavigationStack {
-        Overview(forWeekOf: Date.now)
+        Overview(from: Date.now.offset(.day, value: -7) ?? Date.now, to: Date.now)
     }
     .tint(.primary)
 }
