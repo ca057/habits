@@ -19,7 +19,7 @@ struct ArchivedHabits: View {
         if archivedHabits.count == 0 {
             ZStack(alignment: .topLeading) {
                 Color(UIColor.systemGroupedBackground)
-                    .edgesIgnoringSafeArea(.all)
+                    .ignoresSafeArea(.all)
                 VStack {
                     Text("You don’t have any archived habits yet.")
                 }
