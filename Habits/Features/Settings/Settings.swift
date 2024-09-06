@@ -27,9 +27,8 @@ struct Settings: View {
     @State private var showingImporter = false
 
     var body: some View {
-        // TODO: move this a level up, this is wrong here
         NavigationStack {
-            VStack {
+            Form {
                 List {
                     Section("Interface") {
                         Picker(selection: $dashboardDateRange) {
@@ -43,7 +42,12 @@ struct Settings: View {
                     Section("Data") {
                         Button(action: { showingExporter = true }) {
                             Label {
-                                Text("Backup data")
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Backup data")
+                                    Text("The backup will include all habits, including archived ones.")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
                             } icon: {
                                 Image(systemName: "square.and.arrow.up")
                                     .symbolRenderingMode(.hierarchical)
@@ -55,15 +59,22 @@ struct Settings: View {
                                     Text("Import data")
                                     Text("Use with caution - data might be duplicated or overwritten.")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.secondary)
                                 }
                             } icon: {
                                 Image(systemName: "square.and.arrow.down")
                                     .symbolRenderingMode(.hierarchical)
                             }
                         }
+                        
+                        NavigationLink {
+                            ArchivedHabitsView()
+                        } label: {
+                            Label("Archived Habits", systemImage: "archivebox")
+                                .symbolRenderingMode(.hierarchical)
+                        }
                     }
-                    
+
                     Section("About") {
                         if let url = URL(string: "https://github.com/ca057/habits") {
                             
@@ -73,10 +84,11 @@ struct Settings: View {
                                         Text("Browse the source code")
                                         Text(url.absoluteString)
                                             .font(.caption)
-                                            .foregroundColor(.secondary)
+                                            .foregroundStyle(.secondary)
                                     }
                                 } icon: {
                                     Image(systemName: "link")
+                                        .symbolRenderingMode(.hierarchical)
                                 }
                             }
                         }
@@ -243,6 +255,7 @@ fileprivate extension Settings {
 
         return Settings()
             .modelContainer(previewer.container)
+            .tint(.primary)
     } catch {
         return Text("error creating preview: \(error.localizedDescription)")
     }

@@ -16,9 +16,12 @@ class Habit {
 
     // TODO: rename
     var colour: String = "base"
-    var createdAt: Date
     var name: String
     var order: Int16 = 0
+
+    var createdAt: Date
+    var archivedAt: Date?
+
     // TODO: rename
     @Relationship(deleteRule: .cascade, inverse: \Entry.habit) var entry = [Entry]()
     
@@ -36,14 +39,25 @@ class Habit {
     }
     
     static var sortedWithEntries: FetchDescriptor<Habit> {
-        var fetchDescriptor = FetchDescriptor<Habit>(sortBy: [
-            SortDescriptor(\Habit.order),
-            SortDescriptor(\Habit.createdAt, order: .reverse)
-        ])
+        var fetchDescriptor = FetchDescriptor<Habit>(
+            predicate: #Predicate { $0.archivedAt == nil },
+            sortBy: [
+                SortDescriptor(\Habit.order),
+                SortDescriptor(\Habit.createdAt, order: .reverse)
+            ]
+        )
         fetchDescriptor.relationshipKeyPathsForPrefetching = [\.entry]
     
         return fetchDescriptor
     }
+    
+    static var archivedHabits = FetchDescriptor<Habit>(
+        predicate: #Predicate { $0.archivedAt != nil },
+        sortBy: [
+            SortDescriptor(\.archivedAt, order: .reverse),
+            SortDescriptor(\.createdAt, order: .reverse)
+        ]
+    )
 }
 
 extension Habit {

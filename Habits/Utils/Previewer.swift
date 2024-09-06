@@ -37,6 +37,16 @@ struct Previewer {
             )
         )
         
+        let archivedHabit = Habit(
+            colour: Colour.green.toLabel(),
+            createdAt: Date.now,
+            id: UUID(),
+            name: "archived #1",
+            order: 1
+        )
+        archivedHabit.archivedAt = Date.now
+        habits.append(archivedHabit)
+        
         habits.forEach({
             container.mainContext.insert($0)
 
