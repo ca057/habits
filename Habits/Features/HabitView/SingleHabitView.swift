@@ -57,8 +57,8 @@ fileprivate struct SingleHabitViewContent: View {
                 stops: [
                     Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
                     Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
-                    Gradient.Stop(color: Color(UIColor.tertiarySystemGroupedBackground), location: 0.5),
-                    Gradient.Stop(color: Color(UIColor.tertiarySystemGroupedBackground), location: 1),
+                    Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
+                    Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
                 ],
                 startPoint: .top,
                 endPoint: .bottom
@@ -138,7 +138,7 @@ fileprivate struct SingleHabitViewContent: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .background(Color(UIColor.tertiarySystemGroupedBackground))
+                .background(Color(UIColor.systemGroupedBackground))
             }
         }
     }
