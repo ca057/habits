@@ -8,19 +8,46 @@
 import SwiftUI
 
 struct Bar: Identifiable {
-    var id = UUID()
-
+    var id: String
     var progress: Double
     var color = Color.black
+
+    init(_ name: String, progress: Double, color: Color = Color.black) {
+        self.id = name
+        self.progress = progress
+        self.color = color
+    }
+}
+
+fileprivate struct ProgressBarElement: View {
+    var width: Double
+    var color: Color
     
-    // TODO: add a11y info
+    @State private var animatedWidth: Double
+    
+    var body: some View {
+        Rectangle()
+            .fill(color)
+            .frame(width: animatedWidth, height: .infinity)
+            .onChange(of: width, initial: true) {
+                withAnimation {
+                    animatedWidth = width
+                }
+            }
+    }
+    
+    init(width: Double, color: Color) {
+        self.width = width
+        self.color = color
+        self.animatedWidth = width
+    }
 }
 
 struct ProgressBar: View {
     var bars: [Bar]
     var trackColor = Color.secondary
     var height = CGFloat(4)
-    
+
     var body: some View {
         Rectangle()
             .fill(trackColor)
@@ -29,27 +56,50 @@ struct ProgressBar: View {
                 GeometryReader { geo in
                     HStack(spacing: 0) {
                         ForEach(bars) { bar in
-                            Rectangle()
-                                .fill(bar.color)
-                                .frame(width: bar.progress * geo.size.width, height: height)
+                            ProgressBarElement(width: geo.size.width * bar.progress, color: bar.color).tag(bar.id)
                         }
                     }
                 }
             }
-        
-        // TODO: animation
+            .clipped()
+            
     }
 }
 
 
 #Preview {
-    VStack(spacing: 4) {
-        
-        ProgressBar(bars: [Bar(progress: 0.3)], trackColor: .brown, height: 32)
-        ProgressBar(bars: [Bar(progress: 0.3), Bar(progress: 0.1, color: .gray)], trackColor: .brown, height: 32)
-        ProgressBar(bars: [Bar(progress: 0.5)], height: 16)
-        ProgressBar(bars: [Bar(progress: 0.75)], height: 8)
-        ProgressBar(bars: [Bar(progress: 1)])
-        
-    }.padding(20)
+    struct Container: View {
+        @State private var progress = 0.3
+
+        var body: some View {
+            VStack(spacing: 4) {
+                Spacer()
+
+                ProgressBar(bars: [Bar("1", progress: progress)], trackColor: .brown, height: 32)
+
+                HStack(spacing: 4) {
+                    Button("-", action: {
+                        progress = Double.maximum(0, progress - 0.1)
+                    }).buttonStyle(.bordered)
+
+                    Button("+", action: {
+                        progress = Double.minimum(1, progress + 0.1)
+                    }).buttonStyle(.bordered)
+                }
+
+                ProgressBar(bars:
+                                [
+                                    Bar("elapsedYear", progress: 0.3, color: .gray),
+                                    Bar("progress", progress: progress)
+                                ],
+                            trackColor: .brown,
+                            height: 32
+                )
+
+                Spacer()
+            }.padding(20)
+        }
+    }
+
+    return Container()
 }

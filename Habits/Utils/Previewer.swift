@@ -50,8 +50,8 @@ struct Previewer {
         habits.forEach({
             container.mainContext.insert($0)
 
-            for i in 1..<10 {
-                let entry = Entry(date: Date().adjust(day: i * Int.random(in: 1..<5)) ?? Date(), habit: $0)
+            for i in 1..<100 {
+                let entry = Entry(date: Date().adjust(day: -i * Int.random(in: 1..<5)) ?? Date(), habit: $0)
                 container.mainContext.insert(entry)
             }
         })

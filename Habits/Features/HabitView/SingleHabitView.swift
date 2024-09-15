@@ -128,10 +128,13 @@ fileprivate struct SingleHabitViewContent: View {
                             VStack(alignment: .trailing, spacing: 4) {
                                 Text(achievedPercentage.formatted(.percent))
                                     .monospacedDigit()
-                                
-                                ProgressBar(bars: [Bar(progress: achievedPercentage, color: habit.asColour.toColor())])
+                                let bars = [
+                                    // TODO: add initial year to label and bar
+                                    Bar("progress", progress: achievedPercentage, color: habit.asColour.toColor())
+                                ]
+                                ProgressBar(bars: bars)
                                     .frame(width: 100)
-                                
+
                                 Text("\(achievedOfYear.count)/\(countOfDays) days")
                                     .font(.subheadline)
                                     .monospacedDigit()
