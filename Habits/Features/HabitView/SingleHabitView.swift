@@ -30,123 +30,128 @@ fileprivate struct SingleHabitViewContent: View {
     var entries: [Entry]
     
     @State private var year = Date.now
-    private var achievedOfYear: [Date] {
-        entries.reduce(into: [Date]()) { res, e in
-            if e.date.compare(.isSameYear(as: year)) {
-                res.append(e.date)
-            }
-        }
-    }
-
-    private var countOfDays: Int {
-        guard let startOfYear = year.adjust(for: .startOfYear),
-              let endOfToday = year.adjust(for: year.compare(.isThisYear) ? .endOfDay : .endOfYear)
-        else { return 0 }
-        
-        return Int(ceil(Double(calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour ?? 0) / 24))
-    }
-    private var achievedPercentage: Double {
-        (Double(achievedOfYear.count) / Double(countOfDays) * 100).rounded() / 100
-    }
-
+    @State private var analysisForYear: SingleHabitAnalysis?
 
     var body: some View {
         ZStack(alignment: .top) {
-            // TODO: introduce background
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
-                    Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
-                    Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
-                    Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            ).ignoresSafeArea(.all, edges: .bottom)
-
-            ScrollView {
-                VStack(alignment: .leading) {
-                    VStack {
-                        // TODO: inline the overview, make a switch to the histogramm perspective
-                        FrequencyAchievementOverview(
-                            year: year,
-                            achieved: achievedOfYear,
-                            color: habit.asColour.toColor()
-                        )
-                        .padding(.bottom)
-                        
-                        HStack {
-                            Button {
-                                year = year.offset(.year, value: -1) ?? Date.now
-                            } label: {
-                                Label(
-                                    title: { Text("Show previous year") },
-                                    icon: { Image(systemName: "arrow.backward") }
-                                ).labelStyle(.iconOnly)
-                            }
-                            .disabled(year.component(.year) ?? 0 <= 0)
-                            .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Button {
-                                year = Date.now
-                            } label: {
-                                Label(
-                                    title: { Text(year.component(.year)?.description ?? "").monospaced() },
-                                    icon: { EmptyView() }
-                                ).labelStyle(.titleOnly)
-                            }
-                            .foregroundStyle(.primary)
-                            
-                            Button {
-                                year = year.offset(.year, value: 1) ?? Date.now
-                            } label: {
-                                Label(
-                                    title: { Text("Show next year") },
-                                    icon: { Image(systemName: "arrow.forward") }
-                                ).labelStyle(.iconOnly)
-                            }
-                            .disabled(year.compare(.isThisYear))
-                            .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                        }
-                    }
-                    .padding([.horizontal, .bottom])
-                    .background(.background)
-
+            if let analysis = analysisForYear {
+                LinearGradient(
+                    stops: [
+                        Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
+                        Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
+                        Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
+                        Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                ).ignoresSafeArea(.all, edges: .bottom)
+                
+                ScrollView {
                     VStack(alignment: .leading) {
-                        Text("Statistics for \(year.component(.year)?.description ?? "")")
-                            .font(.headline)
-                            .padding(.bottom, 8)
-                        
-                        HStack(alignment: .top) {
-                            Text("Score")
+                        VStack {
+                            FrequencyAchievementOverview(year: year) { day in
+                                let isAchieved = analysis.achievedDays.contains(day.toString(format: .isoDate) ?? "")
+                                let size = CGFloat(isAchieved ? 12 : 4)
+                                
+                                Circle()
+                                    .frame(width: size, height: size)
+                                    .foregroundStyle(isAchieved ? habit.asColour.toColor() : .secondary)
+                                    .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
+                                    .overlay {
+                                        if calendar.isDateInToday(day) {
+                                            Circle()
+                                                .stroke(Color.primary, lineWidth: 2)
+                                                .fill(.clear)
+                                                .frame(width: 16, height: 16)
+                                        }
+                                    }
+                            }
+                            .padding(.bottom)
                             
-                            Spacer()
-
-                            VStack(alignment: .trailing, spacing: 4) {
-                                Text(achievedPercentage.formatted(.percent))
-                                    .monospacedDigit()
-                                let bars = [
-                                    // TODO: add initial year to label and bar
-                                    Bar("progress", progress: achievedPercentage, color: habit.asColour.toColor())
-                                ]
-                                ProgressBar(bars: bars)
-                                    .frame(width: 100)
-
-                                Text("\(achievedOfYear.count)/\(countOfDays) days")
-                                    .font(.subheadline)
-                                    .monospacedDigit()
-                                    .foregroundStyle(.secondary)
+                            HStack {
+                                Button {
+                                    year = year.offset(.year, value: -1) ?? Date.now
+                                } label: {
+                                    Label(
+                                        title: { Text("Show previous year") },
+                                        icon: { Image(systemName: "arrow.backward") }
+                                    ).labelStyle(.iconOnly)
+                                }
+                                .disabled(year.component(.year) ?? 0 <= 0)
+                                .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Button {
+                                    year = Date.now
+                                } label: {
+                                    Label(
+                                        title: { Text(year.component(.year)?.description ?? "").monospaced() },
+                                        icon: { EmptyView() }
+                                    ).labelStyle(.titleOnly)
+                                }
+                                .foregroundStyle(.primary)
+                                
+                                Button {
+                                    year = year.offset(.year, value: 1) ?? Date.now
+                                } label: {
+                                    Label(
+                                        title: { Text("Show next year") },
+                                        icon: { Image(systemName: "arrow.forward") }
+                                    ).labelStyle(.iconOnly)
+                                }
+                                .disabled(year.compare(.isThisYear))
+                                .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
                             }
                         }
+                        .padding([.horizontal, .bottom])
+                        .background(.background)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Statistics for \(year.component(.year)?.description ?? "")")
+                                .font(.headline)
+                                .padding(.bottom, 8)
+                            
+                            HStack(alignment: .top) {
+                                Text("Score")
+                                
+                                Spacer()
+                                
+                                VStack(alignment: .trailing, spacing: 4) {
+                                    Text(analysis.achievedScore.formatted(.percent))
+                                        .monospacedDigit()
+                                    let bars = [
+                                        // TODO: add initial year to label and bar
+                                        Bar("progress", progress: analysis.achievedScore, color: habit.asColour.toColor())
+                                    ]
+                                    ProgressBar(bars: bars)
+                                        .frame(width: 100)
+                                    
+                                    Text("\(analysis.achievedDays.count)/\(analysis.achievableDayCount) days")
+                                        .font(.subheadline)
+                                        .monospacedDigit()
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(UIColor.systemGroupedBackground))
                 }
-                .background(Color(UIColor.systemGroupedBackground))
             }
         }
+        .onChange(of: year) {
+            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, entries: entries)
+        }
+        .onChange(of: entries, initial: true) {
+            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, entries: entries)
+        }
+    }
+    
+    init(habit: Habit, entries: [Entry]) {
+        self.habit = habit
+        self.entries = entries
     }
 }
 

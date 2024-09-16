@@ -29,12 +29,11 @@ fileprivate struct VerticalLabel: View {
     }
 }
 
-struct FrequencyAchievementOverview: View {
+struct FrequencyAchievementOverview<Content: View>: View {
     @Environment(\.calendar) private var calendar
 
     var year: Date
-    var achieved: [Date]
-    var color: Color
+    @ViewBuilder var content: (Date) -> Content
 
     private var daysOfMonth: [[Date]] {
         guard
@@ -54,25 +53,9 @@ struct FrequencyAchievementOverview: View {
                     HStack {
                         VStack(spacing: 4) {
                             ForEach(days, id: \.self) { day in
-                                    VStack {
-                                    // TODO: test this first but propably make this more efficient!
-                                    let isAchieved = achieved.contains(where: {
-                                        calendar.compare($0, to: day, toGranularity: .day) == .orderedSame
-                                    })
-                                    let size = CGFloat(isAchieved ? 12 : 4)
-
-                                    Circle()
-                                        .frame(width: size, height: size)
-                                        .foregroundStyle(isAchieved ? color : .secondary)
-                                        .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
-                                        .overlay {
-                                            if calendar.isDateInToday(day) {
-                                                Circle()
-                                                    .stroke(Color.primary, lineWidth: 2)
-                                                    .fill(.clear)
-                                                    .frame(width: 16, height: 16)
-                                            }
-                                        }
+                                VStack {
+                                    content(day)
+                                    
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 12)
                                 .padding(.bottom, 2)
@@ -105,10 +88,12 @@ struct FrequencyAchievementOverview: View {
         )
     }
 }
-
+ 
 #Preview {
     struct Container: View {
-        private var achievedDays: [Date] {
+        @Environment(\.calendar) private var calendar
+
+        private var achievedDays: [String] {
             guard var interval = Calendar.current.dateInterval(of: .year, for: Date.now) else { return [] }
             interval.end = Date.now
             
@@ -119,12 +104,33 @@ struct FrequencyAchievementOverview: View {
                     if Int.random(in: 1..<100) < 70 {
                         res.append(d)
                     }
-                }
+                }.map { $0.toString(format: .isoDate) ?? "" }
         }
 
         var body: some View {
             VStack {
-                FrequencyAchievementOverview(year: Date.now, achieved: achievedDays, color: .green)
+                FrequencyAchievementOverview(year: Date.now) { day in
+                    let date = day.toString(format: .isoDate) ?? ""
+                    let isAchieved = achievedDays.contains(where: { $0 == date })
+                    let size = CGFloat(isAchieved ? 12 : 4)
+                    
+//                    let isMonday = 
+//                    let isSunday =
+
+                    Circle()
+                        .frame(width: size, height: size)
+                        .foregroundStyle(isAchieved ? .green : .secondary)
+                        .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
+                        .overlay {
+                            if calendar.isDateInToday(day) {
+                                Circle()
+                                    .stroke(Color.primary, lineWidth: 2)
+                                    .fill(.clear)
+                                    .frame(width: 16, height: 16)
+                            }
+                        }
+
+                }
             }
             .padding()
         }
