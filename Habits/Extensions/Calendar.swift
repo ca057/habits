@@ -33,4 +33,8 @@ extension Calendar {
         
         return dates
     }
+    
+    func countOfDaysBetween(_ from: Date, _ to: Date) -> Int {
+        dateComponents([.day], from: from, to: to).day!
+    }
 }
