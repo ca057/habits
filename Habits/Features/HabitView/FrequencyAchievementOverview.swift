@@ -7,27 +7,6 @@
 
 import SwiftUI
 
-//protocol FrequencyAchievement {
-//    var year: Date
-//}
-
-enum Frequency: String, CaseIterable, Identifiable {
-    case daily
-//    , weekly
-    
-    var id: Self { self }
-}
-
-//fileprivate struct WeeklyFrequencyAchievementOverview: View {
-//    @Environment(\.calendar) private var calendar
-//    
-//    var year: Date
-//    
-//    var body: some View {
-//        Text("N/A")
-//    }
-//}
-
 fileprivate struct VerticalLabel: View {
     // copied from https://stackoverflow.com/a/76570744
     var text: Text
@@ -50,7 +29,7 @@ fileprivate struct VerticalLabel: View {
     }
 }
 
-fileprivate struct DailyFrequencyAchievementOverview: View {
+struct FrequencyAchievementOverview: View {
     @Environment(\.calendar) private var calendar
 
     var year: Date
@@ -127,31 +106,8 @@ fileprivate struct DailyFrequencyAchievementOverview: View {
     }
 }
 
-struct FrequencyAchievementOverview: View {
-    var frequency: Frequency = .daily
-    var year: Date
-    var achieved: [Date]
-    var color: Color
-
-    var body: some View {
-        switch frequency {
-        case .daily: DailyFrequencyAchievementOverview(year: year, achieved: achieved, color: color)
-//        case .weekly: WeeklyFrequencyAchievementOverview(year: Date.now)
-        }
-    }
-    
-    init(_ frequency: Frequency = .daily, year: Date, achieved: [Date], color: Color) {
-        self.frequency = frequency
-        self.year = year
-        self.achieved = achieved
-        self.color = color
-    }
-}
-
 #Preview {
     struct Container: View {
-        @State private var frequency = Frequency.daily
-
         private var achievedDays: [Date] {
             guard var interval = Calendar.current.dateInterval(of: .year, for: Date.now) else { return [] }
             interval.end = Date.now
@@ -168,15 +124,7 @@ struct FrequencyAchievementOverview: View {
 
         var body: some View {
             VStack {
-                FrequencyAchievementOverview(frequency, year: Date.now, achieved: achievedDays, color: .green)
-                
-                Spacer()
-
-                Picker("frequency", selection: $frequency) {
-                    ForEach(Frequency.allCases) { f in
-                        Text(f.rawValue.capitalized).tag(f)
-                    }
-                }.pickerStyle(.segmented)
+                FrequencyAchievementOverview(year: Date.now, achieved: achievedDays, color: .green)
             }
             .padding()
         }

@@ -69,7 +69,6 @@ fileprivate struct SingleHabitViewContent: View {
                     VStack {
                         // TODO: inline the overview, make a switch to the histogramm perspective
                         FrequencyAchievementOverview(
-                            .daily,
                             year: year,
                             achieved: achievedOfYear,
                             color: habit.asColour.toColor()
