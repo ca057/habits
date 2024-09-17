@@ -44,7 +44,7 @@ fileprivate struct SingleHabitStatistics: View {
             }.padding(.bottom, 8)
             
             HStack(alignment: .top) {
-                Text("Score")
+                Text("Completion")
                 
                 Spacer()
                 
