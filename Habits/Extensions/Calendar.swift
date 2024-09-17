@@ -37,4 +37,13 @@ extension Calendar {
     func countOfDaysBetween(_ from: Date, _ to: Date) -> Int {
         dateComponents([.day], from: from, to: to).day!
     }
+    
+    func oldestDate(_ date1: Date, _ date2: Date, granularity: Calendar.Component = .day) -> Date {
+        let comparison = compare(date1, to: date2, toGranularity: granularity)
+        
+        if comparison == .orderedSame || comparison == .orderedAscending {
+            return date1
+        }
+        return date2
+    }
 }

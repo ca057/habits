@@ -74,47 +74,6 @@ fileprivate struct SingleHabitStatistics: View {
     }
 }
 
-fileprivate struct EntryDayView: View {
-    @Environment(\.calendar) private var calendar
-
-    var day: Date
-    var isAchieved: Bool
-    var isCreatedAt: Bool
-    var color: Color
-    var size: CGFloat
-    
-    var body: some View {
-        Circle()
-            .frame(width: size, height: size)
-            .foregroundStyle(isAchieved ? color : .secondary)
-            .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
-            .overlay {
-                VStack {
-                    if isCreatedAt {
-                        // TODO: make it a triangle
-                        RoundedRectangle(cornerSize: CGSize(width: 4, height: 4))
-                            .foregroundStyle(.brown)
-                            .frame(width: 16, height: 4)
-                    }
-                    if calendar.isDateInToday(day) {
-                        Circle()
-                            .stroke(Color.primary, lineWidth: 2)
-                            .fill(.clear)
-                            .frame(width: 16, height: 16)
-                    }
-                }
-            }
-    }
-    
-    init(for day: Date, isAchieved: Bool, isCreatedAt: Bool, color: Color, size: CGFloat) {
-        self.day = day
-        self.isAchieved = isAchieved
-        self.isCreatedAt = isCreatedAt
-        self.color = color
-        self.size = size
-    }
-}
-
 fileprivate let staticBackground: some View = LinearGradient(
     stops: [
         Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
@@ -146,11 +105,16 @@ fileprivate struct SingleHabitViewContent: View {
                             FrequencyAchievementOverview(year: year) { day in
                                 let isAchieved = analysis.achievedDays.contains(day.toString(format: .isoDate) ?? "")
                                 let size = CGFloat(isAchieved ? 12 : 4)
-                                
+                                var isBeginning: Bool {
+                                    //
+                                    false
+                                }
+
                                 EntryDayView(
                                     for: day,
                                     isAchieved: isAchieved,
-                                    isCreatedAt: calendar.isDate(habit.createdAt, equalTo: day, toGranularity: .day),
+                                    // TODO: doesn’t work, check with running
+                                    isBeginning: calendar.isDate(day, inSameDayAs: calendar.oldestDate(habit.createdAt, entries.first?.date ?? Date.now)),
                                     color: habit.asColour.toColor(),
                                     size: size
                                 )
