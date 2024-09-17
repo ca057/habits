@@ -19,7 +19,6 @@
 		AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */; };
 		AA4191562C99DC74002A230C /* EntryDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191552C99DC74002A230C /* EntryDayView.swift */; };
 		AA4191572C9A0DD7002A230C /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
-		AA41915A2C9A0EA6002A230C /* CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191592C9A0EA6002A230C /* CalendarTests.swift */; };
 		AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
 		AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */; };
 		AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
@@ -78,7 +77,6 @@
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitAnalysis.swift; sourceTree = "<group>"; };
 		AA4191552C99DC74002A230C /* EntryDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDayView.swift; sourceTree = "<group>"; };
-		AA4191592C9A0EA6002A230C /* CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
 		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
 		AA6F58C12B1DFA0A009BB876 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
@@ -130,14 +128,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA4191582C9A0E4B002A230C /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				AA4191592C9A0EA6002A230C /* CalendarTests.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		AA8636F329BFD93800144373 /* HabitView */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,7 +244,6 @@
 		AADC1CF327BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXGroup;
 			children = (
-				AA4191582C9A0E4B002A230C /* Extensions */,
 				AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */,
 			);
 			path = HabitsTests;
@@ -444,7 +433,6 @@
 				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
-				AA41915A2C9A0EA6002A230C /* CalendarTests.swift in Sources */,
 				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */,
 				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
@@ -619,7 +607,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match Development de.christianost.habits";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development de.christianost.habits 1724136635";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -656,7 +644,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore de.christianost.habits";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore de.christianost.habits";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
