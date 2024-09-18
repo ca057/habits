@@ -37,7 +37,7 @@ fileprivate struct SingleHabitStatistics: View {
                     .font(.headline)
 
                 if calendar.isDate(habit.createdAt, equalTo: year, toGranularity: .year) {
-                    Text("since \(habit.createdAt.formatted(date: .abbreviated, time: .omitted))")
+                    Text("since \(analysis.firstRelevantDate.formatted(date: .abbreviated, time: .omitted))")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
@@ -49,15 +49,15 @@ fileprivate struct SingleHabitStatistics: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(analysis.achievedScore.formatted(.percent))
+                    Text(analysis.achievedCompletion.formatted(.percent))
                         .monospacedDigit()
                     let bars = [
                         Bar("firstYearOffset",
-                            progress: Double(calendar.countOfDaysBetween(year.adjust(for: .startOfYear, calendar: calendar)!, habit.createdAt)) / Double(365),
+                            progress: Double(calendar.countOfDaysBetween(year.adjust(for: .startOfYear, calendar: calendar)!, analysis.firstRelevantDate)) / Double(365),
                             color: Color.black.opacity(0.25)
                            ),
                         Bar("progress",
-                            progress: analysis.achievedScore,
+                            progress: analysis.achievedCompletion,
                             color: habit.asColour.toColor()
                            )
                     ]
@@ -109,16 +109,11 @@ fileprivate struct SingleHabitViewContent: View {
                             FrequencyAchievementOverview(year: year) { day in
                                 let isAchieved = analysis.achievedDays.contains(day.toString(format: .isoDate) ?? "")
                                 let size = CGFloat(isAchieved ? 12 : 4)
-                                var isBeginning: Bool {
-                                    //
-                                    false
-                                }
 
                                 EntryDayView(
                                     for: day,
                                     isAchieved: isAchieved,
-                                    // TODO: doesn’t work, check with running
-                                    isBeginning: calendar.isDate(day, inSameDayAs: calendar.oldestDate(habit.createdAt, entries.first?.date ?? Date.now)),
+                                    isBeginning: calendar.isDate(day, inSameDayAs: analysis.firstRelevantDate),
                                     color: habit.asColour.toColor(),
                                     size: size
                                 )
@@ -173,10 +168,10 @@ fileprivate struct SingleHabitViewContent: View {
             }
         }
         .onChange(of: year) {
-            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, entries: entries)
+            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, habit: habit, entries: entries)
         }
         .onChange(of: entries, initial: true) {
-            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, entries: entries)
+            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, habit: habit, entries: entries)
         }
     }
     

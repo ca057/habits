@@ -10,29 +10,36 @@ import Foundation
 struct SingleHabitAnalysis {
     var achievedDays: Set<String>
 
-    var achievedScore: Double
+    var achievedCompletion: Double
     var achievableDayCount: Int
     
-    static func forYear(_ year: Date, calendar: Calendar, entries: [Entry]) -> SingleHabitAnalysis {
-        var achievableDays: Int {
-            guard let startOfYear = year.adjust(for: .startOfYear),
-                  let endOfToday = year.adjust(for: year.compare(.isThisYear) ? .endOfDay : .endOfYear)
-            else { return 0 }
-            
-            return Int(ceil(Double(calendar.dateComponents([.hour], from: startOfYear, to: endOfToday).hour ?? 0) / 24))
-        }
-        var achievedOfYear: [Date] {
-            entries.reduce(into: [Date]()) { res, e in
+    var firstRelevantDate: Date
+    
+    static func forYear(_ year: Date, calendar: Calendar, habit: Habit, entries: [Entry]) -> SingleHabitAnalysis {
+        let startOfYear = year.adjust(for: .startOfYear)!
+        let firstRelevantDate = calendar.oldestDate(habit.createdAt, entries.sorted { a, b in a.date < b.date }.first?.date ?? habit.createdAt)
+
+        let achievedOfYear = entries
+            .reduce(into: [Date]()) { res, e in
                 if e.date.compare(.isSameYear(as: year)) {
                     res.append(e.date)
                 }
             }
+        
+        var achievableDays: Int {
+            guard let endOfToday = year.adjust(for: year.compare(.isThisYear) ? .endOfDay : .endOfYear)
+            else { return 0 }
+            
+            let start = calendar.isDate(startOfYear, equalTo: firstRelevantDate, toGranularity: .year) ? firstRelevantDate : startOfYear
+            
+            return Int(ceil(Double(calendar.dateComponents([.hour], from: start, to: endOfToday).hour ?? 0) / 24))
         }
         
         return SingleHabitAnalysis(
             achievedDays: Set(achievedOfYear.map { $0.toString(format: .isoDate) ?? "" }),
-            achievedScore: (Double(achievedOfYear.count) / Double(achievableDays) * 100).rounded() / 100,
-            achievableDayCount: achievableDays
+            achievedCompletion: (Double(achievedOfYear.count) / Double(achievableDays) * 100).rounded() / 100,
+            achievableDayCount: achievableDays,
+            firstRelevantDate: firstRelevantDate
         )
     }
 }

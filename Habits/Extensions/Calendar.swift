@@ -46,4 +46,13 @@ extension Calendar {
         }
         return date2
     }
+    
+    func newestDate(_ date1: Date, _ date2: Date, granularity: Calendar.Component = .day) -> Date {
+        let comparison = compare(date1, to: date2, toGranularity: granularity)
+        
+        if comparison == .orderedSame || comparison == .orderedDescending {
+            return date1
+        }
+        return date2
+    }
 }
