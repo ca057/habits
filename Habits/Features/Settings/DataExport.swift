@@ -38,8 +38,8 @@ struct DataExport {
     }
     
     struct JSONFile: FileDocument {
-        static var readableContentTypes = [UTType.json]
-        static var writableContentTypes = [UTType.json]
+        static let readableContentTypes = [UTType.json]
+        static let writableContentTypes = [UTType.json]
         
         var data = Data()
         

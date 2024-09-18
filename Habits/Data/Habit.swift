@@ -51,7 +51,7 @@ class Habit {
         return fetchDescriptor
     }
     
-    static var archivedHabits = FetchDescriptor<Habit>(
+    static let archivedHabits = FetchDescriptor<Habit>(
         predicate: #Predicate { $0.archivedAt != nil },
         sortBy: [
             SortDescriptor(\.archivedAt, order: .reverse),

@@ -19,14 +19,14 @@
 		AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */; };
 		AA4191562C99DC74002A230C /* EntryDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191552C99DC74002A230C /* EntryDayView.swift */; };
 		AA4191572C9A0DD7002A230C /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
+		AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */; };
+		AA47212D2C9AA686009CEE3F /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
+		AA47212E2C9AA69D009CEE3F /* LTTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */; };
+		AA47212F2C9AA6AB009CEE3F /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C9B7C2B8E876C00312206 /* Pill.swift */; };
 		AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
 		AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */; };
 		AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
 		AA7318532BFBE55400988128 /* LTTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */; };
-		AA8636FA29D23F5300144373 /* ReversedCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636F929D23F5300144373 /* ReversedCalendar.swift */; };
-		AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636F929D23F5300144373 /* ReversedCalendar.swift */; };
-		AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */; };
-		AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */; };
 		AA86370129D23FBD00144373 /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370029D23FBD00144373 /* CalendarUtils.swift */; };
 		AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370029D23FBD00144373 /* CalendarUtils.swift */; };
 		AA86370429D4CC5600144373 /* MainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370329D4CC5600144373 /* MainApp.swift */; };
@@ -49,10 +49,7 @@
 		AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1CE327BEF547007C47BE /* HabitsApp.swift */; };
 		AADC1CE827BEF548007C47BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AADC1CE727BEF548007C47BE /* Assets.xcassets */; };
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
-		AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5FBED2B35C5F10052D047 /* LazyView.swift */; };
-		AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */; };
-		AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC09F327FAD20F00D9B666 /* ViewInspector */; };
 		AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,12 +74,11 @@
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitAnalysis.swift; sourceTree = "<group>"; };
 		AA4191552C99DC74002A230C /* EntryDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDayView.swift; sourceTree = "<group>"; };
+		AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
 		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
 		AA6F58C12B1DFA0A009BB876 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTextFieldStyle.swift; sourceTree = "<group>"; };
-		AA8636F929D23F5300144373 /* ReversedCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedCalendar.swift; sourceTree = "<group>"; };
-		AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReversedCalendar+Extensions.swift"; sourceTree = "<group>"; };
 		AA86370029D23FBD00144373 /* CalendarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtils.swift; sourceTree = "<group>"; };
 		AA86370329D4CC5600144373 /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
 		AA86370529D4D0C900144373 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -104,7 +100,6 @@
 		AADC1CF027BEF548007C47BE /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AAE5FBED2B35C5F10052D047 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
-		AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewTests.swift; sourceTree = "<group>"; };
 		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,13 +116,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAEC09F427FAD20F00D9B666 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA4721292C9AA51B009CEE3F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		AA8636F329BFD93800144373 /* HabitView */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,15 +140,6 @@
 				AA4191552C99DC74002A230C /* EntryDayView.swift */,
 			);
 			path = HabitView;
-			sourceTree = "<group>";
-		};
-		AA8636F829D23F2D00144373 /* ReversedCalendar */ = {
-			isa = PBXGroup;
-			children = (
-				AA8636F929D23F5300144373 /* ReversedCalendar.swift */,
-				AA8636FC29D23F8800144373 /* ReversedCalendar+Extensions.swift */,
-			);
-			path = ReversedCalendar;
 			sourceTree = "<group>";
 		};
 		AA8636FF29D23FAB00144373 /* Utils */ = {
@@ -193,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
-				AA8636F829D23F2D00144373 /* ReversedCalendar */,
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
 				AA09A9D22AB5FB7500999CAD /* HistoryView.swift */,
 				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
@@ -244,7 +236,7 @@
 		AADC1CF327BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXGroup;
 			children = (
-				AAEC09E927F9E24400D9B666 /* AddHabitViewTests.swift */,
+				AA4721292C9AA51B009CEE3F /* Extensions */,
 			);
 			path = HabitsTests;
 			sourceTree = "<group>";
@@ -315,7 +307,6 @@
 			);
 			name = HabitsTests;
 			packageProductDependencies = (
-				AAEC09F327FAD20F00D9B666 /* ViewInspector */,
 			);
 			productName = habitsTests;
 			productReference = AADC1CF027BEF548007C47BE /* HabitsTests.xctest */;
@@ -350,7 +341,6 @@
 			);
 			mainGroup = AADC1CD727BEF547007C47BE;
 			packageReferences = (
-				AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 				AAC0106B2875C12F00AE0889 /* XCRemoteSwiftPackageReference "DateHelper" */,
 			);
 			productRefGroup = AADC1CE127BEF547007C47BE /* Products */;
@@ -387,7 +377,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */,
-				AA8636FA29D23F5300144373 /* ReversedCalendar.swift in Sources */,
 				AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */,
 				AA4191562C99DC74002A230C /* EntryDayView.swift in Sources */,
 				AA09A9D32AB5FB7500999CAD /* HistoryView.swift in Sources */,
@@ -398,7 +387,6 @@
 				AACCAD942B22065A008BB8FE /* Habit.swift in Sources */,
 				AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
-				AA8636FD29D23F8800144373 /* ReversedCalendar+Extensions.swift in Sources */,
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
 				AA1994832C864B040059211B /* View.swift in Sources */,
 				AACCAD972B225882008BB8FE /* DataExport.swift in Sources */,
@@ -429,14 +417,14 @@
 				AA4191572C9A0DD7002A230C /* Calendar.swift in Sources */,
 				AACCAD982B234BA1008BB8FE /* Entry.swift in Sources */,
 				AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */,
-				AA8636FB29D23F5300144373 /* ReversedCalendar.swift in Sources */,
-				AAEC09F127F9E4B600D9B666 /* AddHabitViewTests.swift in Sources */,
+				AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
-				AADC1D1427C017F4007C47BE /* AddHabitView.swift in Sources */,
-				AA8636FE29D23F8C00144373 /* ReversedCalendar+Extensions.swift in Sources */,
+				AA47212F2C9AA6AB009CEE3F /* Pill.swift in Sources */,
+				AA47212E2C9AA69D009CEE3F /* LTTextFieldStyle.swift in Sources */,
 				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
 				AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */,
+				AA47212D2C9AA686009CEE3F /* LTLabeledContentStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,14 +718,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nalexn/ViewInspector";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -745,11 +725,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAC0106B2875C12F00AE0889 /* XCRemoteSwiftPackageReference "DateHelper" */;
 			productName = DateHelper;
-		};
-		AAEC09F327FAD20F00D9B666 /* ViewInspector */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAEC09EB27F9E30E00D9B666 /* XCRemoteSwiftPackageReference "ViewInspector" */;
-			productName = ViewInspector;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -74,16 +74,20 @@ fileprivate struct SingleHabitStatistics: View {
     }
 }
 
-fileprivate let staticBackground: some View = LinearGradient(
-    stops: [
-        Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
-        Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
-        Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
-        Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
-    ],
-    startPoint: .top,
-    endPoint: .bottom
-).ignoresSafeArea(.all, edges: .bottom)
+fileprivate struct StaticBackground: View {
+    var body: some View {
+        LinearGradient(
+            stops: [
+                Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
+                Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
+                Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
+                Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        ).ignoresSafeArea(.all, edges: .bottom)
+    }
+}
 
 fileprivate struct SingleHabitViewContent: View {
     @Environment(\.calendar) private var calendar
@@ -97,7 +101,7 @@ fileprivate struct SingleHabitViewContent: View {
     var body: some View {
         ZStack(alignment: .top) {
             if let analysis = analysisForYear {
-                staticBackground
+                StaticBackground()
                 
                 ScrollView {
                     VStack(alignment: .leading) {

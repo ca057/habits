@@ -13,8 +13,8 @@ import SwiftUI
     // TODO: expose method for pop to top
 }
 
-private struct NavigationPathEnvironment: EnvironmentKey {
-    static let defaultValue: Navigation = Navigation()
+private struct NavigationPathEnvironment: @preconcurrency EnvironmentKey {
+    @MainActor static let defaultValue: Navigation = Navigation()
 }
 
 extension EnvironmentValues {

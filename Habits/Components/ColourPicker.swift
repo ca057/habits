@@ -35,7 +35,7 @@ extension Colour {
         return result.0
     }
 
-    static private var mappingDict: [Colour.RawValue : (Colour, Color, String)] = [
+    static private let mappingDict: [Colour.RawValue : (Colour, Color, String)] = [
         "base": (Colour.base, Color.primary, "primary colour"),
         "purple": (Colour.purple, Color.purple, "purple"),
         "mint": (Colour.mint, Color.mint, "mint"),

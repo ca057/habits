@@ -13,7 +13,7 @@ fileprivate enum CalendarUtilsError: Error {
 }
 
 class CalendarUtils {
-    static var shared = CalendarUtils()
+    @MainActor static let shared = CalendarUtils()
     
     var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
