@@ -12,7 +12,6 @@ struct EntryDayView: View {
     
     var day: Date
     var isAchieved: Bool
-    var isBeginning: Bool
     var color: Color
     var size: CGFloat
     
@@ -22,19 +21,18 @@ struct EntryDayView: View {
             .foregroundStyle(isAchieved ? color : .secondary)
             .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
             .overlay {
-                if calendar.isDateInToday(day) || isBeginning {
+                if calendar.isDateInToday(day) {
                     Circle()
-                        .stroke(isBeginning ? color : Color.primary, lineWidth: 2)
+                        .stroke(Color.primary, lineWidth: 2)
                         .fill(.clear)
                         .frame(width: 16, height: 16)
                 }
             }
     }
     
-    init(for day: Date, isAchieved: Bool, isBeginning: Bool, color: Color, size: CGFloat) {
+    init(for day: Date, isAchieved: Bool, color: Color, size: CGFloat) {
         self.day = day
         self.isAchieved = isAchieved
-        self.isBeginning = isBeginning
         self.color = color
         self.size = size
     }
@@ -42,20 +40,12 @@ struct EntryDayView: View {
 
 #Preview {
     VStack(spacing: 16) {
-        EntryDayView(for: Date.now, isAchieved: false, isBeginning: false, color: .green, size: CGFloat(4))
+        EntryDayView(for: Date.now, isAchieved: false, color: .green, size: CGFloat(4))
         
-        EntryDayView(for: Date.now, isAchieved: true, isBeginning: false, color: .green, size: CGFloat(12))
+        EntryDayView(for: Date.now, isAchieved: true, color: .green, size: CGFloat(12))
+                
+        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: false, color: .green, size: CGFloat(4))
         
-        EntryDayView(for: Date.now, isAchieved: false, isBeginning: true, color: .green, size: CGFloat(4))
-
-        EntryDayView(for: Date.now, isAchieved: true, isBeginning: true, color: .green, size: CGFloat(12))
-        
-        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: false, isBeginning: false, color: .green, size: CGFloat(4))
-        
-        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: true, isBeginning: false, color: .green, size: CGFloat(12))
-        
-        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: false, isBeginning: true, color: .green, size: CGFloat(4))
-        
-        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: true, isBeginning: true, color: .green, size: CGFloat(12))
+        EntryDayView(for: Date.now.adjust(for: .yesterday)!, isAchieved: true, color: .green, size: CGFloat(12))
     }
 }

@@ -51,17 +51,8 @@ fileprivate struct SingleHabitStatistics: View {
                 VStack(alignment: .trailing, spacing: 4) {
                     Text(analysis.achievedCompletion.formatted(.percent))
                         .monospacedDigit()
-                    let bars = [
-                        Bar("firstYearOffset",
-                            progress: Double(calendar.countOfDaysBetween(year.adjust(for: .startOfYear, calendar: calendar)!, analysis.firstRelevantDate)) / Double(365),
-                            color: Color.black.opacity(0.25)
-                           ),
-                        Bar("progress",
-                            progress: analysis.achievedCompletion,
-                            color: habit.asColour.toColor()
-                           )
-                    ]
-                    ProgressBar(bars: bars)
+
+                    ProgressBar(progress: analysis.achievedCompletion, color: habit.asColour.toColor())
                         .frame(width: 100)
                     
                     Text("\(analysis.achievedDays.count)/\(analysis.achievableDayCount) days")
@@ -113,7 +104,6 @@ fileprivate struct SingleHabitViewContent: View {
                                 EntryDayView(
                                     for: day,
                                     isAchieved: isAchieved,
-                                    isBeginning: calendar.isDate(day, inSameDayAs: analysis.firstRelevantDate),
                                     color: habit.asColour.toColor(),
                                     size: size
                                 )

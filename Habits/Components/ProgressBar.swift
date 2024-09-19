@@ -21,6 +21,7 @@ struct Bar: Identifiable {
 
 fileprivate struct ProgressBarElement: View {
     var width: Double
+    var height: Double
     var color: Color
     
     @State private var animatedWidth: Double
@@ -28,7 +29,7 @@ fileprivate struct ProgressBarElement: View {
     var body: some View {
         Rectangle()
             .fill(color)
-            .frame(width: animatedWidth, height: .infinity)
+            .frame(width: animatedWidth, height: height)
             .onChange(of: width, initial: true) {
                 withAnimation {
                     animatedWidth = width
@@ -36,15 +37,17 @@ fileprivate struct ProgressBarElement: View {
             }
     }
     
-    init(width: Double, color: Color) {
+    init(width: Double, height: Double, color: Color) {
         self.width = width
+        self.height = height
         self.color = color
         self.animatedWidth = width
     }
 }
 
 struct ProgressBar: View {
-    var bars: [Bar]
+    var progress: Double
+    var color = Color.black
     var trackColor = Color.secondary
     var height = CGFloat(4)
 
@@ -54,11 +57,7 @@ struct ProgressBar: View {
             .frame(width: nil, height: height)
             .overlay(alignment: .leading) {
                 GeometryReader { geo in
-                    HStack(spacing: 0) {
-                        ForEach(bars) { bar in
-                            ProgressBarElement(width: geo.size.width * bar.progress, color: bar.color).tag(bar.id)
-                        }
-                    }
+                    ProgressBarElement(width: geo.size.width * progress, height: height, color: color)
                 }
             }
             .clipped()
@@ -75,7 +74,7 @@ struct ProgressBar: View {
             VStack(spacing: 4) {
                 Spacer()
 
-                ProgressBar(bars: [Bar("1", progress: progress)], trackColor: .brown, height: 32)
+                ProgressBar(progress: progress, color: .blue, trackColor: .brown, height: 32)
 
                 HStack(spacing: 4) {
                     Button("-", action: {
@@ -86,15 +85,6 @@ struct ProgressBar: View {
                         progress = Double.minimum(1, progress + 0.1)
                     }).buttonStyle(.bordered)
                 }
-
-                ProgressBar(bars:
-                                [
-                                    Bar("elapsedYear", progress: 0.3, color: .gray),
-                                    Bar("progress", progress: progress)
-                                ],
-                            trackColor: .brown,
-                            height: 32
-                )
 
                 Spacer()
             }.padding(20)
