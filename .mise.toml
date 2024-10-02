@@ -1,3 +1,13 @@
 [tools]
 pre-commit = "3.8.0"
 ruby = "3.3.5"
+
+[tasks.setup]
+run = [
+  "mise install -y",
+  "bundle install",
+  "pre-commit install --hook-type pre-push",
+]
+
+[settings]
+experimental = true
