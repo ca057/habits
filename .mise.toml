@@ -9,5 +9,24 @@ run = [
   "pre-commit install --hook-type pre-push",
 ]
 
+[tasks.build-beta]
+depends = ["cert-appstore"]
+run = [
+  # TODO: check dirty state
+  # TODO: commit version change automatically and push? check if it’s the main branch
+  "bundle exec fastlane ios beta",
+]
+
+[tasks.cert-appstore]
+run = ["bundle exec fastlane match appstore"]
+
+[tasks.cert-development]
+run = ["bundle exec fastlane match development"]
+
+[tasks.test]
+run = [
+  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0' | xcpretty && exit ${PIPESTATUS[0]}",
+]
+
 [settings]
 experimental = true
