@@ -30,16 +30,8 @@ struct MainApp: View {
     @State private var today = Date.now
     @State private var navigation = Navigation()
     
-    @AppStorage(SettingProperties.overviewDateRangeKey) private var overviewDateRange = SettingProperties.OverviewDateRange.pastSevenDays
-    
     private var overviewDateInterval: (from: Date, to: Date) {
-        if overviewDateRange == .pastSevenDays {
-            return (from: today.offset(.day, value: -6) ?? Date.now, to: today)
-        }
-        return (
-            from: today.adjust(for: .startOfWeek, calendar: calendar) ?? today,
-            to: today.adjust(for: .endOfWeek, calendar: calendar) ?? today
-        )
+        (from: today.offset(.day, value: -6) ?? Date.now, to: today)
     }
 
     var body: some View {

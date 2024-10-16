@@ -18,9 +18,6 @@ fileprivate struct ErrorAlert {
 struct Settings: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismissView
-    
-    @AppStorage(SettingProperties.overviewDateRangeKey)
-    private var dashboardDateRange = SettingProperties.OverviewDateRange.pastSevenDays
 
     @State private var errorMessage = ErrorAlert()
     @State private var showingExporter = false
@@ -30,15 +27,6 @@ struct Settings: View {
         NavigationStack {
             Form {
                 List {
-                    Section("Interface") {
-                        Picker(selection: $dashboardDateRange) {
-                            Text("past 7 days").tag(SettingProperties.OverviewDateRange.pastSevenDays)
-                            Text("current week").tag(SettingProperties.OverviewDateRange.currentWeek)
-                        } label: {
-                            Text("Dates on home")
-                        }
-                    }
-
                     Section("Data") {
                         Button(action: { showingExporter = true }) {
                             Label {
