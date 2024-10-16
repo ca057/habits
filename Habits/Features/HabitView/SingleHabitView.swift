@@ -5,25 +5,27 @@
 //  Created by Christian Ost on 25.04.24.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
-fileprivate struct NotFoundSingleHabitView: View {
+private struct NotFoundSingleHabitView: View {
     var body: some View {
-        Text("Whoopsie, somehow no details could be found :/\n\nPlease try opening the habit again and drop me a message if it persists.")
-            .multilineTextAlignment(.center)
-            .monospaced()
-            .foregroundStyle(.yellow)
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .foregroundStyle(.gray)
-            }
-            .padding()
+        Text(
+            "Whoopsie, somehow no details could be found :/\n\nPlease try opening the habit again and drop me a message if it persists."
+        )
+        .multilineTextAlignment(.center)
+        .monospaced()
+        .foregroundStyle(.yellow)
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .foregroundStyle(.gray)
+        }
+        .padding()
     }
 }
 
-fileprivate struct SingleHabitStatistics: View {
+private struct SingleHabitStatistics: View {
     @Environment(\.calendar) private var calendar
 
     var habit: Habit
@@ -33,46 +35,62 @@ fileprivate struct SingleHabitStatistics: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text("Statistics for \(year.component(.year)?.description ?? "")")
-                    .font(.headline)
+                Text(
+                    "Statistics for \(year.component(.year)?.description ?? "")"
+                )
+                .font(.headline)
 
-                if calendar.isDate(habit.createdAt, equalTo: year, toGranularity: .year) {
-                    Text("since \(analysis.firstRelevantDate.formatted(date: .abbreviated, time: .omitted))")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                if calendar.isDate(
+                    habit.createdAt, equalTo: year, toGranularity: .year)
+                {
+                    Text(
+                        "since \(analysis.firstRelevantDate.formatted(date: .abbreviated, time: .omitted))"
+                    )
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
                 }
             }.padding(.bottom, 8)
-            
+
             HStack(alignment: .top) {
                 Text("Completion")
-                
+
                 Spacer()
-                
+
                 VStack(alignment: .trailing, spacing: 4) {
                     Text(analysis.achievedCompletion.formatted(.percent))
                         .monospacedDigit()
 
-                    ProgressBar(progress: analysis.achievedCompletion, color: habit.asColour.toColor())
-                        .frame(width: 100)
-                    
-                    Text("\(analysis.achievedDays.count)/\(analysis.achievableDayCount) days")
-                        .font(.subheadline)
-                        .monospacedDigit()
-                        .foregroundStyle(.secondary)
+                    ProgressBar(
+                        progress: analysis.achievedCompletion,
+                        color: habit.asColour.toColor()
+                    )
+                    .frame(width: 100)
+
+                    Text(
+                        "\(analysis.achievedDays.count)/\(analysis.achievableDayCount) days"
+                    )
+                    .font(.subheadline)
+                    .monospacedDigit()
+                    .foregroundStyle(.secondary)
                 }
             }
         }
     }
 }
 
-fileprivate struct StaticBackground: View {
+private struct StaticBackground: View {
     var body: some View {
         LinearGradient(
             stops: [
-                Gradient.Stop(color: Color(UIColor.systemBackground), location: 0),
-                Gradient.Stop(color: Color(UIColor.systemBackground), location: 0.5),
-                Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 0.5),
-                Gradient.Stop(color: Color(UIColor.systemGroupedBackground), location: 1),
+                Gradient.Stop(
+                    color: Color(UIColor.systemBackground), location: 0),
+                Gradient.Stop(
+                    color: Color(UIColor.systemBackground), location: 0.5),
+                Gradient.Stop(
+                    color: Color(UIColor.systemGroupedBackground), location: 0.5
+                ),
+                Gradient.Stop(
+                    color: Color(UIColor.systemGroupedBackground), location: 1),
             ],
             startPoint: .top,
             endPoint: .bottom
@@ -80,12 +98,12 @@ fileprivate struct StaticBackground: View {
     }
 }
 
-fileprivate struct SingleHabitViewContent: View {
+private struct SingleHabitViewContent: View {
     @Environment(\.calendar) private var calendar
 
     var habit: Habit
     var entries: [Entry]
-    
+
     @State private var year = Date.now
     @State private var analysisForYear: SingleHabitAnalysis?
 
@@ -93,12 +111,13 @@ fileprivate struct SingleHabitViewContent: View {
         ZStack(alignment: .top) {
             if let analysis = analysisForYear {
                 StaticBackground()
-                
+
                 ScrollView {
                     VStack(alignment: .leading) {
                         VStack {
                             FrequencyAchievementOverview(year: year) { day in
-                                let isAchieved = analysis.achievedDays.contains(day.toString(format: .isoDate) ?? "")
+                                let isAchieved = analysis.achievedDays.contains(
+                                    day.toString(format: .isoDate) ?? "")
                                 let size = CGFloat(isAchieved ? 12 : 4)
 
                                 EntryDayView(
@@ -109,62 +128,84 @@ fileprivate struct SingleHabitViewContent: View {
                                 )
                             }
                             .padding(.bottom)
-                            
+
                             HStack {
                                 Button {
-                                    year = year.offset(.year, value: -1) ?? Date.now
+                                    year =
+                                        year.offset(.year, value: -1)
+                                        ?? Date.now
                                 } label: {
                                     Label(
                                         title: { Text("Show previous year") },
-                                        icon: { Image(systemName: "arrow.backward") }
+                                        icon: {
+                                            Image(systemName: "arrow.backward")
+                                        }
                                     ).labelStyle(.iconOnly)
                                 }
                                 .disabled(year.component(.year) ?? 0 <= 0)
-                                .foregroundStyle(year.component(.year) ?? 0 <= 0 ? .gray : .primary)
+                                .foregroundStyle(
+                                    year.component(.year) ?? 0 <= 0
+                                        ? .gray : .primary
+                                )
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                
+
                                 Button {
                                     year = Date.now
                                 } label: {
                                     Label(
-                                        title: { Text(year.component(.year)?.description ?? "").monospaced() },
+                                        title: {
+                                            Text(
+                                                year.component(.year)?
+                                                    .description ?? ""
+                                            ).monospaced()
+                                        },
                                         icon: { EmptyView() }
                                     ).labelStyle(.titleOnly)
                                 }
                                 .foregroundStyle(.primary)
-                                
+
                                 Button {
-                                    year = year.offset(.year, value: 1) ?? Date.now
+                                    year =
+                                        year.offset(.year, value: 1) ?? Date.now
                                 } label: {
                                     Label(
                                         title: { Text("Show next year") },
-                                        icon: { Image(systemName: "arrow.forward") }
+                                        icon: {
+                                            Image(systemName: "arrow.forward")
+                                        }
                                     ).labelStyle(.iconOnly)
                                 }
                                 .disabled(year.compare(.isThisYear))
-                                .foregroundStyle(year.compare(.isThisYear) ? .gray : .primary)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundStyle(
+                                    year.compare(.isThisYear) ? .gray : .primary
+                                )
+                                .frame(
+                                    maxWidth: .infinity, alignment: .trailing)
                             }
                         }
                         .padding([.horizontal, .bottom])
                         .background(.background)
-                        
-                        SingleHabitStatistics(habit: habit, year: year, analysis: analysis)
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        SingleHabitStatistics(
+                            habit: habit, year: year, analysis: analysis
+                        )
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                 }
             }
         }
         .onChange(of: year) {
-            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, habit: habit, entries: entries)
+            analysisForYear = SingleHabitAnalysis.forYear(
+                year, calendar: calendar, habit: habit, entries: entries)
         }
         .onChange(of: entries, initial: true) {
-            analysisForYear = SingleHabitAnalysis.forYear(year, calendar: calendar, habit: habit, entries: entries)
+            analysisForYear = SingleHabitAnalysis.forYear(
+                year, calendar: calendar, habit: habit, entries: entries)
         }
     }
-    
+
     init(habit: Habit, entries: [Entry]) {
         self.habit = habit
         self.entries = entries
@@ -173,13 +214,13 @@ fileprivate struct SingleHabitViewContent: View {
 
 struct SingleHabitView: View {
     private var id: UUID
-    
+
     @Query private var queriedHabits: [Habit]
     private var habit: Habit? { queriedHabits.first }
     @Query private var entries: [Entry]
-    
+
     @State private var showingSettings = false
-    
+
     var body: some View {
         Group {
             if let habit = habit {
@@ -209,10 +250,10 @@ struct SingleHabitView: View {
         }
         .reactOnDayChange()
     }
-    
+
     init(id: UUID) {
         self.id = id
-        
+
         _queriedHabits = Query(filter: #Predicate { $0.id == id })
         _entries = Query(
             filter: #Predicate<Entry> { $0.habit?.id == id },
