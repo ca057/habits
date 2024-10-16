@@ -1,0 +1,37 @@
+[tools]
+pre-commit = "3.8.0"
+ruby = "3.3.5"
+
+[tasks.setup]
+description = "Installs all development dependencies and sets up the commit hooks"
+run = [
+  "mise install -y",
+  "bundle install",
+  "pre-commit install --hook-type pre-push",
+]
+
+[tasks.build-beta]
+description = "Builds and publishes a new beta version of the app"
+depends = ["cert-appstore"]
+run = [
+  # TODO: check dirty state
+  # TODO: commit version change automatically and push? check if it’s the main branch
+  "bundle exec fastlane ios beta",
+]
+
+[tasks.cert-appstore]
+description = "Fetches the App Store certificate and provisioning profile"
+run = ["bundle exec fastlane match appstore"]
+
+[tasks.cert-development]
+description = "Fetches the development certificate and provisioning profile"
+run = ["bundle exec fastlane match development"]
+
+[tasks.test]
+description = "Runs the tests"
+run = [
+  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0' | xcpretty && exit ${PIPESTATUS[0]}",
+]
+
+[settings]
+experimental = true

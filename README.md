@@ -1,4 +1,4 @@
-#  habits
+# habits
 
 > Yet another habit tracker app.
 
@@ -6,8 +6,10 @@
 
 ## Setup
 
-Setup the development environment:
+Setup the development environment using [`mise`](https://mise.jdx.dev):
 
 ```sh
-./setup.sh
+mise task run setup
 ```
+
+> If the `ruby` installation fails, you might need to install `libyaml` e.g. with `ports` first.
