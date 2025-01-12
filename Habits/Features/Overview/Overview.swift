@@ -27,6 +27,38 @@ struct EmptyOverview: View {
     }
 }
 
+fileprivate struct EntryButton: View {
+    @Environment(\.calendar) private var calendar
+
+    var day: Date
+    var hasEntry: Bool
+    var color: Color
+    var toggleEntry: (Date) -> Void
+    
+    private let cornerSize = CGSize(width: 4, height: 4)
+    
+    var body: some View {
+        RoundedRectangle(cornerSize: cornerSize)
+            .fill(color.opacity(hasEntry ? 1 : 0.1))
+            .frame(height: 48)
+            .onTapGesture(perform: { toggleEntry(day) })
+            .overlay(alignment: .bottom) {
+                Rectangle()
+                    .fill(color)
+                    .frame(height: 2)
+            }
+            .overlay(alignment: .bottom) {
+                Text(day.formatted(Date.FormatStyle().weekday(.short)))
+                    .font(.footnote)
+                    .monospaced()
+                    .fontWeight(calendar.isDateInToday(day) ? .bold : .thin)
+                    .foregroundStyle(hasEntry ? Color(UIColor.systemBackground) : Color.secondary)
+                    .padding(.bottom, 4)
+            }
+            .clipShape(RoundedRectangle(cornerSize: cornerSize))
+    }
+}
+
 struct HabitOverviewItem: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
@@ -37,10 +69,12 @@ struct HabitOverviewItem: View {
     var days: [Date]
     
     @Query private var entries: [Entry]
-    
-    private let cornerSize = CGSize(width: 4, height: 4)
 
     var body: some View {
+        let groupedEntriesByDate = Dictionary(
+            grouping: entries, by: { $0.date.formatted(.dateTime.year().month().day()) }
+        )
+
         ZStack {
             RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
                 .fill(.gray.tertiary.opacity(0.5))
@@ -50,31 +84,13 @@ struct HabitOverviewItem: View {
                 
                 HStack(spacing: 16) {
                     ForEach(days, id: \.self) { day in
-                        VStack {
-                            RoundedRectangle(cornerSize: cornerSize)
-                                .fill(habit.asColour.toColor().opacity(hasEntry(for: day) ? 1 : 0.1))
-                                .frame(height: 48)
-                                .onTapGesture(perform: { toggleEntry(on: day) })
-                                .overlay(alignment: .bottom) {
-                                    Rectangle()
-                                        .fill(habit.asColour.toColor())
-                                        .frame(height: 2)
-                                }
-                                .overlay(alignment: .bottom) {
-                                    Text(day.formatted(Date.FormatStyle().weekday(.short)))
-                                        .font(.footnote)
-                                        .monospaced()
-                                        .fontWeight(calendar.isDateInToday(day) ? .bold : .thin)
-                                        .foregroundStyle(
-                                            hasEntry(for: day) ? Color(UIColor.systemBackground) : Color.secondary
-                                        )
-                                        .padding(.bottom, 4)
-                                }
-                                .clipShape(RoundedRectangle(cornerSize: cornerSize))
-                            
-                        }
+                        EntryButton(
+                            day: day,
+                            hasEntry: groupedEntriesByDate.index(forKey: day.formatted(.dateTime.year().month().day())) != nil,
+                            color: habit.asColour.toColor(),
+                            toggleEntry: toggleEntry
+                        )
                     }.frame(maxWidth: .infinity)
-                    
                 }
             }
             .padding(.vertical, 12)
@@ -101,11 +117,7 @@ struct HabitOverviewItem: View {
                 
         _entries = Query(descriptor)
     }
-    
-    private func hasEntry(for date: Date) -> Bool {
-        entries.contains { entry in CalendarUtils.shared.calendar.isDate(entry.date, inSameDayAs: date) }
-    }
-    
+
     private func toggleEntry(on date: Date) {
         if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
             modelContext.delete(entry)
