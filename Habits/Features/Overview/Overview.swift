@@ -110,7 +110,7 @@ struct HabitOverviewItem: View {
         
         
         var descriptor = FetchDescriptor<Entry>(
-            predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId && (days.first != nil ? $0.date >= days.first! : true) },
+            predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
             sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
         )
         descriptor.fetchLimit = days.count
