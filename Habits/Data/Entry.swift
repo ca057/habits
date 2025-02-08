@@ -12,6 +12,7 @@ import SwiftData
 
 @Model
 class Entry {
+    // TODO: add an ID in here to simplify deleting it
     var date: Date
 
     @Relationship var habit: Habit?

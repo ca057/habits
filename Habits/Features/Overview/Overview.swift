@@ -35,27 +35,18 @@ fileprivate struct EntryButton: View {
     var color: Color
     var toggleEntry: (Date) -> Void
     
-    private let cornerSize = CGSize(width: 4, height: 4)
-    
     var body: some View {
-        RoundedRectangle(cornerSize: cornerSize)
+        Circle()
             .fill(color.opacity(hasEntry ? 1 : 0.1))
-            .frame(height: 48)
             .onTapGesture(perform: { toggleEntry(day) })
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .fill(color)
-                    .frame(height: 2)
-            }
-            .overlay(alignment: .bottom) {
+            .overlay(alignment: .center) {
                 Text(day.formatted(Date.FormatStyle().weekday(.short)))
                     .font(.footnote)
                     .monospaced()
-                    .fontWeight(calendar.isDateInToday(day) ? .bold : .thin)
+                    .fontWeight(calendar.isDateInToday(day) ? .bold : .regular)
                     .foregroundStyle(hasEntry ? Color(UIColor.systemBackground) : Color.secondary)
-                    .padding(.bottom, 4)
             }
-            .clipShape(RoundedRectangle(cornerSize: cornerSize))
+            .animation(.easeInOut(duration: 0.2), value: hasEntry)
     }
 }
 
@@ -74,20 +65,26 @@ struct HabitOverviewItem: View {
         let groupedEntriesByDate = Dictionary(
             grouping: entries, by: { $0.date.formatted(.dateTime.year().month().day()) }
         )
+        let color = habit.asColour.toColor()
 
         ZStack {
-            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8))
+            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8), style: .continuous)
                 .fill(.gray.tertiary.opacity(0.5))
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(spacing: 12) {
                 Text(habit.name)
-                
-                HStack(spacing: 16) {
+                    .font(.subheadline)
+                    .fontDesign(.rounded)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(color)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            
+                HStack(spacing: 8) {
                     ForEach(days, id: \.self) { day in
                         EntryButton(
                             day: day,
                             hasEntry: groupedEntriesByDate.index(forKey: day.formatted(.dateTime.year().month().day())) != nil,
-                            color: habit.asColour.toColor(),
+                            color: color,
                             toggleEntry: toggleEntry
                         )
                     }.frame(maxWidth: .infinity)
