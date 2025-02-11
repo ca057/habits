@@ -37,11 +37,16 @@ fileprivate struct EntryButton: View {
     
     var body: some View {
         Circle()
-            .fill(color.opacity(hasEntry ? 1 : 0.1))
+            .fill(color.opacity(hasEntry ? 1 : 0))
+            .background {
+                Circle()
+                    .fill(color.opacity(0.25))
+                    .padding(.horizontal, 4)
+            }
             .onTapGesture(perform: { toggleEntry(day) })
             .overlay(alignment: .center) {
                 Text(day.formatted(Date.FormatStyle().weekday(.short)))
-                    .font(.footnote)
+                    .font(hasEntry ? .footnote : .caption2)
                     .monospaced()
                     .fontWeight(calendar.isDateInToday(day) ? .bold : .regular)
                     .foregroundStyle(hasEntry ? Color(UIColor.systemBackground) : Color.secondary)
