@@ -589,7 +589,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.christianost.habits;
 				PRODUCT_NAME = Habits;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development de.christianost.habits";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development de.christianost.habits 1724136635";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development de.christianost.habits 1740691179";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

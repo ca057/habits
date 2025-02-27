@@ -200,39 +200,42 @@ fileprivate extension Settings {
             return
         }
         
-        do {
-            guard let data = try String(contentsOf: url).data(using: .utf8) else {
-                throw DataExport.HabitsStorageError.importFailed
-            }
-
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-
-            let decodedData = try decoder.decode(DataExport.HabitsExport.self, from: data)
-            
-            decodedData.habits.forEach { habitToImport in
-                let habit = Habit(
-                    colour: habitToImport.colour,
-                    createdAt: habitToImport.createdAt,
-                    id: habitToImport.id,
-                    name: habitToImport.name,
-                    order: 0
-                )
-                modelContext.insert(habit)
-                
-                habitToImport.entries.forEach { entryToImport in
-                    let entry = Entry(date: entryToImport.date, habit: habit)
-                    modelContext.insert(entry)
+        if url.startAccessingSecurityScopedResource() {
+            do {
+                guard let data = try String(contentsOf: url).data(using: .utf8) else {
+                    throw DataExport.HabitsStorageError.importFailed
                 }
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                
+                let decodedData = try decoder.decode(DataExport.HabitsExport.self, from: data)
+                
+                decodedData.habits.forEach { habitToImport in
+                    let habit = Habit(
+                        colour: habitToImport.colour,
+                        createdAt: habitToImport.createdAt,
+                        id: habitToImport.id,
+                        name: habitToImport.name,
+                        order: 0
+                    )
+                    modelContext.insert(habit)
+                    
+                    habitToImport.entries.forEach { entryToImport in
+                        let entry = Entry(date: entryToImport.date, habit: habit)
+                        modelContext.insert(entry)
+                    }
+                }
+                try modelContext.save()
+            } catch {
+                print("error during import \(error)")
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Importing your data failed",
+                    message: "The data in your export couldn’t be read. Check if it’s a valid export and try again."
+                )
             }
-            try modelContext.save()
-        } catch {
-            print("error during import \(error)")
-            errorMessage = ErrorAlert(
-                showing: true,
-                title: "Importing your data failed",
-                message: "The data in your export couldn’t be read. Check if it’s a valid export and try again."
-            )
+            url.stopAccessingSecurityScopedResource()
         }
     }
 }
