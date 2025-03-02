@@ -131,14 +131,45 @@ struct HabitOverviewItem: View {
     }
 }
 
-struct Overview: View {
+struct OverviewDropViewDelegate: DropDelegate {
+    let destinationItem: Habit
+    @Binding var habits: [Habit]
+    @Binding var draggedHabit: Habit?
+    var onSortFinished : (([Habit]) -> Void)
+    
+    func dropEntered(info: DropInfo) {
+        guard let draggedHabit = draggedHabit else { return }
+        guard let fromIndex = habits.firstIndex(of: draggedHabit) else { return }
+        guard let toIndex = habits.firstIndex(of: destinationItem) else { return }
+        
+        if fromIndex != toIndex {
+            withAnimation {
+                habits.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+            }
+        }
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        draggedHabit = nil
+        onSortFinished(habits)
+        return true
+    }
+}
+
+struct OverviewDisplay: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.modelContext) private var modelContext
 
     @State private var showingAddHabit = false
     @State private var showingSettings = false
+    
+    @State private var draggedHabit: Habit?
 
-    @Query(Habit.sortedWithEntries) var habits: [Habit]
-
+    @State var habits: [Habit]
     var from: Date
     var to: Date
 
@@ -156,10 +187,22 @@ struct Overview: View {
                     .padding(.horizontal)
             } else {
                 ScrollView {
-                    // TODO: add numeric days as section to top
                     VStack(spacing: 8) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: days)
+                                .onDrag {
+                                    self.draggedHabit = habit
+                                    return NSItemProvider()
+                                }
+                                .onDrop(
+                                    of: [.text],
+                                    delegate: OverviewDropViewDelegate(
+                                        destinationItem: habit,
+                                        habits: $habits,
+                                        draggedHabit: $draggedHabit,
+                                        onSortFinished: updateSortOrder
+                                    )
+                                )
                         }
                     }
                     .padding(.horizontal)
@@ -188,6 +231,20 @@ struct Overview: View {
         }
         .sheet(isPresented: $showingAddHabit) { AddHabitView() }
         .sheet(isPresented: $showingSettings) { Settings() }
+    }
+    
+    private func updateSortOrder(_ orderedHabits: [Habit]) -> Void {
+        orderedHabits.enumerated().forEach { $1.order = Int16($0) }
+    }
+}
+
+struct Overview: View {
+    var from: Date
+    var to: Date
+    @Query(Habit.sortedWithEntries) var habits: [Habit]
+
+    var body: some View {
+        OverviewDisplay(habits: habits, from: from, to: to)
     }
 }
 
