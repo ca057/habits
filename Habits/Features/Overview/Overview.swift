@@ -190,6 +190,7 @@ struct OverviewDisplay: View {
                     VStack(spacing: 8) {
                         ForEach(habits) { habit in
                             HabitOverviewItem(for: habit, days: days)
+                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: CGSize(width: 8, height: 8)))
                                 .onDrag {
                                     self.draggedHabit = habit
                                     return NSItemProvider()
