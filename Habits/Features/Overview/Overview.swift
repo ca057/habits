@@ -84,9 +84,9 @@ fileprivate struct EntryButton: View {
     }
 }
 
-let cornerSize = CGSize(width: 8, height: 8)
-
 struct HabitOverviewItem: View {
+    static var cornerSize = CGSize(width: 8, height: 8)
+    
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
@@ -104,7 +104,7 @@ struct HabitOverviewItem: View {
         let color = habit.asColour.toColor()
 
         ZStack {
-            RoundedRectangle(cornerSize: cornerSize, style: .continuous)
+            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize, style: .continuous)
                 .fill(.gray.tertiary.opacity(0.5))
 
             VStack(spacing: 12) {
@@ -162,7 +162,7 @@ struct HabitOverviewItem: View {
     }
 }
 
-struct OverviewDisplay: View {
+struct Overview: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
 
@@ -171,7 +171,7 @@ struct OverviewDisplay: View {
     
     @State private var draggedHabit: Habit?
 
-    var habits: [Habit]
+    @Query(Habit.sortedWithEntries) var habits: [Habit]
     var from: Date
     var to: Date
     
@@ -194,7 +194,7 @@ struct OverviewDisplay: View {
                     VStack(spacing: 8) {
                         ForEach(habitsToView) { habit in
                             HabitOverviewItem(for: habit, days: days)
-                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: cornerSize))
+                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize))
                                 .onDrag {
                                     self.draggedHabit = habit
                                     return NSItemProvider()
@@ -242,16 +242,6 @@ struct OverviewDisplay: View {
     
     private func updateSortOrder(_ orderedHabits: [Habit]) -> Void {
         orderedHabits.enumerated().forEach { $1.order = Int16($0) }
-    }
-}
-
-struct Overview: View {
-    var from: Date
-    var to: Date
-    @Query(Habit.sortedWithEntries) var habits: [Habit]
-
-    var body: some View {
-        OverviewDisplay(habits: habits, from: from, to: to)
     }
 }
 
