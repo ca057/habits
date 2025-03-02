@@ -84,6 +84,8 @@ fileprivate struct EntryButton: View {
     }
 }
 
+let cornerSize = CGSize(width: 8, height: 8)
+
 struct HabitOverviewItem: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
@@ -102,7 +104,7 @@ struct HabitOverviewItem: View {
         let color = habit.asColour.toColor()
 
         ZStack {
-            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8), style: .continuous)
+            RoundedRectangle(cornerSize: cornerSize, style: .continuous)
                 .fill(.gray.tertiary.opacity(0.5))
 
             VStack(spacing: 12) {
@@ -169,9 +171,11 @@ struct OverviewDisplay: View {
     
     @State private var draggedHabit: Habit?
 
-    @State var habits: [Habit]
+    var habits: [Habit]
     var from: Date
     var to: Date
+    
+    @State private var habitsToView: [Habit] = []
 
     private var days: [Date] {
         return calendar.generateDates(
@@ -188,9 +192,9 @@ struct OverviewDisplay: View {
             } else {
                 ScrollView {
                     VStack(spacing: 8) {
-                        ForEach(habits) { habit in
+                        ForEach(habitsToView) { habit in
                             HabitOverviewItem(for: habit, days: days)
-                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: CGSize(width: 8, height: 8)))
+                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: cornerSize))
                                 .onDrag {
                                     self.draggedHabit = habit
                                     return NSItemProvider()
@@ -199,7 +203,7 @@ struct OverviewDisplay: View {
                                     of: [.text],
                                     delegate: DropViewDelegate(
                                         destinationItem: habit,
-                                        items: $habits,
+                                        items: $habitsToView,
                                         draggedItem: $draggedHabit,
                                         onSortFinished: updateSortOrder
                                     )
@@ -232,6 +236,8 @@ struct OverviewDisplay: View {
         }
         .sheet(isPresented: $showingAddHabit) { AddHabitView() }
         .sheet(isPresented: $showingSettings) { Settings() }
+        .onAppear { habitsToView = habits }
+        .onChange(of: habits) { habitsToView = habits }
     }
     
     private func updateSortOrder(_ orderedHabits: [Habit]) -> Void {
