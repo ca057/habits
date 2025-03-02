@@ -8,6 +8,35 @@
 import SwiftUI
 import SwiftData
 
+struct DropViewDelegate<T: Equatable> : DropDelegate {
+    let destinationItem: T
+    @Binding var items: [T]
+    @Binding var draggedItem: T?
+    var onSortFinished : (([T]) -> Void)
+    
+    func dropEntered(info: DropInfo) {
+        guard let draggedItem = draggedItem else { return }
+        guard let fromIndex = items.firstIndex(of: draggedItem) else { return }
+        guard let toIndex = items.firstIndex(of: destinationItem) else { return }
+        
+        if fromIndex != toIndex {
+            withAnimation {
+                items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+            }
+        }
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        draggedItem = nil
+        onSortFinished(items)
+        return true
+    }
+}
+
 struct EmptyOverview: View {
     var onAddHabit: () -> Void
 
@@ -131,35 +160,6 @@ struct HabitOverviewItem: View {
     }
 }
 
-struct OverviewDropViewDelegate: DropDelegate {
-    let destinationItem: Habit
-    @Binding var habits: [Habit]
-    @Binding var draggedHabit: Habit?
-    var onSortFinished : (([Habit]) -> Void)
-    
-    func dropEntered(info: DropInfo) {
-        guard let draggedHabit = draggedHabit else { return }
-        guard let fromIndex = habits.firstIndex(of: draggedHabit) else { return }
-        guard let toIndex = habits.firstIndex(of: destinationItem) else { return }
-        
-        if fromIndex != toIndex {
-            withAnimation {
-                habits.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
-            }
-        }
-    }
-    
-    func dropUpdated(info: DropInfo) -> DropProposal? {
-        return DropProposal(operation: .move)
-    }
-    
-    func performDrop(info: DropInfo) -> Bool {
-        draggedHabit = nil
-        onSortFinished(habits)
-        return true
-    }
-}
-
 struct OverviewDisplay: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
@@ -196,10 +196,10 @@ struct OverviewDisplay: View {
                                 }
                                 .onDrop(
                                     of: [.text],
-                                    delegate: OverviewDropViewDelegate(
+                                    delegate: DropViewDelegate(
                                         destinationItem: habit,
-                                        habits: $habits,
-                                        draggedHabit: $draggedHabit,
+                                        items: $habits,
+                                        draggedItem: $draggedHabit,
                                         onSortFinished: updateSortOrder
                                     )
                                 )
