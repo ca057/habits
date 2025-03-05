@@ -158,6 +158,7 @@ fileprivate extension Settings {
                         name: habit.name,
                         createdAt: habit.createdAt,
                         colour: habit.colour,
+                        order: Int(habit.order),
                         entries: habit.entry.map { entry in
                             DataExport.HabitsExportItemEntry(date: entry.date)
                         }
@@ -217,7 +218,7 @@ fileprivate extension Settings {
                         createdAt: habitToImport.createdAt,
                         id: habitToImport.id,
                         name: habitToImport.name,
-                        order: 0
+                        order: Int16(habitToImport.order ?? 0)
                     )
                     modelContext.insert(habit)
                     

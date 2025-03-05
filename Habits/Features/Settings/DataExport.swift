@@ -26,6 +26,7 @@ struct DataExport {
         let name: String
         let createdAt: Date
         let colour: String
+        let order: Int?
         let entries: [HabitsExportItemEntry]
         
         // TODO: create from & to methods
