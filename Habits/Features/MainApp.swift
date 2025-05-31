@@ -36,10 +36,11 @@ struct MainApp: View {
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
-            Overview(from: overviewDateInterval.from, to: overviewDateInterval.to)
-                .navigationDestination(for: Habit.self) { habit in
-                    SingleHabitView(id: habit.id) // TODO: pass in habit
-                }
+//            NextOverview(from: overviewDateInterval.from, to: overviewDateInterval.to)
+//            Overview(from: overviewDateInterval.from, to: overviewDateInterval.to)
+//                .navigationDestination(for: Habit.self) { habit in
+//                    SingleHabitView(id: habit.id) // TODO: pass in habit
+//                }
         }
         .tint(.primary)
         .environment(\.navigation, navigation)
