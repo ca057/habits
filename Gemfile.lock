@@ -226,7 +226,6 @@ PLATFORMS
   arm64-darwin-24
 
 DEPENDENCIES
-  dotenv
   fastlane
   pre-commit
   xcpretty
