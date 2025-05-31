@@ -40,9 +40,7 @@ private struct SingleHabitStatistics: View {
                 )
                 .font(.headline)
 
-                if calendar.isDate(
-                    habit.createdAt, equalTo: year, toGranularity: .year)
-                {
+                if calendar.isDate(habit.createdAt, equalTo: year, toGranularity: .year) {
                     Text(
                         "since \(analysis.firstRelevantDate.formatted(date: .abbreviated, time: .omitted))"
                     )
@@ -52,7 +50,7 @@ private struct SingleHabitStatistics: View {
             }.padding(.bottom, 8)
 
             HStack(alignment: .top) {
-                Text("Completion")
+                Text("tracked days")
 
                 Spacer()
 

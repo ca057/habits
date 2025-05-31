@@ -20,7 +20,7 @@ struct Previewer {
         habits.append(
             Habit(
                 colour: Colour.green.toLabel(),
-                createdAt: Date().adjust(day: -555) ?? Date.now,
+                createdAt: Date().adjust(day: -666) ?? Date.now,
                 id: UUID(),
                 name: "preview",
                 order: 0
@@ -39,7 +39,7 @@ struct Previewer {
         
         let archivedHabit = Habit(
             colour: Colour.green.toLabel(),
-            createdAt: Date().adjust(day: -555) ?? Date.now,
+            createdAt: Date().adjust(day: -444) ?? Date.now,
             id: UUID(),
             name: "archived #1",
             order: 1

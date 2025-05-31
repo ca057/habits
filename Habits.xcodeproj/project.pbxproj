@@ -128,7 +128,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AA8636F329BFD93800144373 /* HabitView */ = {
+		AA8636F329BFD93800144373 /* SingleHabit */ = {
 			isa = PBXGroup;
 			children = (
 				AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */,
@@ -137,7 +137,7 @@
 				AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */,
 				AA4191552C99DC74002A230C /* EntryDayView.swift */,
 			);
-			path = HabitView;
+			path = SingleHabit;
 			sourceTree = "<group>";
 		};
 		AA8636FF29D23FAB00144373 /* Utils */ = {
@@ -244,7 +244,7 @@
 				AAAE45C52C553850005BA9B9 /* Overview */,
 				AA86370329D4CC5600144373 /* MainApp.swift */,
 				AA86370A29D62CDB00144373 /* Settings */,
-				AA8636F329BFD93800144373 /* HabitView */,
+				AA8636F329BFD93800144373 /* SingleHabit */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
 			);
 			path = Features;
