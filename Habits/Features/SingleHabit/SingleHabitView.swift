@@ -50,7 +50,7 @@ private struct SingleHabitStatistics: View {
             }.padding(.bottom, 8)
 
             HStack(alignment: .top) {
-                Text("tracked days")
+                Text("tracked on days")
 
                 Spacer()
 
