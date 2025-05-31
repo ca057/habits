@@ -104,8 +104,8 @@ struct HabitOverviewItem: View {
         let color = habit.asColour.toColor()
 
         ZStack {
-            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize, style: .continuous)
-                .fill(.gray.tertiary.opacity(0.5))
+//            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize, style: .continuous)
+//                .fill(.gray.tertiary.opacity(0.5))
 
             VStack(spacing: 12) {
                 Text(habit.name)
@@ -162,6 +162,27 @@ struct HabitOverviewItem: View {
     }
 }
 
+struct DaysLabel: View {
+    var days: [Date]
+
+    var body: some View {
+        HStack {
+            ForEach(days, id: \.self) { day in
+                Spacer()
+                Text(day.formatted(Date.FormatStyle().weekday(.short)))
+                Spacer()
+            }
+        }
+        .font(.footnote)
+        .monospaced()
+        .foregroundStyle(Color.secondary)
+    }
+    
+    init(for days: [Date]) {
+        self.days = days
+    }
+}
+
 struct Overview: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
@@ -191,26 +212,54 @@ struct Overview: View {
                     .padding(.horizontal)
             } else {
                 ScrollView {
-                    VStack(spacing: 8) {
-                        ForEach(habitsToView) { habit in
-                            HabitOverviewItem(for: habit, days: days)
-                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize))
-                                .onDrag {
-                                    self.draggedHabit = habit
-                                    return NSItemProvider()
-                                }
-                                .onDrop(
-                                    of: [.text],
-                                    delegate: DropViewDelegate(
-                                        destinationItem: habit,
-                                        items: $habitsToView,
-                                        draggedItem: $draggedHabit,
-                                        onSortFinished: updateSortOrder
+                    LazyVStack(spacing: 8, pinnedViews: [.sectionHeaders]) {
+                        Section(header: DaysLabel(for: days)) {
+                            ForEach(habits) { habit in
+                                HabitOverviewItem(for: habit, days: days)
+                                    .contentShape(
+                                        .dragPreview,
+                                        RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize)
                                     )
-                                )
+                                    .onDrag {
+                                        self.draggedHabit = habit
+                                        return NSItemProvider()
+                                    }
+                                    .onDrop(
+                                        of: [.text],
+                                        delegate: DropViewDelegate(
+                                            destinationItem: habit,
+                                            items: $habitsToView,
+                                            draggedItem: $draggedHabit,
+                                            onSortFinished: updateSortOrder
+                                        )
+                                    )
+                                if habit != habits.last! {
+                                    Divider()
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal)
+//                    VStack(spacing: 8) {
+//                        ForEach(habitsToView) { habit in
+//                            HabitOverviewItem(for: habit, days: days)
+//                                .contentShape(.dragPreview, RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize))
+//                                .onDrag {
+//                                    self.draggedHabit = habit
+//                                    return NSItemProvider()
+//                                }
+//                                .onDrop(
+//                                    of: [.text],
+//                                    delegate: DropViewDelegate(
+//                                        destinationItem: habit,
+//                                        items: $habitsToView,
+//                                        draggedItem: $draggedHabit,
+//                                        onSortFinished: updateSortOrder
+//                                    )
+//                                )
+//                        }
+//                    }
+//                    .padding(.horizontal)
                 }
                 .scrollBounceBehavior(.basedOnSize)
             }
