@@ -140,8 +140,7 @@ struct HabitOverviewItem: View {
         self.days = days
         
         let habitModelId = habit.persistentModelID
-        
-        
+
         var descriptor = FetchDescriptor<Entry>(
             predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
             sortBy: [SortDescriptor(\Entry.date, order: .reverse)]

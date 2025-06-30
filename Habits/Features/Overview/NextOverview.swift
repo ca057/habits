@@ -12,7 +12,6 @@ struct Headline: View {
     var body: some View {
         Text("Good morning!")
             .font(.title)
-//            .fontDesign(.monospaced)
             .fontWidth(.condensed)
     }
 }
@@ -49,6 +48,39 @@ struct DaysHeader: View {
     }
 }
 
+struct NextOverViewItem: View {
+    var id: UUID
+    
+    @Query private var queriedHabits: [Habit]
+    private var habit: Habit? { queriedHabits.first }
+
+    @Query private var entries: [Entry]
+
+    var body: some View {
+        if let habit = habit {
+            HStack {
+                habit.asColour.toColor()
+                    .frame(width: 4)
+                
+                Text(habit.name)
+                    .monospaced()
+            }
+        } else {
+            Text("TODO")
+        }
+    }
+    
+    init(id: UUID) {
+        self.id = id
+        
+        _queriedHabits = Query(filter: #Predicate { $0.id == id })
+        _entries = Query(
+            filter: #Predicate<Entry> { $0.habit?.id == id },
+            sort: [SortDescriptor(\Entry.date, order: .reverse)]
+        )
+    }
+}
+
 struct NextOverview: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
@@ -72,13 +104,13 @@ struct NextOverview: View {
 
                 Section(header: DaysHeader(from: from, to: to)) {
                     ForEach(habits, id: \.self) { habit in
-                        Text(habit.name)
-                            .monospaced()
+                        NextOverViewItem(id: habit.id)
                     }
                 }
             }
         }
         .padding(.horizontal)
+        .background(Color.bg)
 //        .scrollBounceBehavior(.basedOnSize)
     }
 }
