@@ -17,39 +17,26 @@ struct Headline: View {
 }
 
 struct DaysHeader: View {
-    @Environment(\.calendar) private var calendar
-
-    var from: Date
-    var to: Date
-
-    private var days: [Date] {
-        return calendar.generateDates(
-            inside: DateInterval(start: from, end: to),
-            matching: DateComponents(hour: 0, minute: 0, second: 0)
-        )
-    }
+    var days: [Date]
     
     var body: some View {
         HStack(spacing: 0) {
             Spacer()
             
-            HStack {
-                ForEach(days, id: \.self) { day in
-                    Spacer()
-                    Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                        .font(.footnote)
-                        .monospaced()
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                }
+            ForEach(days, id: \.self) { day in
+                Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
+                    .font(.footnote)
+                    .monospaced()
+                    .foregroundStyle(.secondary)
+                    .frame(minWidth: 42, minHeight: 42)
             }
-            .containerRelativeFrame(.horizontal, count: 2, span: 1, spacing: 0)
         }
     }
 }
 
 struct NextOverViewItem: View {
     var id: UUID
+    var days: [Date]
     
     @Query private var queriedHabits: [Habit]
     private var habit: Habit? { queriedHabits.first }
@@ -58,20 +45,35 @@ struct NextOverViewItem: View {
 
     var body: some View {
         if let habit = habit {
-            HStack {
+            HStack(spacing: 0) {
                 habit.asColour.toColor()
                     .frame(width: 4)
-                
-                Text(habit.name)
-                    .monospaced()
+                    .padding(.trailing)
+
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(habit.name)
+                        .monospaced()
+
+                    HStack(spacing: 0) {
+                        Spacer()
+
+                        ForEach(days, id: \.self) { day in
+                            Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
+                                .monospaced()
+                                .foregroundStyle(.secondary)
+                                .frame(minWidth: 42, minHeight: 42)
+                        }
+                    }
+                }
             }
         } else {
             Text("TODO")
         }
     }
     
-    init(id: UUID) {
+    init(id: UUID, range days: [Date]) {
         self.id = id
+        self.days = days
         
         _queriedHabits = Query(filter: #Predicate { $0.id == id })
         _entries = Query(
@@ -102,9 +104,9 @@ struct NextOverview: View {
                 Headline()
                     .padding(.bottom)
 
-                Section(header: DaysHeader(from: from, to: to)) {
+                Section(header: DaysHeader(days: days)) {
                     ForEach(habits, id: \.self) { habit in
-                        NextOverViewItem(id: habit.id)
+                        NextOverViewItem(id: habit.id, range: days)
                     }
                 }
             }
