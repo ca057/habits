@@ -27,6 +27,10 @@ run = ["bundle exec fastlane match appstore"]
 description = "Fetches the development certificate and provisioning profile"
 run = ["bundle exec fastlane match development"]
 
+[tasks.get-data-path]
+description = "Gets the data path of the app in the current booted simulator"
+run = ["xcrun simctl get_app_container booted de.christianost.habits data"]
+
 [tasks.test]
 description = "Runs the tests"
 run = [
