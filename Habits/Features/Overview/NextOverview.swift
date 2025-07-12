@@ -20,7 +20,7 @@ struct DaysHeader: View {
     var days: [Date]
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 4) {
             Spacer()
             
             ForEach(days, id: \.self) { day in
@@ -28,7 +28,7 @@ struct DaysHeader: View {
                     .font(.footnote)
                     .monospaced()
                     .foregroundStyle(.secondary)
-                    .frame(minWidth: 42, minHeight: 42)
+                    .frame(width: 24)
             }
         }
     }
@@ -54,14 +54,16 @@ struct NextOverViewItem: View {
                     Text(habit.name)
                         .monospaced()
 
-                    HStack(spacing: 0) {
+                    HStack(spacing: 4) {
                         Spacer()
 
                         ForEach(days, id: \.self) { day in
-                            Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                                .monospaced()
-                                .foregroundStyle(.secondary)
-                                .frame(minWidth: 42, minHeight: 42)
+                            VStack {
+                                Rectangle()
+                                    .foregroundStyle(habit.asColour.toColor().opacity(0.23))
+                                    .frame(width: 18, height: 24)
+                            }
+                            .frame(width: 24, height: 36)
                         }
                     }
                 }
