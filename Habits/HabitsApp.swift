@@ -25,7 +25,10 @@ struct HabitsApp: App {
             let url = URL.applicationSupportDirectory.appending(path: "Habit.sqlite")
             let config = ModelConfiguration(url: url)
             
-            container = try ModelContainer(for: Habit.self, configurations: config)
+            container = try ModelContainer(
+                for: Habit.self, Entry.self,
+                configurations: config
+            )
         } catch {
             fatalError("failed to create model container")
         }
