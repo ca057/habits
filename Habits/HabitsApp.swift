@@ -26,8 +26,8 @@ struct HabitsApp: App {
             let config = ModelConfiguration(url: url)
             
             container = try ModelContainer(
-                // TODO: how to introduce Entry.self here? Or is this even necessary?
-                for: Habit.self,
+                // TODO: are all entries here necessary?
+                for: Habit.self, Entry.self,
                 configurations: config
             )
         } catch {
