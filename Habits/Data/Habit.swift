@@ -9,9 +9,9 @@
 import Foundation
 import SwiftData
 
-typealias Habit = HabitsSchemaV100.Habit
+typealias Habit = HabitsSchemaV110.Habit
 
-extension HabitsSchemaV100 {
+extension HabitsSchemaV110 {
     @Model
     class Habit {
         @Attribute(.unique) var id: UUID

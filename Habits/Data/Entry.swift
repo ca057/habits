@@ -9,9 +9,9 @@
 import Foundation
 import SwiftData
 
-typealias Entry = HabitsSchemaV100.Entry
+typealias Entry = HabitsSchemaV110.Entry
 
-extension HabitsSchemaV100 {
+extension HabitsSchemaV110 {
     @Model
     class Entry {
         var date: Date
