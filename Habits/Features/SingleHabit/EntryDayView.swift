@@ -16,16 +16,16 @@ struct EntryDayView: View {
     var size: CGFloat
     
     var body: some View {
-        Circle()
+        RoundedRectangle(cornerSize: CGSize(width: 2, height: 2), style: .continuous)
             .frame(width: size , height: size)
             .foregroundStyle(isAchieved ? color : .secondary)
             .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
             .overlay {
                 if calendar.isDateInToday(day) {
-                    Circle()
+                    RoundedRectangle(cornerSize: CGSize(width: 3, height: 3), style: .continuous)
                         .stroke(Color.primary, lineWidth: 2)
                         .fill(.clear)
-                        .frame(width: 16, height: 16)
+                        .frame(width: size + 4, height: size + 4)
                 }
             }
     }

@@ -116,13 +116,13 @@ private struct SingleHabitViewContent: View {
                             FrequencyAchievementOverview(year: year) { day in
                                 let isAchieved = analysis.achievedDays.contains(
                                     day.toString(format: .isoDate) ?? "")
-                                let size = CGFloat(isAchieved ? 12 : 4)
 
-                                EntryDayView(
-                                    for: day,
-                                    isAchieved: isAchieved,
+                                EntryItem(
+                                    count: isAchieved ? 1 : 0,
                                     color: habit.asColour.toColor(),
-                                    size: size
+                                    secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                                    highlighted: false,
+                                    size: CGFloat(12)
                                 )
                             }
                             .padding(.bottom)
@@ -178,7 +178,8 @@ private struct SingleHabitViewContent: View {
                                     year.compare(.isThisYear) ? .gray : .primary
                                 )
                                 .frame(
-                                    maxWidth: .infinity, alignment: .trailing)
+                                    maxWidth: .infinity, alignment: .trailing
+                                )
                             }
                         }
                         .padding([.horizontal, .bottom])

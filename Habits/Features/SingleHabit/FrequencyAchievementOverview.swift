@@ -55,7 +55,6 @@ struct FrequencyAchievementOverview<Content: View>: View {
                             ForEach(days, id: \.self) { day in
                                 VStack {
                                     content(day)
-                                    
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 12)
                                 .padding(.bottom, 2)
@@ -113,9 +112,6 @@ struct FrequencyAchievementOverview<Content: View>: View {
                     let date = day.toString(format: .isoDate) ?? ""
                     let isAchieved = achievedDays.contains(where: { $0 == date })
                     let size = CGFloat(isAchieved ? 12 : 4)
-                    
-//                    let isMonday = 
-//                    let isSunday =
 
                     Circle()
                         .frame(width: size, height: size)
