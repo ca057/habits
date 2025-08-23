@@ -15,7 +15,7 @@ struct EntryItem: View {
     var highlighted = false
     
     var body: some View {
-        RoundedRectangle(cornerSize: CGSize(width: 0, height: 0))
+        RoundedRectangle(cornerSize: CGSize(width: 2, height: 2))
             .frame(width: size - 4, height: size - 4)
             .foregroundStyle(count > 0 ? color : secondaryColor)
             .overlay {
