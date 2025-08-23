@@ -122,7 +122,7 @@ private struct SingleHabitViewContent: View {
                                     color: habit.asColour.toColor(),
                                     secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
                                     highlighted: false,
-                                    size: CGFloat(12)
+                                    size: CGFloat(16)
                                 )
                             }
                             .padding(.bottom)

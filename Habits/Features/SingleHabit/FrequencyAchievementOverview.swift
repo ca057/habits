@@ -48,22 +48,21 @@ struct FrequencyAchievementOverview<Content: View>: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top) {
+            HStack(alignment: .top, spacing: 2) {
                 ForEach(daysOfMonth, id: \.self) { days in
                     HStack {
-                        VStack(spacing: 4) {
+                        VStack(spacing: 2) {
                             ForEach(days, id: \.self) { day in
                                 VStack {
                                     content(day)
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 12)
-                                .padding(.bottom, 2)
                             }
                         }
                     }
                 }
             }.padding(.bottom, 2)
-            HStack {
+            HStack(spacing: 2) {
                 ForEach(0..<calendar.shortStandaloneMonthSymbols.count, id: \.self) { index in
                     VerticalLabel(
                         text: Text(calendar.shortStandaloneMonthSymbols[index].uppercased())
@@ -113,18 +112,9 @@ struct FrequencyAchievementOverview<Content: View>: View {
                     let isAchieved = achievedDays.contains(where: { $0 == date })
                     let size = CGFloat(isAchieved ? 12 : 4)
 
-                    Circle()
-                        .frame(width: size, height: size)
-                        .foregroundStyle(isAchieved ? .green : .secondary)
-                        .opacity(calendar.isDateInWeekend(day) ? 0.5 : 1)
-                        .overlay {
-                            if calendar.isDateInToday(day) {
-                                Circle()
-                                    .stroke(Color.primary, lineWidth: 2)
-                                    .fill(.clear)
-                                    .frame(width: 16, height: 16)
-                            }
-                        }
+                    EntryItem(
+                        count: isAchieved ? 1 : 0, color: Color.green, secondaryColor: Color.secondary, highlighted: false, size: CGFloat(16)
+                    )
 
                 }
             }
