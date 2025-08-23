@@ -16,7 +16,6 @@
 		AA3C9B7D2B8E876C00312206 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C9B7C2B8E876C00312206 /* Pill.swift */; };
 		AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */; };
 		AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */; };
-		AA4191562C99DC74002A230C /* EntryDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191552C99DC74002A230C /* EntryDayView.swift */; };
 		AA4191572C9A0DD7002A230C /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
 		AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */; };
 		AA47212D2C9AA686009CEE3F /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
@@ -37,6 +36,8 @@
 		AAA9AA762DE36BA00032FCE7 /* NextOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9AA752DE36BA00032FCE7 /* NextOverview.swift */; };
 		AAAE45C72C553861005BA9B9 /* Overview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAE45C62C553861005BA9B9 /* Overview.swift */; };
 		AAC0106D2875C12F00AE0889 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AAC0106C2875C12F00AE0889 /* DateHelper */; };
+		AAC01D0D2E2DF30E004360BE /* HabitsSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */; };
+		AAC01D0E2E2DF30E004360BE /* HabitsSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */; };
 		AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */; };
 		AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC67B0828739D290085F2B6 /* UIColor.swift */; };
@@ -51,6 +52,8 @@
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5FBED2B35C5F10052D047 /* LazyView.swift */; };
 		AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */; };
+		AAFD80D52E47449A00BF2A72 /* EntryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD80D42E47449A00BF2A72 /* EntryItem.swift */; };
+		AAFD80D62E47449A00BF2A72 /* EntryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD80D42E47449A00BF2A72 /* EntryItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +75,6 @@
 		AA3C9B7C2B8E876C00312206 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitAnalysis.swift; sourceTree = "<group>"; };
-		AA4191552C99DC74002A230C /* EntryDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDayView.swift; sourceTree = "<group>"; };
 		AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
 		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		AAA9AA752DE36BA00032FCE7 /* NextOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextOverview.swift; sourceTree = "<group>"; };
 		AAAE45C62C553861005BA9B9 /* Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overview.swift; sourceTree = "<group>"; };
+		AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsSchema.swift; sourceTree = "<group>"; };
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AAC67B0C287440080085F2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AAE5FBED2B35C5F10052D047 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
+		AAFD80D42E47449A00BF2A72 /* EntryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +141,6 @@
 				AA88CB762BDA3FE20062CD30 /* SingleHabitView.swift */,
 				AA88CB782BEFF70E0062CD30 /* SingleHabitSettingsView.swift */,
 				AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */,
-				AA4191552C99DC74002A230C /* EntryDayView.swift */,
 			);
 			path = SingleHabit;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */,
 				AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */,
 				AA19948D2C937B2B0059211B /* ProgressBar.swift */,
+				AAFD80D42E47449A00BF2A72 /* EntryItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -256,6 +260,7 @@
 		AAEC09DA27F8900300D9B666 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */,
 				AACCAD922B22065A008BB8FE /* Habit.swift */,
 				AACCAD932B22065A008BB8FE /* Entry.swift */,
 			);
@@ -320,7 +325,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					AADC1CDF27BEF547007C47BE = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -378,14 +383,15 @@
 			files = (
 				AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */,
 				AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */,
-				AA4191562C99DC74002A230C /* EntryDayView.swift in Sources */,
 				AA09A9D32AB5FB7500999CAD /* HistoryView.swift in Sources */,
 				AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */,
 				AA88CB772BDA3FE20062CD30 /* SingleHabitView.swift in Sources */,
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
+				AAC01D0E2E2DF30E004360BE /* HabitsSchema.swift in Sources */,
 				AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */,
 				AACCAD942B22065A008BB8FE /* Habit.swift in Sources */,
 				AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */,
+				AAFD80D52E47449A00BF2A72 /* EntryItem.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AAA9AA762DE36BA00032FCE7 /* NextOverview.swift in Sources */,
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
@@ -419,7 +425,9 @@
 				AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */,
 				AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
+				AAC01D0D2E2DF30E004360BE /* HabitsSchema.swift in Sources */,
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
+				AAFD80D62E47449A00BF2A72 /* EntryItem.swift in Sources */,
 				AA47212F2C9AA6AB009CEE3F /* Pill.swift in Sources */,
 				AA47212E2C9AA69D009CEE3F /* LTTextFieldStyle.swift in Sources */,
 				AACCAD992B234BA1008BB8FE /* Habit.swift in Sources */,
@@ -475,6 +483,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -494,7 +503,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -540,6 +549,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -553,7 +563,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -570,9 +580,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Z37U6LMURR;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
@@ -584,7 +593,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,9 +616,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Z37U6LMURR;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Z37U6LMURR;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
@@ -621,7 +629,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -642,8 +650,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
-				DEVELOPMENT_TEAM = Z37U6LMURR;
+				CURRENT_PROJECT_VERSION = 63;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -661,8 +668,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
-				DEVELOPMENT_TEAM = Z37U6LMURR;
+				CURRENT_PROJECT_VERSION = 63;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;

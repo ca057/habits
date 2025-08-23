@@ -203,7 +203,7 @@ fileprivate extension Settings {
         
         if url.startAccessingSecurityScopedResource() {
             do {
-                guard let data = try String(contentsOf: url).data(using: .utf8) else {
+                guard let data = try String(contentsOf: url, encoding: .utf8).data(using: .utf8) else {
                     throw DataExport.HabitsStorageError.importFailed
                 }
                 
