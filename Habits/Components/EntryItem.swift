@@ -14,22 +14,27 @@ struct EntryItem: View {
     var size: CGFloat = 12
     var highlighted = false
     
+    private var actualSize: CGFloat {
+        CGFloat(count == 0 ? 8 : size - 6)
+    }
+    
     var body: some View {
-        RoundedRectangle(cornerSize: CGSize(width: 2, height: 2))
-            .frame(width: size - 4, height: size - 4)
+//            RoundedRectangle(cornerSize: CGSize(width: 2, height: 2))
+        Circle()
+            .frame(width: actualSize, height: actualSize)
             .foregroundStyle(count > 0 ? color : secondaryColor)
             .overlay {
                 if highlighted {
-                    Rectangle()
+                    Circle()
                         .stroke(Color.primary, lineWidth: 2)
                         .fill(.clear)
-                        .frame(width: size + 2, height: size + 2)
+                        .frame(width: size, height: size)
                 }
             }
             .frame(width: size, height: size)
     }
     
-    init(count: Int = 0, color: SwiftUICore.Color = Color.primary, secondaryColor: Color = Color.secondary, highlighted: Bool = false, size: CGFloat = CGFloat(32)) {
+    init(count: Int = 0, color: SwiftUICore.Color = Color.primary, secondaryColor: Color = Color.secondary, highlighted: Bool = false, size: CGFloat = CGFloat(24)) {
         self.count = count
         self.color = color
         self.secondaryColor = secondaryColor

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @Observable final class Navigation {
     var path = NavigationPath()
@@ -29,6 +30,7 @@ struct MainApp: View {
 
     @State private var today = Date.now
     @State private var navigation = Navigation()
+    @Query private var habits: [Habit]
     
     private var overviewDateInterval: (from: Date, to: Date) {
         (from: today.offset(.day, value: -6) ?? Date.now, to: today)
@@ -36,7 +38,11 @@ struct MainApp: View {
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
-//            NextOverview(from: overviewDateInterval.from, to: overviewDateInterval.to)
+            NextOverview(habits: habits, from: overviewDateInterval.from, to: overviewDateInterval.to)
+                .navigationDestination(for: Habit.self) { habit in
+                    SingleHabitView(id: habit.id) // TODO: pass in habit
+                }
+
 //            Overview(from: overviewDateInterval.from, to: overviewDateInterval.to)
 //                .navigationDestination(for: Habit.self) { habit in
 //                    SingleHabitView(id: habit.id) // TODO: pass in habit

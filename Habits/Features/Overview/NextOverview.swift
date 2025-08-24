@@ -8,14 +8,6 @@
 import SwiftUI
 import SwiftData
 
-struct Headline: View {
-    var body: some View {
-        Text("Good morning!")
-            .font(.title)
-            .fontWidth(.condensed)
-    }
-}
-
 struct DaysHeader: View {
     var days: [Date]
     
@@ -45,29 +37,29 @@ struct NextOverViewItem: View {
 
     var body: some View {
         if let habit = habit {
-            HStack(spacing: 0) {
-                habit.asColour.toColor()
-                    .frame(width: 4)
-                    .padding(.trailing)
-
-                VStack(alignment: .leading, spacing: 0) {
+            VStack() {
+                HStack(spacing: 4) {
                     Text(habit.name)
+                        .font(.system(size: 14))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                         .monospaced()
+                        .padding(.bottom, 4)
+                        
+                    Spacer()
 
-                    HStack(spacing: 4) {
-                        Spacer()
-
-                        ForEach(days, id: \.self) { day in
-                            VStack {
-                                Rectangle()
-                                    .foregroundStyle(habit.asColour.toColor().opacity(0.23))
-                                    .frame(width: 18, height: 24)
-                            }
-                            .frame(width: 24, height: 36)
-                        }
+                    ForEach(days, id: \.self) { day in
+                        EntryItem(
+                            count: 1,
+                            color: habit.asColour.toColor(),
+                            secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                            highlighted: false,
+                            size: CGFloat(24)
+                        )
                     }
+                
                 }
-            }
+            }.padding(.vertical, 4)
         } else {
             Text("TODO")
         }
@@ -103,12 +95,11 @@ struct NextOverview: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                Headline()
-                    .padding(.bottom)
-
                 Section(header: DaysHeader(days: days)) {
                     ForEach(habits, id: \.self) { habit in
+                        Divider()
                         NextOverViewItem(id: habit.id, range: days)
+//                            .padding(.bottom, 8)
                     }
                 }
             }
