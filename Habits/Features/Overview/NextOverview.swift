@@ -99,14 +99,14 @@ struct NextOverview: View {
                     ForEach(habits, id: \.self) { habit in
                         Divider()
                         NextOverViewItem(id: habit.id, range: days)
-//                            .padding(.bottom, 8)
                     }
                 }
             }
         }
         .padding(.horizontal)
         .background(Color.bg)
-//        .scrollBounceBehavior(.basedOnSize)
+        .scrollBounceBehavior(.basedOnSize)
+        .scrollIndicators(.hidden)
     }
 }
 
