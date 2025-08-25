@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -108,10 +108,6 @@
 		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
 		AAFD80D42E47449A00BF2A72 /* EntryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		AA5D2FFC2E5CF396005060C6 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AADC1CDD27BEF547007C47BE /* Frameworks */ = {
@@ -232,7 +228,6 @@
 		AADC1CE227BEF547007C47BE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
-				AA5D2FFC2E5CF396005060C6 /* Resources */,
 				AAC67B0C287440080085F2B6 /* Info.plist */,
 				AA8636FF29D23FAB00144373 /* Utils */,
 				AAC67B0428734CC30085F2B6 /* Components */,
@@ -296,9 +291,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				AA5D2FFC2E5CF396005060C6 /* Resources */,
 			);
 			name = Habits;
 			packageProductDependencies = (

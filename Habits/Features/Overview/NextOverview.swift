@@ -17,7 +17,8 @@ struct DaysHeader: View {
             
             ForEach(days, id: \.self) { day in
                 Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                    .font(.iosevka(size: 12))
+                    .font(.system(size: 12))
+                    .monospaced()
                     .foregroundStyle(.secondary)
                     .frame(width: 24)
             }
