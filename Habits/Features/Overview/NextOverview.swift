@@ -17,8 +17,7 @@ struct DaysHeader: View {
             
             ForEach(days, id: \.self) { day in
                 Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                    .font(.footnote)
-                    .monospaced()
+                    .font(.iosevka(size: 12))
                     .foregroundStyle(.secondary)
                     .frame(width: 24)
             }
@@ -40,10 +39,9 @@ struct NextOverViewItem: View {
             VStack() {
                 HStack(spacing: 4) {
                     Text(habit.name)
-                        .font(.system(size: 14))
+                        .font(.system(size: 14, weight: .medium))
                         .lineLimit(1)
                         .truncationMode(.tail)
-                        .monospaced()
                         .padding(.bottom, 4)
                         
                     Spacer()

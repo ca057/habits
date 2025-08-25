@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		AA47212D2C9AA686009CEE3F /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
 		AA47212E2C9AA69D009CEE3F /* LTTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */; };
 		AA47212F2C9AA6AB009CEE3F /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C9B7C2B8E876C00312206 /* Pill.swift */; };
+		AA5D30072E5CFD62005060C6 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5D30062E5CFD62005060C6 /* Font.swift */; };
 		AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
 		AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */; };
 		AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
@@ -76,6 +77,7 @@
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitAnalysis.swift; sourceTree = "<group>"; };
 		AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
+		AA5D30062E5CFD62005060C6 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
 		AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMonthView.swift; sourceTree = "<group>"; };
 		AA6F58C12B1DFA0A009BB876 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
@@ -106,6 +108,10 @@
 		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
 		AAFD80D42E47449A00BF2A72 /* EntryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA5D2FFC2E5CF396005060C6 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AADC1CDD27BEF547007C47BE /* Frameworks */ = {
@@ -172,6 +178,7 @@
 				AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */,
 				AA6F58C12B1DFA0A009BB876 /* Calendar.swift */,
 				AA1994822C864B040059211B /* View.swift */,
+				AA5D30062E5CFD62005060C6 /* Font.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -225,6 +232,7 @@
 		AADC1CE227BEF547007C47BE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				AA5D2FFC2E5CF396005060C6 /* Resources */,
 				AAC67B0C287440080085F2B6 /* Info.plist */,
 				AA8636FF29D23FAB00144373 /* Utils */,
 				AAC67B0428734CC30085F2B6 /* Components */,
@@ -288,6 +296,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA5D2FFC2E5CF396005060C6 /* Resources */,
 			);
 			name = Habits;
 			packageProductDependencies = (
@@ -412,6 +423,7 @@
 				AA86370629D4D0C900144373 /* Settings.swift in Sources */,
 				AA1994872C89B3860059211B /* ArchivedHabitsView.swift in Sources */,
 				AA88CB792BEFF70E0062CD30 /* SingleHabitSettingsView.swift in Sources */,
+				AA5D30072E5CFD62005060C6 /* Font.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
