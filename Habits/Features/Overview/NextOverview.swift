@@ -23,6 +23,16 @@ struct DaysHeader: View {
                     .frame(width: 24)
             }
         }
+        .padding(.vertical, 4)
+        .background(
+            Gradient(
+                stops: [
+                    .init(color: Color.bg, location: 0),
+                    .init(color: Color.bg.opacity(0.5), location: 0.75),
+                    .init(color: Color.bg.opacity(0), location: 1)
+                ]
+            )
+        )
     }
 }
 
@@ -37,26 +47,23 @@ struct NextOverViewItem: View {
 
     var body: some View {
         if let habit = habit {
-            VStack() {
-                HStack(spacing: 4) {
-                    Text(habit.name)
-                        .font(.system(size: 14, weight: .medium))
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .padding(.bottom, 4)
-                        
-                    Spacer()
+            HStack(spacing: 4) {
+                Text(habit.name)
+                    .font(.system(size: 14, weight: .medium))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.bottom, 4)
+                    
+                Spacer()
 
-                    ForEach(days, id: \.self) { day in
-                        EntryItem(
-                            count: 1,
-                            color: habit.asColour.toColor(),
-                            secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
-                            highlighted: false,
-                            size: CGFloat(24)
-                        )
-                    }
-                
+                ForEach(days, id: \.self) { day in
+                    EntryItem(
+                        count: 1,
+                        color: habit.asColour.toColor(),
+                        secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                        highlighted: false,
+                        size: CGFloat(24)
+                    )
                 }
             }.padding(.vertical, 4)
         } else {
@@ -92,20 +99,27 @@ struct NextOverview: View {
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                Section(header: DaysHeader(days: days)) {
-                    ForEach(habits, id: \.self) { habit in
-                        Divider()
-                        NextOverViewItem(id: habit.id, range: days)
+        ZStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
+                    Section(header: DaysHeader(days: days)) {
+                        ForEach(habits, id: \.self) { habit in
+                            Divider()
+                            NextOverViewItem(id: habit.id, range: days)
+                        }
                     }
                 }
             }
+            .padding(.horizontal)
+            .background(Color.bg)
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollIndicators(.hidden)
+            .safeAreaInset(edge: .top, alignment: .center, spacing: 0) {
+                VStack {}
+                    .frame(maxWidth: .infinity)
+                    .background(.bg)
+            }
         }
-        .padding(.horizontal)
-        .background(Color.bg)
-        .scrollBounceBehavior(.basedOnSize)
-        .scrollIndicators(.hidden)
     }
 }
 
