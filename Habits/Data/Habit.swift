@@ -24,7 +24,7 @@ extension HabitsSchemaV110 {
         var createdAt: Date
         var archivedAt: Date?
         
-        // TODO: rename
+        // TODO: rename to plural
         @Relationship(deleteRule: .cascade, inverse: \Entry.habit) var entry = [Entry]()
         
         // TODO: resort the parameters
@@ -39,31 +39,31 @@ extension HabitsSchemaV110 {
         convenience init(name: String, colour: Colour) {
             self.init(colour: colour.toLabel(), createdAt: Date.now, id: UUID(), name: name, order: 0)
         }
-        
-        static var sortedWithEntries: FetchDescriptor<Habit> {
-            var fetchDescriptor = FetchDescriptor<Habit>(
-                predicate: #Predicate { $0.archivedAt == nil },
-                sortBy: [
-                    SortDescriptor(\Habit.order),
-                    SortDescriptor(\Habit.createdAt, order: .reverse)
-                ]
-            )
-            fetchDescriptor.relationshipKeyPathsForPrefetching = [\.entry]
-            
-            return fetchDescriptor
-        }
-        
-        static let archivedHabits = FetchDescriptor<Habit>(
-            predicate: #Predicate { $0.archivedAt != nil },
-            sortBy: [
-                SortDescriptor(\.archivedAt, order: .reverse),
-                SortDescriptor(\.createdAt, order: .reverse)
-            ]
-        )
     }
 }
 
 extension Habit {
+    static var sortedWithEntries: FetchDescriptor<Habit> {
+        var fetchDescriptor = FetchDescriptor<Habit>(
+            predicate: #Predicate { $0.archivedAt == nil },
+            sortBy: [
+                SortDescriptor(\Habit.order),
+                SortDescriptor(\Habit.createdAt, order: .reverse)
+            ]
+        )
+        fetchDescriptor.relationshipKeyPathsForPrefetching = [\.entry]
+        
+        return fetchDescriptor
+    }
+    
+    static let archivedHabits = FetchDescriptor<Habit>(
+        predicate: #Predicate { $0.archivedAt != nil },
+        sortBy: [
+            SortDescriptor(\.archivedAt, order: .reverse),
+            SortDescriptor(\.createdAt, order: .reverse)
+        ]
+    )
+
     var asColour: Colour {
         get {
             Colour.fromRawValue(colour)

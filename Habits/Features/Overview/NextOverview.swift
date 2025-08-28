@@ -37,49 +37,34 @@ struct DaysHeader: View {
 }
 
 struct NextOverViewItem: View {
-    var id: UUID
+    var habit: Habit
     var days: [Date]
-    
-    @Query private var queriedHabits: [Habit]
-    private var habit: Habit? { queriedHabits.first }
-
-    @Query private var entries: [Entry]
 
     var body: some View {
-        if let habit = habit {
-            HStack(spacing: 4) {
-                Text(habit.name)
-                    .font(.system(size: 14, weight: .medium))
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .padding(.bottom, 4)
-                    
-                Spacer()
+        HStack(spacing: 4) {
+            Text(habit.name)
+                .font(.system(size: 14, weight: .medium))
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .padding(.bottom, 4)
+                
+            Spacer()
 
-                ForEach(days, id: \.self) { day in
-                    EntryItem(
-                        count: 1,
-                        color: habit.asColour.toColor(),
-                        secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
-                        highlighted: false,
-                        size: CGFloat(24)
-                    )
-                }
-            }.padding(.vertical, 4)
-        } else {
-            Text("TODO")
-        }
+            ForEach(days, id: \.self) { day in
+                EntryItem(
+                    count: 1,
+                    color: habit.asColour.toColor(),
+                    secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                    highlighted: false,
+                    size: CGFloat(24)
+                )
+            }
+        }.padding(.vertical, 4)
     }
     
-    init(id: UUID, range days: [Date]) {
-        self.id = id
+    init(_ habit: Habit, range days: [Date]) {
+        self.habit = habit
         self.days = days
-        
-        _queriedHabits = Query(filter: #Predicate { $0.id == id })
-        _entries = Query(
-            filter: #Predicate<Entry> { $0.habit?.id == id },
-            sort: [SortDescriptor(\Entry.date, order: .reverse)]
-        )
     }
 }
 
@@ -105,7 +90,7 @@ struct NextOverview: View {
                     Section(header: DaysHeader(days: days)) {
                         ForEach(habits, id: \.self) { habit in
                             Divider()
-                            NextOverViewItem(id: habit.id, range: days)
+                            NextOverViewItem(habit, range: days)
                         }
                     }
                 }
