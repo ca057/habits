@@ -90,7 +90,9 @@ struct NextOverview: View {
                     Section(header: DaysHeader(days: days)) {
                         ForEach(habits, id: \.self) { habit in
                             Divider()
-                            NextOverViewItem(habit, range: days)
+                            NavigationLink(value: habit) {
+                                NextOverViewItem(habit, range: days)
+                            }
                         }
                     }
                 }
