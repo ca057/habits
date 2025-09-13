@@ -37,8 +37,12 @@ struct DaysHeader: View {
 }
 
 struct NextOverViewItem: View {
+    @Environment(\.calendar) private var calendar
+    
     var habit: Habit
     var days: [Date]
+    
+    @Query(filter: Predicate<Entry>.false) private var entries: [Entry]
 
     var body: some View {
         HStack(spacing: 4) {
@@ -51,8 +55,10 @@ struct NextOverViewItem: View {
             Spacer()
 
             ForEach(days, id: \.self) { day in
+                let count = entries.count(where: { calendar.isDate(day, inSameDayAs: $0.date) })
+                
                 EntryItem(
-                    count: 1,
+                    count: count,
                     color: habit.asColour.toColor(),
                     secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
                     highlighted: false,
@@ -62,9 +68,25 @@ struct NextOverViewItem: View {
         }.padding(.vertical, 4)
     }
     
+    // TODO: make days a daysrange protocol to enforce that it has at least two dates
     init(_ habit: Habit, range days: [Date]) {
         self.habit = habit
         self.days = days
+        
+        guard let firstDay = days.first else {
+            // TODO: get rid of this when the daysrange protocol exists
+            fatalError("No days provided")
+        }
+
+        let habitId = habit.persistentModelID
+        let entriesFetchDescriptor = FetchDescriptor<Entry>(
+            predicate: #Predicate {
+                $0.habit?.persistentModelID == habitId && $0.date >= firstDay
+            },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        )
+        
+        _entries = Query(entriesFetchDescriptor)
     }
 }
 
@@ -89,7 +111,9 @@ struct NextOverview: View {
                 LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
                     Section(header: DaysHeader(days: days)) {
                         ForEach(habits, id: \.self) { habit in
-                            Divider()
+                            if habit != habits.first {
+                                Divider()
+                            }
                             NavigationLink(value: habit) {
                                 NextOverViewItem(habit, range: days)
                             }
