@@ -15,17 +15,15 @@ struct DaysHeader: View {
         HStack(spacing: 4) {
             Spacer()
             
-            HStack(spacing: 4) {
-                ForEach(days, id: \.self) { day in
-                    Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                        .font(.system(size: 12))
-                        .monospaced()
-                        .foregroundStyle(.secondary)
-                        .frame(width: 24)
-                }
+            ForEach(days, id: \.self) { day in
+                Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
+                    .font(.system(size: 12))
+                    .monospaced()
+                    .foregroundStyle(.secondary)
+                    .frame(width: 24)
             }
-            .padding(.vertical, 4)
         }
+        .padding(.vertical, 4)
     }
     
     init(for days: [Date]) {
