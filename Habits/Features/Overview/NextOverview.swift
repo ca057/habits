@@ -9,30 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct DaysHeader: View {
-    var days: [Date]
+    private var days: [Date]
     
     var body: some View {
         HStack(spacing: 4) {
             Spacer()
             
-            ForEach(days, id: \.self) { day in
-                Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                    .font(.system(size: 12))
-                    .monospaced()
-                    .foregroundStyle(.secondary)
-                    .frame(width: 24)
+            HStack(spacing: 4) {
+                ForEach(days, id: \.self) { day in
+                    Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
+                        .font(.system(size: 12))
+                        .monospaced()
+                        .foregroundStyle(.secondary)
+                        .frame(width: 24)
+                }
             }
+            .padding(.vertical, 4)
         }
-        .padding(.vertical, 4)
-        .background(
-            Gradient(
-                stops: [
-                    .init(color: Color.bg, location: 0),
-                    .init(color: Color.bg.opacity(0.5), location: 0.75),
-                    .init(color: Color.bg.opacity(0), location: 1)
-                ]
-            )
-        )
+    }
+    
+    init(for days: [Date]) {
+        self.days = days
     }
 }
 
@@ -56,7 +53,7 @@ struct NextOverViewItem: View {
 
             ForEach(days, id: \.self) { day in
                 let count = entries.count(where: { calendar.isDate(day, inSameDayAs: $0.date) })
-                
+
                 EntryItem(
                     count: count,
                     color: habit.asColour.toColor(),
@@ -109,7 +106,7 @@ struct NextOverview: View {
         ZStack {
             ScrollView {
                 LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                    Section(header: DaysHeader(days: days)) {
+                    Section(header: DaysHeader(for: days)) {
                         ForEach(habits, id: \.self) { habit in
                             if habit != habits.first {
                                 Divider()
@@ -123,7 +120,6 @@ struct NextOverview: View {
             }
             .padding(.horizontal)
             .background(Color.bg)
-            .scrollBounceBehavior(.basedOnSize)
             .scrollIndicators(.hidden)
             .safeAreaInset(edge: .top, alignment: .center, spacing: 0) {
                 VStack {}
