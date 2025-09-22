@@ -30,7 +30,7 @@ struct MainApp: View {
 
     @State private var today = Date.now
     @State private var navigation = Navigation()
-    @Query private var habits: [Habit]
+    @Query(Habit.sortedWithEntries) private var habits: [Habit]
     
     private var overviewDateInterval: (from: Date, to: Date) {
         (from: today.offset(.day, value: -6) ?? Date.now, to: today)
