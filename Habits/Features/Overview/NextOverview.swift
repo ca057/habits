@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+fileprivate let itemWidth = CGFloat(24)
+
 struct DaysHeader: View {
     private var days: [Date]
     
@@ -15,12 +17,14 @@ struct DaysHeader: View {
         HStack(spacing: 4) {
             Spacer()
             
-            ForEach(days, id: \.self) { day in
-                Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
-                    .font(.system(size: 12))
-                    .monospaced()
-                    .foregroundStyle(.secondary)
-                    .frame(width: 24)
+            HStack(spacing: 2) {
+                ForEach(days, id: \.self) { day in
+                    Text(day.formatted(Date.FormatStyle().weekday(.narrow)))
+                        .font(.system(size: 12))
+                        .monospaced()
+                        .foregroundStyle(.secondary)
+                        .frame(width: itemWidth)
+            }
             }
         }
         .padding(.vertical, 4)
@@ -33,10 +37,12 @@ struct DaysHeader: View {
 
 struct NextOverViewItem: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.modelContext) private var modelContext
     
     var habit: Habit
     var days: [Date]
     
+    // TODO: do I need this or can I get this from the habit?
     @Query(filter: Predicate<Entry>.false) private var entries: [Entry]
 
     var body: some View {
@@ -49,16 +55,26 @@ struct NextOverViewItem: View {
                 
             Spacer()
 
-            ForEach(days, id: \.self) { day in
-                let count = entries.count(where: { calendar.isDate(day, inSameDayAs: $0.date) })
-
-                EntryItem(
-                    count: count,
-                    color: habit.asColour.toColor(),
-                    secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
-                    highlighted: false,
-                    size: CGFloat(24)
-                )
+            HStack(spacing: 2) {
+                ForEach(days, id: \.self) { day in
+                    let entriesForDay = entries.filter({ calendar.isDate(day, inSameDayAs: $0.date) })
+                    
+                    EntryItemButton(
+                        count: entriesForDay.count,
+                        color: habit.asColour.toColor(),
+                        secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                        highlighted: false,
+                        size: itemWidth,
+                        perform: {
+                            if let firstEntry = entriesForDay.first {
+                                // TODO: fix me for multiple entries per day
+                                removeEntry(entry: firstEntry)
+                            } else {
+                                addEntry(for: day)
+                            }
+                        }
+                    )
+                }
             }
         }.padding(.vertical, 4)
     }
@@ -82,6 +98,21 @@ struct NextOverViewItem: View {
         )
         
         _entries = Query(entriesFetchDescriptor)
+    }
+    
+    private func addEntry(for day: Date) {
+        withAnimation(.easeOut(duration: 0.1)) {
+            let entry = Entry(date: day, habit: habit)
+            modelContext.insert(entry)
+            try? modelContext.save()
+        }
+    }
+    
+    private func removeEntry(entry: Entry) {
+        withAnimation(.easeIn(duration: 0.1)) {
+            modelContext.delete(entry)
+            try? modelContext.save()
+        }
     }
 }
 
