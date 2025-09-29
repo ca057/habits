@@ -42,8 +42,8 @@ struct NextOverViewItem: View {
     var habit: Habit
     var days: [Date]
     
-    // TODO: do I need this or can I get this from the habit?
-    @Query(filter: Predicate<Entry>.false) private var entries: [Entry]
+//    // TODO: do I need this or can I get this from the habit?
+//    @Query(filter: Predicate<Entry>.false) private var entries: [Entry]
 
     var body: some View {
         HStack(spacing: 4) {
@@ -57,7 +57,7 @@ struct NextOverViewItem: View {
 
             HStack(spacing: 2) {
                 ForEach(days, id: \.self) { day in
-                    let entriesForDay = entries.filter({ calendar.isDate(day, inSameDayAs: $0.date) })
+                    let entriesForDay = habit.entry.filter({ calendar.isDate(day, inSameDayAs: $0.date) })
                     
                     EntryItemButton(
                         count: entriesForDay.count,
@@ -83,21 +83,6 @@ struct NextOverViewItem: View {
     init(_ habit: Habit, range days: [Date]) {
         self.habit = habit
         self.days = days
-        
-        guard let firstDay = days.first else {
-            // TODO: get rid of this when the daysrange protocol exists
-            fatalError("No days provided")
-        }
-
-        let habitId = habit.persistentModelID
-        let entriesFetchDescriptor = FetchDescriptor<Entry>(
-            predicate: #Predicate {
-                $0.habit?.persistentModelID == habitId && $0.date >= firstDay
-            },
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
-        )
-        
-        _entries = Query(entriesFetchDescriptor)
     }
     
     private func addEntry(for day: Date) {
@@ -137,12 +122,10 @@ struct NextOverview: View {
                 LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
                     Section(header: DaysHeader(for: days)) {
                         ForEach(habits, id: \.self) { habit in
-                            if habit != habits.first {
-                                Divider()
-                            }
                             NavigationLink(value: habit) {
                                 NextOverViewItem(habit, range: days)
                             }
+                            .padding(.bottom, 4)
                         }
                     }
                 }
@@ -150,10 +133,13 @@ struct NextOverview: View {
             .padding(.horizontal)
             .background(Color.bg)
             .scrollIndicators(.hidden)
-            .safeAreaInset(edge: .top, alignment: .center, spacing: 0) {
-                VStack {}
-                    .frame(maxWidth: .infinity)
-                    .background(.bg)
+            .navigationTitle("Dashboard")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Settings", systemImage: "gearshape") {
+                        
+                    }
+                }
             }
         }
     }
