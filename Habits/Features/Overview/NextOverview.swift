@@ -114,20 +114,30 @@ struct NextOverview: View {
     }
     
     @State private var showingSettings = false
+    @State private var showingAddHabit = false
 
     var body: some View {
         ZStack {
             ScrollView {
                 LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                    Section(header: DaysHeader(for: days)) {
-                        ForEach(habits, id: \.self) { habit in
-                            NavigationLink(value: habit) {
-                                OverViewItem(habit, range: days)
+                    if !habits.isEmpty {
+                        Section(header: DaysHeader(for: days)) {
+                            ForEach(habits, id: \.self) { habit in
+                                NavigationLink(value: habit) {
+                                    OverViewItem(habit, range: days)
+                                }
+                                .padding(.bottom, 4)
                             }
-                            .padding(.bottom, 4)
                         }
                     }
                 }
+
+                HStack {
+                    Button("New habit", systemImage: "plus") {
+                        showingAddHabit = true
+                    }.buttonStyle(.bordered)
+                }
+                .padding(.vertical, 8)
             }
             .padding(.horizontal)
             .background(Color.bg)
@@ -141,6 +151,7 @@ struct NextOverview: View {
                 }
             }
             .sheet(isPresented: $showingSettings, content: { Settings() })
+            .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
         }
     }
 }
@@ -151,6 +162,20 @@ struct NextOverview: View {
 
         return NavigationStack {
             NextOverview(habits: previewer.habits, from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
+                .modelContainer(previewer.container)
+                .environment(\.calendar, CalendarUtils.shared.calendar)
+        }.tint(.primary)
+    } catch {
+        return Text("error creating preview")
+    }
+}
+
+#Preview("empty") {
+    do {
+        let previewer = try Previewer()
+        
+        return NavigationStack {
+            NextOverview(habits: [], from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
                 .modelContainer(previewer.container)
                 .environment(\.calendar, CalendarUtils.shared.calendar)
         }.tint(.primary)
