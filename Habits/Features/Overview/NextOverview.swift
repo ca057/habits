@@ -35,15 +35,12 @@ struct DaysHeader: View {
     }
 }
 
-struct NextOverViewItem: View {
+fileprivate struct OverViewItem: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
     
     var habit: Habit
     var days: [Date]
-    
-//    // TODO: do I need this or can I get this from the habit?
-//    @Query(filter: Predicate<Entry>.false) private var entries: [Entry]
 
     var body: some View {
         HStack(spacing: 4) {
@@ -115,6 +112,8 @@ struct NextOverview: View {
             matching: DateComponents(hour: 0, minute: 0, second: 0)
         )
     }
+    
+    @State private var showingSettings = false
 
     var body: some View {
         ZStack {
@@ -123,7 +122,7 @@ struct NextOverview: View {
                     Section(header: DaysHeader(for: days)) {
                         ForEach(habits, id: \.self) { habit in
                             NavigationLink(value: habit) {
-                                NextOverViewItem(habit, range: days)
+                                OverViewItem(habit, range: days)
                             }
                             .padding(.bottom, 4)
                         }
@@ -137,10 +136,11 @@ struct NextOverview: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gearshape") {
-                        
+                        showingSettings = true
                     }
                 }
             }
+            .sheet(isPresented: $showingSettings, content: { Settings() })
         }
     }
 }
