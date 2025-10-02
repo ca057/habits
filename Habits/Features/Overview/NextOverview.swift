@@ -125,8 +125,8 @@ struct NextOverview: View {
                             ForEach(habits, id: \.self) { habit in
                                 NavigationLink(value: habit) {
                                     OverViewItem(habit, range: days)
+                                        .padding(.vertical, 4)
                                 }
-                                .padding(.vertical, 4)
                                 
                                 if habit != habits.last {
                                     Divider()
