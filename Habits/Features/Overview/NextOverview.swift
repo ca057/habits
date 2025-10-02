@@ -8,6 +8,37 @@
 import SwiftUI
 import SwiftData
 
+// MARK: internals
+
+fileprivate struct SortDropViewDelegate<T: Equatable> : DropDelegate {
+    let destinationItem: T
+    @Binding var items: [T]
+    @Binding var draggedItem: T?
+    var onSortFinished : (([T]) -> Void)
+    
+    func dropEntered(info: DropInfo) {
+        guard let draggedItem = draggedItem else { return }
+        guard let fromIndex = items.firstIndex(of: draggedItem) else { return }
+        guard let toIndex = items.firstIndex(of: destinationItem) else { return }
+        
+        if fromIndex != toIndex {
+            withAnimation {
+                items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+            }
+        }
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        draggedItem = nil
+        onSortFinished(items)
+        return true
+    }
+}
+
 fileprivate let itemWidth = CGFloat(24)
 
 struct DaysHeader: View {
@@ -115,6 +146,9 @@ struct NextOverview: View {
     
     @State private var showingSettings = false
     @State private var showingAddHabit = false
+    
+    @State private var draggedHabit: Habit?
+    @State private var displayedHabits: [Habit] = []
 
     var body: some View {
         ZStack {
@@ -126,8 +160,25 @@ struct NextOverview: View {
                                 NavigationLink(value: habit) {
                                     OverViewItem(habit, range: days)
                                         .padding(.vertical, 4)
+                                        .contentShape(
+                                            .dragPreview,
+                                            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize)
+                                        )
+                                        .onDrag {
+                                            self.draggedHabit = habit
+                                            return NSItemProvider()
+                                        }
+                                        .onDrop(
+                                            of: [.text],
+                                            delegate: SortDropViewDelegate(
+                                                destinationItem: habit,
+                                                items: $displayedHabits,
+                                                draggedItem: $draggedHabit,
+                                                onSortFinished: updateSortOrder
+                                            )
+                                        )
                                 }
-                                
+//                                
                                 if habit != habits.last {
                                     Divider()
                                 }
@@ -157,33 +208,40 @@ struct NextOverview: View {
             .sheet(isPresented: $showingSettings, content: { Settings() })
             .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
         }
+        // TODO: fix this
+        .onAppear { displayedHabits = habits }
+        .onChange(of: habits) { displayedHabits = habits }
+    }
+    
+    private func updateSortOrder(_ orderedHabits: [Habit]) -> Void {
+        orderedHabits.enumerated().forEach { $1.order = Int16($0) }
     }
 }
-
-#Preview("default") {
-    do {
-        let previewer = try Previewer()
-
-        return NavigationStack {
-            NextOverview(habits: previewer.habits, from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
-                .modelContainer(previewer.container)
-                .environment(\.calendar, CalendarUtils.shared.calendar)
-        }.tint(.primary)
-    } catch {
-        return Text("error creating preview")
-    }
-}
-
-#Preview("empty") {
-    do {
-        let previewer = try Previewer()
-        
-        return NavigationStack {
-            NextOverview(habits: [], from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
-                .modelContainer(previewer.container)
-                .environment(\.calendar, CalendarUtils.shared.calendar)
-        }.tint(.primary)
-    } catch {
-        return Text("error creating preview")
-    }
-}
+//
+//#Preview("default") {
+//    do {
+//        let previewer = try Previewer()
+//
+//        return NavigationStack {
+//            NextOverview(habits: previewer.habits, from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
+//                .modelContainer(previewer.container)
+//                .environment(\.calendar, CalendarUtils.shared.calendar)
+//        }.tint(.primary)
+//    } catch {
+//        return Text("error creating preview")
+//    }
+//}
+//
+//#Preview("empty") {
+//    do {
+//        let previewer = try Previewer()
+//        
+//        return NavigationStack {
+//            NextOverview(habits: [], from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
+//                .modelContainer(previewer.container)
+//                .environment(\.calendar, CalendarUtils.shared.calendar)
+//        }.tint(.primary)
+//    } catch {
+//        return Text("error creating preview")
+//    }
+//}
