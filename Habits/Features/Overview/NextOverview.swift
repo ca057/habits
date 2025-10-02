@@ -126,7 +126,11 @@ struct NextOverview: View {
                                 NavigationLink(value: habit) {
                                     OverViewItem(habit, range: days)
                                 }
-                                .padding(.bottom, 4)
+                                .padding(.vertical, 4)
+                                
+                                if habit != habits.last {
+                                    Divider()
+                                }
                             }
                         }
                     }
