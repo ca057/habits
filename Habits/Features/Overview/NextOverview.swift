@@ -27,6 +27,7 @@ struct DaysHeader: View {
             }
             }
         }
+        .padding(.horizontal, 8)
         .padding(.vertical, 4)
     }
     
@@ -73,7 +74,12 @@ fileprivate struct OverViewItem: View {
                     )
                 }
             }
-        }.padding(.vertical, 4)
+        }
+        .padding(8)
+        .background(.bg.mix(with: .gray, by: 0.1))
+        .clipShape(
+            RoundedRectangle(cornerSize: CGSize(width: 4, height: 4), style: .continuous)
+        )
     }
     
     // TODO: make days a daysrange protocol to enforce that it has at least two dates
@@ -119,17 +125,12 @@ struct NextOverview: View {
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
+                LazyVStack(alignment: .leading, spacing: 4, pinnedViews: [.sectionHeaders]) {
                     if !habits.isEmpty {
                         Section(header: DaysHeader(for: days)) {
                             ForEach(habits, id: \.self) { habit in
                                 NavigationLink(value: habit) {
                                     OverViewItem(habit, range: days)
-                                        .padding(.vertical, 4)
-                                }
-                                
-                                if habit != habits.last {
-                                    Divider()
                                 }
                             }
                         }
@@ -139,7 +140,8 @@ struct NextOverview: View {
                 HStack {
                     Button("New habit", systemImage: "plus") {
                         showingAddHabit = true
-                    }.buttonStyle(.bordered)
+                    }
+                    .buttonStyle(.bordered)
                 }
                 .padding(.vertical, 8)
             }

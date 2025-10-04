@@ -104,8 +104,8 @@ struct HabitOverviewItem: View {
         let color = habit.asColour.toColor()
 
         ZStack {
-//            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize, style: .continuous)
-//                .fill(.gray.tertiary.opacity(0.5))
+            RoundedRectangle(cornerSize: HabitOverviewItem.cornerSize, style: .continuous)
+                .fill(.gray.tertiary.opacity(0.5))
 
             VStack(spacing: 12) {
                 Text(habit.name)
