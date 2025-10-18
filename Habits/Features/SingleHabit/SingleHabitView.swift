@@ -81,9 +81,9 @@ private struct StaticBackground: View {
         LinearGradient(
             stops: [
                 Gradient.Stop(
-                    color: Color(UIColor.systemBackground), location: 0),
+                    color: Color(UIColor.bg), location: 0),
                 Gradient.Stop(
-                    color: Color(UIColor.systemBackground), location: 0.5),
+                    color: Color(UIColor.bg), location: 0.5),
                 Gradient.Stop(
                     color: Color(UIColor.systemGroupedBackground), location: 0.5
                 ),
@@ -183,7 +183,7 @@ private struct SingleHabitViewContent: View {
                             }
                         }
                         .padding([.horizontal, .bottom])
-                        .background(.background)
+                        .background(.bg)
 
                         SingleHabitStatistics(
                             habit: habit, year: year, analysis: analysis
@@ -195,6 +195,7 @@ private struct SingleHabitViewContent: View {
                 }
             }
         }
+        .background(.bg)
         .onChange(of: year) {
             analysisForYear = SingleHabitAnalysis.forYear(
                 year, calendar: calendar, habit: habit, entries: entries)

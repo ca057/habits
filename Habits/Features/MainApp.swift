@@ -42,11 +42,6 @@ struct MainApp: View {
                 .navigationDestination(for: Habit.self) { habit in
                     SingleHabitView(id: habit.id) // TODO: pass in habit
                 }
-
-//            Overview(from: overviewDateInterval.from, to: overviewDateInterval.to)
-//                .navigationDestination(for: Habit.self) { habit in
-//                    SingleHabitView(id: habit.id) // TODO: pass in habit
-//                }
         }
         .tint(.primary)
         .environment(\.navigation, navigation)
