@@ -239,7 +239,7 @@ struct SingleHabitView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .secondaryAction) {
                 Button {
                     showingSettings = true
                 } label: {
