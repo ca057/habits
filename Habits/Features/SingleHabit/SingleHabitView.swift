@@ -121,7 +121,7 @@ private struct SingleHabitViewContent: View {
                                     count: isAchieved ? 1 : 0,
                                     color: habit.asColour.toColor(),
                                     secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
-                                    highlighted: false,
+                                    highlighted: calendar.isDateInToday(day),
                                     size: CGFloat(16)
                                 )
                             }
