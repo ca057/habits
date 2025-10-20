@@ -120,9 +120,9 @@ private struct SingleHabitViewContent: View {
                                 EntryItem(
                                     count: isAchieved ? 1 : 0,
                                     color: habit.asColour.toColor(),
-                                    secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                                    secondaryColor: Color.secondary,
                                     highlighted: calendar.isDateInToday(day),
-                                    size: CGFloat(16)
+                                    size: CGFloat(18)
                                 )
                             }
                             .padding(.bottom)

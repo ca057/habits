@@ -60,7 +60,7 @@ fileprivate struct OverViewItem: View {
                     EntryItemButton(
                         count: entriesForDay.count,
                         color: habit.asColour.toColor(),
-                        secondaryColor: Color.secondary.mix(with: .white, by: 0.75),
+                        secondaryColor: Color.secondary,
                         highlighted: false,
                         size: itemWidth,
                         perform: {
