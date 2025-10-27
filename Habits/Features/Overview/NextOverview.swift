@@ -24,10 +24,10 @@ struct DaysHeader: View {
                         .monospaced()
                         .foregroundStyle(.secondary)
                         .frame(width: itemWidth)
-            }
+                }
             }
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 12)
         .padding(.vertical, 4)
     }
     
