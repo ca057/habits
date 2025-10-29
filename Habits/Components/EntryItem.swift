@@ -39,7 +39,7 @@ struct EntryItem: View {
     var highlighted = false
     
     private var actualSize: CGFloat {
-        CGFloat(count == 0 ? 8 : size - 6)
+        CGFloat(count == 0 ? 4 : size - 6)
     }
     
     var body: some View {
