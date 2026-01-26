@@ -127,11 +127,10 @@ struct NextOverview: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
                     if !habits.isEmpty {
-                        Section(header: DaysHeader(for: days)) {
-                            ForEach(habits, id: \.self) { habit in
-                                NavigationLink(value: habit) {
-                                    OverViewItem(habit, range: days)
-                                }
+                        DaysHeader(for: days)
+                        ForEach(habits, id: \.self) { habit in
+                            NavigationLink(value: habit) {
+                                OverViewItem(habit, range: days)
                             }
                         }
                     }
