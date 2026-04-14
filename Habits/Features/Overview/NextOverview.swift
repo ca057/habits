@@ -145,16 +145,23 @@ struct NextOverview: View {
                 .padding(.vertical, 8)
             }
             .padding(.horizontal)
-            .background(Color.bg)
+            .background(Color(UIColor.systemGray6))
             .scrollIndicators(.hidden)
-            .navigationTitle("Dashboard")
+            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .title) {
+                    Text("Home")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gearshape") {
                         showingSettings = true
                     }
                 }
             }
+            .toolbarRole(.browser)
             .sheet(isPresented: $showingSettings, content: { Settings() })
             .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
         }
