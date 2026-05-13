@@ -36,35 +36,44 @@ enum HabitsMigrationPlan: SchemaMigrationPlan {
         [HabitsSchemaV110.self, HabitsSchemaV120.self, HabitsSchemaV130.self]
     }
     static var stages: [MigrationStage] { [migrateV110toV120, migrateV120toV130] }
+    
+    static func migrateDateToDay(from date: Date) -> String {
+        // entries were stored at local midnight, so the correct timezone can be determined whichever
+        // has 0 for the hour; candidates are based on my own usage
+        // TODO: this needs testing
+        let timeZoneCandidates = [TimeZone.current, TimeZone(identifier: "Europe/Berlin")!]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
 
-    // Populate day from date. Entries were stored at local midnight, so the correct timezone
-    // is whichever candidate has hour == 0 for the stored timestamp.
+        var bestTimeZone = TimeZone.current
+        var minHour = 24
+        
+        for timeZone in timeZoneCandidates {
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.timeZone = timeZone
+
+            let hour = calendar.component(.hour, from: date)
+            if hour < minHour {
+                minHour = hour
+                bestTimeZone = timeZone
+            }
+        }
+        formatter.timeZone = bestTimeZone
+        
+        return formatter.string(from: date)
+    }
+
     static let migrateV110toV120 = MigrationStage.custom(
         fromVersion: HabitsSchemaV110.self,
         toVersion: HabitsSchemaV120.self,
         willMigrate: nil,
         didMigrate: { context in
-            let candidates = [TimeZone.current, TimeZone(identifier: "Europe/Berlin")!]
-
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-
             let entries = try context.fetch(FetchDescriptor<HabitsSchemaV120.Entry>())
+            
             for entry in entries where entry.day == nil {
-                var bestTZ = TimeZone.current
-                var minHour = 24
-                for tz in candidates {
-                    var cal = Calendar(identifier: .gregorian)
-                    cal.timeZone = tz
-                    let hour = cal.component(.hour, from: entry.date)
-                    if hour < minHour {
-                        minHour = hour
-                        bestTZ = tz
-                    }
-                }
-                formatter.timeZone = bestTZ
-                entry.day = formatter.string(from: entry.date)
+                entry.day = migrateDateToDay(from: entry.date)
             }
+            
             try context.save()
         }
     )

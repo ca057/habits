@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Foundation
+import os
 
 fileprivate struct ErrorAlert {
     var showing = false
@@ -160,7 +161,7 @@ fileprivate extension Settings {
                         colour: habit.colour,
                         order: Int(habit.order),
                         entries: habit.entry.map { entry in
-                            DataExport.HabitsExportItemEntry(day: entry.day)
+                            DataExport.HabitsExportItemEntry(date: nil, day: entry.day)
                         }
                     )
                 }
@@ -206,6 +207,8 @@ fileprivate extension Settings {
                 guard let data = try String(contentsOf: url, encoding: .utf8).data(using: .utf8) else {
                     throw DataExport.HabitsStorageError.importFailed
                 }
+                // TODO: make it a global instance
+                let logger = Logger()
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
@@ -223,8 +226,16 @@ fileprivate extension Settings {
                     modelContext.insert(habit)
                     
                     habitToImport.entries.forEach { entryToImport in
-                        let entry = Entry(day: entryToImport.day, habit: habit)
-                        modelContext.insert(entry)
+                        if let day = entryToImport.day {
+                            let entry = Entry(day: day, habit: habit)
+                            modelContext.insert(entry)
+                        } else if let date = entryToImport.date {
+                            let entry = Entry(day: HabitsMigrationPlan.migrateDateToDay(from: date), habit: habit)
+                            modelContext.insert(entry)
+                        } else {
+                            // TODO: display user warning
+                            logger.warning("entry is missing both date and day and cannot be imported")
+                        }
                     }
                 }
                 try modelContext.save()

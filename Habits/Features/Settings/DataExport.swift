@@ -16,9 +16,15 @@ struct DataExport {
     }
 
     struct HabitsExportItemEntry: Codable {
-        let day: String
+        // TODO: [v2] make it a breaking change and remove the old date
+        let date: Date?
+        let day: String?
 
-        // TODO: create from & to methods
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encodeIfPresent(date, forKey: .date)
+            try container.encodeIfPresent(day, forKey: .day)
+        }
     }
 
     struct HabitsExportItem: Codable {
