@@ -19,6 +19,8 @@ fileprivate struct ErrorAlert {
 struct Settings: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismissView
+    
+    var importExportService: DataImportExportService = .live
 
     @State private var errorMessage = ErrorAlert()
     @State private var showingExporter = false
@@ -149,11 +151,9 @@ fileprivate extension Settings {
         do {
             let allHabitsDescriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.createdAt)])
             let allHabits = try modelContext.fetch(allHabitsDescriptor)
-            
-            let export = DataExport.HabitsExport(
-                appVersion: Bundle.main.versionAndBuildNumber,
-                exportDate: Date(),
-                habits: allHabits.map { habit in
+
+            return try importExportService.exportHabitsToJsonFile(
+                with: allHabits.map { habit in
                     DataExport.HabitsExportItem(
                         id: habit.id,
                         name: habit.name,
@@ -161,17 +161,11 @@ fileprivate extension Settings {
                         colour: habit.colour,
                         order: Int(habit.order),
                         entries: habit.entry.map { entry in
-                            DataExport.HabitsExportItemEntry(date: nil, day: entry.day)
+                            DataExport.HabitsExportItemEntry(day: entry.day)
                         }
                     )
                 }
             )
-            
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
-            jsonEncoder.outputFormatting = .prettyPrinted
-            
-            return DataExport.JSONFile(try jsonEncoder.encode(export))
         } catch {
             errorMessage = ErrorAlert(
                 showing: true,
@@ -207,15 +201,10 @@ fileprivate extension Settings {
                 guard let data = try String(contentsOf: url, encoding: .utf8).data(using: .utf8) else {
                     throw DataExport.HabitsStorageError.importFailed
                 }
-                // TODO: make it a global instance
-                let logger = Logger()
                 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                
-                let decodedData = try decoder.decode(DataExport.HabitsExport.self, from: data)
-                
-                decodedData.habits.forEach { habitToImport in
+                let importedHabits = try importExportService.importHabitsFromJsonFile(from: data)
+                                
+                importedHabits.forEach { habitToImport in
                     let habit = Habit(
                         colour: habitToImport.colour,
                         createdAt: habitToImport.createdAt,
@@ -225,19 +214,11 @@ fileprivate extension Settings {
                     )
                     modelContext.insert(habit)
                     
-                    habitToImport.entries.forEach { entryToImport in
-                        if let day = entryToImport.day {
-                            let entry = Entry(day: day, habit: habit)
-                            modelContext.insert(entry)
-                        } else if let date = entryToImport.date {
-                            let entry = Entry(day: HabitsMigrationPlan.migrateDateToDay(from: date), habit: habit)
-                            modelContext.insert(entry)
-                        } else {
-                            // TODO: display user warning
-                            logger.warning("entry is missing both date and day and cannot be imported")
-                        }
+                    habitToImport.entries.forEach {
+                        modelContext.insert(Entry(day: $0.day, habit: habit))
                     }
                 }
+
                 try modelContext.save()
             } catch {
                 print("error during import \(error)")

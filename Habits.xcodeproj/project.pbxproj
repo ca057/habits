@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -53,6 +53,7 @@
 		AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC1D1227C017F4007C47BE /* AddHabitView.swift */; };
 		AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5FBED2B35C5F10052D047 /* LazyView.swift */; };
 		AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */; };
+		AAFC0CBA2FB769430091A930 /* DataImportExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC0CB92FB769430091A930 /* DataImportExportService.swift */; };
 		AAFD80D52E47449A00BF2A72 /* EntryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD80D42E47449A00BF2A72 /* EntryItem.swift */; };
 		AAFD80D62E47449A00BF2A72 /* EntryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD80D42E47449A00BF2A72 /* EntryItem.swift */; };
 /* End PBXBuildFile section */
@@ -106,8 +107,13 @@
 		AADC1D1227C017F4007C47BE /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		AAE5FBED2B35C5F10052D047 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyAchievementOverview.swift; sourceTree = "<group>"; };
+		AAFC0CB92FB769430091A930 /* DataImportExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataImportExportService.swift; sourceTree = "<group>"; };
 		AAFD80D42E47449A00BF2A72 /* EntryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AAFC0CB12FB4B62D0091A930 /* Features */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Features; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AADC1CDD27BEF547007C47BE /* Frameworks */ = {
@@ -162,6 +168,7 @@
 				AA86370529D4D0C900144373 /* Settings.swift */,
 				AACCAD962B225882008BB8FE /* DataExport.swift */,
 				AA1994862C89B3860059211B /* ArchivedHabitsView.swift */,
+				AAFC0CB92FB769430091A930 /* DataImportExportService.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -243,6 +250,7 @@
 		AADC1CF327BEF548007C47BE /* HabitsTests */ = {
 			isa = PBXGroup;
 			children = (
+				AAFC0CB12FB4B62D0091A930 /* Features */,
 				AA4721292C9AA51B009CEE3F /* Extensions */,
 			);
 			path = HabitsTests;
@@ -312,6 +320,9 @@
 			);
 			dependencies = (
 				AADC1CF227BEF548007C47BE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AAFC0CB12FB4B62D0091A930 /* Features */,
 			);
 			name = HabitsTests;
 			packageProductDependencies = (
@@ -406,6 +417,7 @@
 				AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */,
 				AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */,
 				AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */,
+				AAFC0CBA2FB769430091A930 /* DataImportExportService.swift in Sources */,
 				AADC1D1327C017F4007C47BE /* AddHabitView.swift in Sources */,
 				AA19948E2C937B2B0059211B /* ProgressBar.swift in Sources */,
 				AACCAD952B22065A008BB8FE /* Entry.swift in Sources */,
