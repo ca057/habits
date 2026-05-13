@@ -98,9 +98,7 @@ struct HabitOverviewItem: View {
     @Query private var entries: [Entry]
 
     var body: some View {
-        let groupedEntriesByDate = Dictionary(
-            grouping: entries, by: { $0.date.formatted(.dateTime.year().month().day()) }
-        )
+        let entryDays = Set(entries.map { $0.day })
         let color = habit.asColour.toColor()
 
         ZStack {
@@ -119,7 +117,7 @@ struct HabitOverviewItem: View {
                     ForEach(days, id: \.self) { day in
                         EntryButton(
                             day: day,
-                            hasEntry: groupedEntriesByDate.index(forKey: day.formatted(.dateTime.year().month().day())) != nil,
+                            hasEntry: entryDays.contains(Entry.dayString(from: day)),
                             color: color,
                             toggleEntry: toggleEntry
                         )
@@ -143,7 +141,7 @@ struct HabitOverviewItem: View {
 
         var descriptor = FetchDescriptor<Entry>(
             predicate: #Predicate<Entry> { $0.habit?.persistentModelID == habitModelId },
-            sortBy: [SortDescriptor(\Entry.date, order: .reverse)]
+            sortBy: [SortDescriptor(\Entry.day, order: .reverse)]
         )
         descriptor.fetchLimit = days.count
                 
@@ -151,7 +149,8 @@ struct HabitOverviewItem: View {
     }
 
     private func toggleEntry(on date: Date) {
-        if let entry = habit.entry.first(where: { entry in calendar.isDate(entry.date, inSameDayAs: date) }) {
+        let targetDay = Entry.dayString(from: date)
+        if let entry = habit.entry.first(where: { $0.day == targetDay }) {
             modelContext.delete(entry)
             try? modelContext.save()
         } else {

@@ -17,27 +17,24 @@ struct SingleHabitAnalysis {
     
     static func forYear(_ year: Date, calendar: Calendar, habit: Habit, entries: [Entry]) -> SingleHabitAnalysis {
         let startOfYear = year.adjust(for: .startOfYear)!
-        let firstRelevantDate = calendar.oldestDate(habit.createdAt, entries.sorted { a, b in a.date < b.date }.first?.date ?? habit.createdAt)
+        let oldestEntryDate = entries.map { $0.day }.min().flatMap { Entry.date(from: $0) }
+        let firstRelevantDate = calendar.oldestDate(habit.createdAt, oldestEntryDate ?? habit.createdAt)
 
-        let achievedOfYear = entries
-            .reduce(into: [Date]()) { res, e in
-                if e.date.compare(.isSameYear(as: year)) {
-                    res.append(e.date)
-                }
-            }
-        
+        let yearPrefix = String(calendar.component(.year, from: year))
+        let achievedDaysOfYear = entries.filter { $0.day.hasPrefix(yearPrefix) }.map { $0.day }
+
         var achievableDays: Int {
             guard let endOfToday = year.adjust(for: year.compare(.isThisYear) ? .endOfDay : .endOfYear)
             else { return 0 }
-            
+
             let start = calendar.isDate(startOfYear, equalTo: firstRelevantDate, toGranularity: .year) ? firstRelevantDate : startOfYear
-            
+
             return Int(ceil(Double(calendar.dateComponents([.hour], from: start, to: endOfToday).hour ?? 0) / 24))
         }
-        
+
         return SingleHabitAnalysis(
-            achievedDays: Set(achievedOfYear.map { $0.toString(format: .isoDate) ?? "" }),
-            achievedCompletion: (Double(achievedOfYear.count) / Double(achievableDays) * 100).rounded() / 100,
+            achievedDays: Set(achievedDaysOfYear),
+            achievedCompletion: (Double(achievedDaysOfYear.count) / Double(achievableDays) * 100).rounded() / 100,
             achievableDayCount: achievableDays,
             firstRelevantDate: firstRelevantDate
         )

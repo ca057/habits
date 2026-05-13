@@ -55,7 +55,8 @@ fileprivate struct OverViewItem: View {
 
             HStack(spacing: 2) {
                 ForEach(days, id: \.self) { day in
-                    let entriesForDay = habit.entry.filter({ calendar.isDate(day, inSameDayAs: $0.date) })
+                    let targetDay = Entry.dayString(from: day)
+                    let entriesForDay = habit.entry.filter({ $0.day == targetDay })
                     
                     EntryItemButton(
                         count: entriesForDay.count,

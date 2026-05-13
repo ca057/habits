@@ -160,7 +160,7 @@ fileprivate extension Settings {
                         colour: habit.colour,
                         order: Int(habit.order),
                         entries: habit.entry.map { entry in
-                            DataExport.HabitsExportItemEntry(date: entry.date)
+                            DataExport.HabitsExportItemEntry(day: entry.day)
                         }
                     )
                 }
@@ -223,7 +223,7 @@ fileprivate extension Settings {
                     modelContext.insert(habit)
                     
                     habitToImport.entries.forEach { entryToImport in
-                        let entry = Entry(date: entryToImport.date, habit: habit)
+                        let entry = Entry(day: entryToImport.day, habit: habit)
                         modelContext.insert(entry)
                     }
                 }

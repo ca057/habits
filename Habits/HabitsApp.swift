@@ -27,8 +27,8 @@ struct HabitsApp: App {
             let config = ModelConfiguration(url: url)
             
             container = try ModelContainer(
-                // TODO: are all entries here necessary?
-                for: Habit.self, Entry.self,
+                for: Schema(versionedSchema: HabitsSchemaV130.self),
+                migrationPlan: HabitsMigrationPlan.self,
                 configurations: config
             )
             print("HabitsApp ready")

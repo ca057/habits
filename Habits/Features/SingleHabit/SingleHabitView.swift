@@ -115,7 +115,7 @@ private struct SingleHabitViewContent: View {
                         VStack {
                             FrequencyAchievementOverview(year: year) { day in
                                 let isAchieved = analysis.achievedDays.contains(
-                                    day.toString(format: .isoDate) ?? "")
+                                    Entry.dayString(from: day))
 
                                 EntryItem(
                                     count: isAchieved ? 1 : 0,
@@ -257,7 +257,7 @@ struct SingleHabitView: View {
         _queriedHabits = Query(filter: #Predicate { $0.id == id })
         _entries = Query(
             filter: #Predicate<Entry> { $0.habit?.id == id },
-            sort: [SortDescriptor(\Entry.date, order: .reverse)]
+            sort: [SortDescriptor(\Entry.day, order: .reverse)]
         )
     }
 }
