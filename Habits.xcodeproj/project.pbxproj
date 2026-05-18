@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA01DCCD2FBB3A52004093AD /* DataImportExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC0CB92FB769430091A930 /* DataImportExportService.swift */; };
+		AA01DCCE2FBB4576004093AD /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCAD962B225882008BB8FE /* DataExport.swift */; };
+		AA01DCD12FBB4A0C004093AD /* DataImportExportService+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DCCF2FBB4A05004093AD /* DataImportExportService+Live.swift */; };
 		AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */; };
 		AA09A9D12AB5FB0600999CAD /* ExpandableRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */; };
 		AA09A9D32AB5FB7500999CAD /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09A9D22AB5FB7500999CAD /* HistoryView.swift */; };
@@ -69,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA01DCCF2FBB4A05004093AD /* DataImportExportService+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataImportExportService+Live.swift"; sourceTree = "<group>"; };
 		AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableRows.swift; sourceTree = "<group>"; };
 		AA09A9D22AB5FB7500999CAD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		AA1994822C864B040059211B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				AACCAD962B225882008BB8FE /* DataExport.swift */,
 				AA1994862C89B3860059211B /* ArchivedHabitsView.swift */,
 				AAFC0CB92FB769430091A930 /* DataImportExportService.swift */,
+				AA01DCCF2FBB4A05004093AD /* DataImportExportService+Live.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				AACCAD952B22065A008BB8FE /* Entry.swift in Sources */,
 				AA8FC7A42B39D019006AB218 /* Previewer.swift in Sources */,
 				AA86370129D23FBD00144373 /* CalendarUtils.swift in Sources */,
+				AA01DCD12FBB4A0C004093AD /* DataImportExportService+Live.swift in Sources */,
 				AA3C9B7D2B8E876C00312206 /* Pill.swift in Sources */,
 				AA86370629D4D0C900144373 /* Settings.swift in Sources */,
 				AA1994872C89B3860059211B /* ArchivedHabitsView.swift in Sources */,
@@ -442,6 +448,8 @@
 				AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */,
 				AAC67B0A28739D290085F2B6 /* UIColor.swift in Sources */,
 				AAC01D0D2E2DF30E004360BE /* HabitsSchema.swift in Sources */,
+				AA01DCCD2FBB3A52004093AD /* DataImportExportService.swift in Sources */,
+				AA01DCCE2FBB4576004093AD /* DataExport.swift in Sources */,
 				AAC67B0728734CDC0085F2B6 /* ColourPicker.swift in Sources */,
 				AAFD80D62E47449A00BF2A72 /* EntryItem.swift in Sources */,
 				AA47212F2C9AA6AB009CEE3F /* Pill.swift in Sources */,
@@ -668,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.christianost.habitsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -686,7 +694,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 75;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.christianost.habitsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

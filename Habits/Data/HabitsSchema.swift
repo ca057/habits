@@ -37,7 +37,7 @@ enum HabitsMigrationPlan: SchemaMigrationPlan {
     }
     static var stages: [MigrationStage] { [migrateV110toV120, migrateV120toV130] }
     
-    static func migrateDateToDay(from date: Date) -> String {
+    static func migrateDateToDay(from date: Date, with calendar: Calendar) -> String {
         // entries were stored at local midnight, so the correct timezone can be determined whichever
         // has 0 for the hour; candidates are based on my own usage
         // TODO: this needs testing
@@ -49,7 +49,7 @@ enum HabitsMigrationPlan: SchemaMigrationPlan {
         var minHour = 24
         
         for timeZone in timeZoneCandidates {
-            var calendar = Calendar(identifier: .gregorian)
+            var calendar = calendar
             calendar.timeZone = timeZone
 
             let hour = calendar.component(.hour, from: date)
@@ -71,7 +71,7 @@ enum HabitsMigrationPlan: SchemaMigrationPlan {
             let entries = try context.fetch(FetchDescriptor<HabitsSchemaV120.Entry>())
             
             for entry in entries where entry.day == nil {
-                entry.day = migrateDateToDay(from: entry.date)
+                entry.day = migrateDateToDay(from: entry.date, with: Calendar(identifier: .gregorian))
             }
             
             try context.save()

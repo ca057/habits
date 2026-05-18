@@ -18,11 +18,14 @@ protocol DataImportExporter {
 }
 
 struct DataImportExportService: DataImportExporter {
+    var appVersion: String
+    var calendar: Calendar
+
     func exportHabitsToJsonFile(with habits: [DataExport.HabitsExportItem]) throws -> DataExport.JSONFile {
         Logger.dataImportExport.debug("starting export for \(habits.count) habits")
         
         let export = DataExport.HabitsExport(
-            appVersion: Bundle.main.versionAndBuildNumber,
+            appVersion: appVersion,
             // TODO: consider model version?
             exportDate: Date(),
             habits: habits
@@ -54,7 +57,7 @@ struct DataImportExportService: DataImportExporter {
                     if let day = entry.day {
                         return DataExport.HabitsExportItemEntry(day: day)
                     } else if let date = entry.date {
-                        return DataExport.HabitsExportItemEntry(day: HabitsMigrationPlan.migrateDateToDay(from: date))
+                        return DataExport.HabitsExportItemEntry(day: HabitsMigrationPlan.migrateDateToDay(from: date, with: calendar))
                     } else {
                         // TODO: pass the feedback one level up
                         Logger.dataImportExport.warning("entry is missing both date and day and cannot be imported")
@@ -64,8 +67,4 @@ struct DataImportExportService: DataImportExporter {
             )
         }
     }
-}
-
-extension DataImportExporter where Self == DataImportExportService {
-    static var live: DataImportExportService { DataImportExportService() }
 }

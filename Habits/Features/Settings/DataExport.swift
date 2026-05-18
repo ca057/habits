@@ -17,11 +17,6 @@ struct DataExport {
 
     struct HabitsExportItemEntry: Codable {
         let day: String
-
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encodeIfPresent(day, forKey: .day)
-        }
     }
     
     struct HabitsExportItem: Codable {
@@ -31,8 +26,6 @@ struct DataExport {
         let colour: String
         let order: Int?
         let entries: [HabitsExportItemEntry]
-
-        // TODO: create from & to methods
     }
 
     struct HabitsExport: Codable {
