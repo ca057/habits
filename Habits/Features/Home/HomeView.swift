@@ -105,7 +105,7 @@ fileprivate struct OverViewItem: View {
     }
 }
 
-struct NextOverview: View {
+struct HomeView: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
 
@@ -174,7 +174,7 @@ struct NextOverview: View {
         let previewer = try Previewer()
 
         return NavigationStack {
-            NextOverview(habits: previewer.habits, from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
+            HomeView(habits: previewer.habits, from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
                 .modelContainer(previewer.container)
                 .environment(\.calendar, CalendarUtils.shared.calendar)
         }.tint(.primary)
@@ -188,7 +188,7 @@ struct NextOverview: View {
         let previewer = try Previewer()
         
         return NavigationStack {
-            NextOverview(habits: [], from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
+            HomeView(habits: [], from: Date.now.offset(.day, value: -6) ?? Date.now, to: Date.now)
                 .modelContainer(previewer.container)
                 .environment(\.calendar, CalendarUtils.shared.calendar)
         }.tint(.primary)

@@ -38,9 +38,9 @@ struct MainApp: View {
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
-            NextOverview(habits: habits, from: overviewDateInterval.from, to: overviewDateInterval.to)
+            HomeView(habits: habits, from: overviewDateInterval.from, to: overviewDateInterval.to)
                 .navigationDestination(for: Habit.self) { habit in
-                    SingleHabitView(id: habit.id) // TODO: pass in habit
+                    HabitDetailView(id: habit.id) // TODO: pass in habit
                 }
         }
         .tint(.primary)

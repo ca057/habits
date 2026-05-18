@@ -25,12 +25,12 @@ private struct NotFoundSingleHabitView: View {
     }
 }
 
-private struct SingleHabitStatistics: View {
+private struct HabitDetailStatistics: View {
     @Environment(\.calendar) private var calendar
 
     var habit: Habit
     var year: Date
-    var analysis: SingleHabitAnalysis
+    var analysis: HabitDetailAnalysis
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -96,14 +96,14 @@ private struct StaticBackground: View {
     }
 }
 
-private struct SingleHabitViewContent: View {
+private struct HabitDetailViewContent: View {
     @Environment(\.calendar) private var calendar
 
     var habit: Habit
     var entries: [Entry]
 
     @State private var year = Date.now
-    @State private var analysisForYear: SingleHabitAnalysis?
+    @State private var analysisForYear: HabitDetailAnalysis?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -185,7 +185,7 @@ private struct SingleHabitViewContent: View {
                         .padding([.horizontal, .bottom])
                         .background(.bg)
 
-                        SingleHabitStatistics(
+                        HabitDetailStatistics(
                             habit: habit, year: year, analysis: analysis
                         )
                         .padding()
@@ -197,11 +197,11 @@ private struct SingleHabitViewContent: View {
         }
         .background(.bg)
         .onChange(of: year) {
-            analysisForYear = SingleHabitAnalysis.forYear(
+            analysisForYear = HabitDetailAnalysis.forYear(
                 year, calendar: calendar, habit: habit, entries: entries)
         }
         .onChange(of: entries, initial: true) {
-            analysisForYear = SingleHabitAnalysis.forYear(
+            analysisForYear = HabitDetailAnalysis.forYear(
                 year, calendar: calendar, habit: habit, entries: entries)
         }
     }
@@ -212,7 +212,7 @@ private struct SingleHabitViewContent: View {
     }
 }
 
-struct SingleHabitView: View {
+struct HabitDetailView: View {
     private var id: UUID
 
     @Query private var queriedHabits: [Habit]
@@ -224,7 +224,7 @@ struct SingleHabitView: View {
     var body: some View {
         Group {
             if let habit = habit {
-                SingleHabitViewContent(habit: habit, entries: entries)
+                HabitDetailViewContent(habit: habit, entries: entries)
             } else {
                 NotFoundSingleHabitView()
             }
@@ -234,7 +234,7 @@ struct SingleHabitView: View {
         .sheet(isPresented: $showingSettings) {
             if let habit = habit {
                 NavigationStack {
-                    SingleHabitSettingsView(habit: habit)
+                    HabitDetailSettings(habit: habit)
                 }
             }
         }
@@ -267,7 +267,7 @@ struct SingleHabitView: View {
         let previewer = try Previewer()
 
         return NavigationStack {
-            SingleHabitView(id: previewer.habits[0].id)
+            HabitDetailView(id: previewer.habits[0].id)
         }
         .tint(.primary)
         .modelContainer(previewer.container)

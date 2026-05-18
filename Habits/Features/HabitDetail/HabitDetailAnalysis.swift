@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SingleHabitAnalysis {
+struct HabitDetailAnalysis {
     var achievedDays: Set<String>
 
     var achievedCompletion: Double
@@ -15,7 +15,7 @@ struct SingleHabitAnalysis {
     
     var firstRelevantDate: Date
     
-    static func forYear(_ year: Date, calendar: Calendar, habit: Habit, entries: [Entry]) -> SingleHabitAnalysis {
+    static func forYear(_ year: Date, calendar: Calendar, habit: Habit, entries: [Entry]) -> HabitDetailAnalysis {
         let startOfYear = year.adjust(for: .startOfYear)!
         let oldestEntryDate = entries.map { $0.day }.min().flatMap { Entry.date(from: $0) }
         let firstRelevantDate = calendar.oldestDate(habit.createdAt, oldestEntryDate ?? habit.createdAt)
@@ -32,7 +32,7 @@ struct SingleHabitAnalysis {
             return Int(ceil(Double(calendar.dateComponents([.hour], from: start, to: endOfToday).hour ?? 0) / 24))
         }
 
-        return SingleHabitAnalysis(
+        return HabitDetailAnalysis(
             achievedDays: Set(achievedDaysOfYear),
             achievedCompletion: (Double(achievedDaysOfYear.count) / Double(achievableDays) * 100).rounded() / 100,
             achievableDayCount: achievableDays,

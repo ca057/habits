@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SingleHabitSettingsView: View {
+struct HabitDetailSettings: View {
     @Environment(\.dismiss) private var dismissView
     @Environment(\.navigation) private var navigation
     @Environment(\.modelContext) private var modelContext
@@ -149,11 +149,12 @@ struct SingleHabitSettingsView: View {
 #Preview {
     do {
         let previewer = try Previewer()
+
         return NavigationStack {
-            SingleHabitSettingsView(habit: previewer.habits[0])
-        }
-        .modelContainer(previewer.container)
-        .tint(.primary)
+                HabitDetailSettings(habit: previewer.habits[0])
+            }
+            .modelContainer(previewer.container)
+            .tint(.primary)
     } catch {
         return Text("failed to create preview: \(error.localizedDescription)")
     }

@@ -18,7 +18,7 @@
 		AA19948E2C937B2B0059211B /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19948D2C937B2B0059211B /* ProgressBar.swift */; };
 		AA3C9B7D2B8E876C00312206 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C9B7C2B8E876C00312206 /* Pill.swift */; };
 		AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */; };
-		AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */; };
+		AA4191542C98B863002A230C /* HabitDetailAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4191532C98B863002A230C /* HabitDetailAnalysis.swift */; };
 		AA4191572C9A0DD7002A230C /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6F58C12B1DFA0A009BB876 /* Calendar.swift */; };
 		AA47212C2C9AA53B009CEE3F /* CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */; };
 		AA47212D2C9AA686009CEE3F /* LTLabeledContentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */; };
@@ -33,12 +33,11 @@
 		AA86370229D23FBD00144373 /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370029D23FBD00144373 /* CalendarUtils.swift */; };
 		AA86370429D4CC5600144373 /* MainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370329D4CC5600144373 /* MainApp.swift */; };
 		AA86370629D4D0C900144373 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86370529D4D0C900144373 /* Settings.swift */; };
-		AA88CB772BDA3FE20062CD30 /* SingleHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88CB762BDA3FE20062CD30 /* SingleHabitView.swift */; };
-		AA88CB792BEFF70E0062CD30 /* SingleHabitSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88CB782BEFF70E0062CD30 /* SingleHabitSettingsView.swift */; };
+		AA88CB772BDA3FE20062CD30 /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88CB762BDA3FE20062CD30 /* HabitDetailView.swift */; };
+		AA88CB792BEFF70E0062CD30 /* HabitDetailSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88CB782BEFF70E0062CD30 /* HabitDetailSettings.swift */; };
 		AA8FC7A42B39D019006AB218 /* Previewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8FC7A32B39D019006AB218 /* Previewer.swift */; };
 		AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6273B28531D9A0056FAF3 /* Bundle.swift */; };
-		AAA9AA762DE36BA00032FCE7 /* NextOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9AA752DE36BA00032FCE7 /* NextOverview.swift */; };
-		AAAE45C72C553861005BA9B9 /* Overview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAE45C62C553861005BA9B9 /* Overview.swift */; };
+		AAA9AA762DE36BA00032FCE7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9AA752DE36BA00032FCE7 /* HomeView.swift */; };
 		AAC0106D2875C12F00AE0889 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AAC0106C2875C12F00AE0889 /* DateHelper */; };
 		AAC01D0D2E2DF30E004360BE /* HabitsSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */; };
 		AAC01D0E2E2DF30E004360BE /* HabitsSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */; };
@@ -80,7 +79,7 @@
 		AA19948D2C937B2B0059211B /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		AA3C9B7C2B8E876C00312206 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		AA3E51EA2ABCD1BD00F2A1E8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitAnalysis.swift; sourceTree = "<group>"; };
+		AA4191532C98B863002A230C /* HabitDetailAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailAnalysis.swift; sourceTree = "<group>"; };
 		AA47212B2C9AA53B009CEE3F /* CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTests.swift; sourceTree = "<group>"; };
 		AA5D30062E5CFD62005060C6 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTLabeledContentStyle.swift; sourceTree = "<group>"; };
@@ -90,12 +89,11 @@
 		AA86370029D23FBD00144373 /* CalendarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtils.swift; sourceTree = "<group>"; };
 		AA86370329D4CC5600144373 /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
 		AA86370529D4D0C900144373 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		AA88CB762BDA3FE20062CD30 /* SingleHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitView.swift; sourceTree = "<group>"; };
-		AA88CB782BEFF70E0062CD30 /* SingleHabitSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHabitSettingsView.swift; sourceTree = "<group>"; };
+		AA88CB762BDA3FE20062CD30 /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
+		AA88CB782BEFF70E0062CD30 /* HabitDetailSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailSettings.swift; sourceTree = "<group>"; };
 		AA8FC7A32B39D019006AB218 /* Previewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previewer.swift; sourceTree = "<group>"; };
 		AAA6273B28531D9A0056FAF3 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		AAA9AA752DE36BA00032FCE7 /* NextOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextOverview.swift; sourceTree = "<group>"; };
-		AAAE45C62C553861005BA9B9 /* Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overview.swift; sourceTree = "<group>"; };
+		AAA9AA752DE36BA00032FCE7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AAC01D0C2E2DF304004360BE /* HabitsSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsSchema.swift; sourceTree = "<group>"; };
 		AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPicker.swift; sourceTree = "<group>"; };
 		AAC67B0828739D290085F2B6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -146,15 +144,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AA8636F329BFD93800144373 /* SingleHabit */ = {
+		AA8636F329BFD93800144373 /* HabitDetail */ = {
 			isa = PBXGroup;
 			children = (
 				AAF334B22BD1F205004FA00F /* FrequencyAchievementOverview.swift */,
-				AA88CB762BDA3FE20062CD30 /* SingleHabitView.swift */,
-				AA88CB782BEFF70E0062CD30 /* SingleHabitSettingsView.swift */,
-				AA4191532C98B863002A230C /* SingleHabitAnalysis.swift */,
+				AA88CB762BDA3FE20062CD30 /* HabitDetailView.swift */,
+				AA88CB782BEFF70E0062CD30 /* HabitDetailSettings.swift */,
+				AA4191532C98B863002A230C /* HabitDetailAnalysis.swift */,
 			);
-			path = SingleHabit;
+			path = HabitDetail;
 			sourceTree = "<group>";
 		};
 		AA8636FF29D23FAB00144373 /* Utils */ = {
@@ -191,16 +189,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AAAE45C52C553850005BA9B9 /* Overview */ = {
+		AAAE45C52C553850005BA9B9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				AAAE45C62C553861005BA9B9 /* Overview.swift */,
-				AAA9AA752DE36BA00032FCE7 /* NextOverview.swift */,
+				AAA9AA752DE36BA00032FCE7 /* HomeView.swift */,
 			);
-			path = Overview;
+			path = Home;
 			sourceTree = "<group>";
 		};
-		AAC67B0428734CC30085F2B6 /* Components */ = {
+		AAC67B0428734CC30085F2B6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
@@ -214,7 +211,7 @@
 				AA19948D2C937B2B0059211B /* ProgressBar.swift */,
 				AAFD80D42E47449A00BF2A72 /* EntryItem.swift */,
 			);
-			path = Components;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		AADC1CD727BEF547007C47BE = {
@@ -242,11 +239,12 @@
 			children = (
 				AAC67B0C287440080085F2B6 /* Info.plist */,
 				AA8636FF29D23FAB00144373 /* Utils */,
-				AAC67B0428734CC30085F2B6 /* Components */,
+				AAC67B0428734CC30085F2B6 /* UI */,
 				AAA6273A28531D890056FAF3 /* Extensions */,
 				AAEC09DA27F8900300D9B666 /* Data */,
 				AAEC09D927F87DA500D9B666 /* Features */,
 				AADC1CE327BEF547007C47BE /* HabitsApp.swift */,
+				AA86370329D4CC5600144373 /* MainApp.swift */,
 				AADC1CE727BEF548007C47BE /* Assets.xcassets */,
 			);
 			path = Habits;
@@ -264,10 +262,9 @@
 		AAEC09D927F87DA500D9B666 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				AAAE45C52C553850005BA9B9 /* Overview */,
-				AA86370329D4CC5600144373 /* MainApp.swift */,
+				AAAE45C52C553850005BA9B9 /* Home */,
 				AA86370A29D62CDB00144373 /* Settings */,
-				AA8636F329BFD93800144373 /* SingleHabit */,
+				AA8636F329BFD93800144373 /* HabitDetail */,
 				AADC1D1227C017F4007C47BE /* AddHabitView.swift */,
 			);
 			path = Features;
@@ -401,10 +398,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA6F58C02B1DF9D0009BB876 /* HistoryMonthView.swift in Sources */,
-				AA4191542C98B863002A230C /* SingleHabitAnalysis.swift in Sources */,
+				AA4191542C98B863002A230C /* HabitDetailAnalysis.swift in Sources */,
 				AA09A9D32AB5FB7500999CAD /* HistoryView.swift in Sources */,
 				AA3E51EB2ABCD1BD00F2A1E8 /* String.swift in Sources */,
-				AA88CB772BDA3FE20062CD30 /* SingleHabitView.swift in Sources */,
+				AA88CB772BDA3FE20062CD30 /* HabitDetailView.swift in Sources */,
 				AAA6273C28531D9A0056FAF3 /* Bundle.swift in Sources */,
 				AAC01D0E2E2DF30E004360BE /* HabitsSchema.swift in Sources */,
 				AAE5FBEE2B35C5F10052D047 /* LazyView.swift in Sources */,
@@ -412,13 +409,12 @@
 				AAF334B32BD1F205004FA00F /* FrequencyAchievementOverview.swift in Sources */,
 				AAFD80D52E47449A00BF2A72 /* EntryItem.swift in Sources */,
 				AAC67B0628734CDC0085F2B6 /* ColourPicker.swift in Sources */,
-				AAA9AA762DE36BA00032FCE7 /* NextOverview.swift in Sources */,
+				AAA9AA762DE36BA00032FCE7 /* HomeView.swift in Sources */,
 				AAC67B0928739D290085F2B6 /* UIColor.swift in Sources */,
 				AA1994832C864B040059211B /* View.swift in Sources */,
 				AACCAD972B225882008BB8FE /* DataExport.swift in Sources */,
 				AA7318532BFBE55400988128 /* LTTextFieldStyle.swift in Sources */,
 				AA86370429D4CC5600144373 /* MainApp.swift in Sources */,
-				AAAE45C72C553861005BA9B9 /* Overview.swift in Sources */,
 				AA643CFA2C32EB6200F0FBBC /* LTLabeledContentStyle.swift in Sources */,
 				AA09A9D02AADFE4D00999CAD /* ExpandableRows.swift in Sources */,
 				AA6F58C22B1DFA0A009BB876 /* Calendar.swift in Sources */,
@@ -432,7 +428,7 @@
 				AA3C9B7D2B8E876C00312206 /* Pill.swift in Sources */,
 				AA86370629D4D0C900144373 /* Settings.swift in Sources */,
 				AA1994872C89B3860059211B /* ArchivedHabitsView.swift in Sources */,
-				AA88CB792BEFF70E0062CD30 /* SingleHabitSettingsView.swift in Sources */,
+				AA88CB792BEFF70E0062CD30 /* HabitDetailSettings.swift in Sources */,
 				AA5D30072E5CFD62005060C6 /* Font.swift in Sources */,
 				AADC1CE427BEF547007C47BE /* HabitsApp.swift in Sources */,
 			);
