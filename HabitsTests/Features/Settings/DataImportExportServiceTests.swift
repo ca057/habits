@@ -116,6 +116,31 @@ struct DataImportExportServiceTests {
     
     @Suite("tests exporting of Habits")
     struct DataExportTests {
+        var calendar: Calendar {
+            var cal = Calendar(identifier: .gregorian)
+            cal.timeZone = TimeZone(identifier: "Europe/London")! // TODO: add tests for different time zones
+            
+            return cal
+        }
         
+        var service: DataImportExportService {
+            DataImportExportService(appVersion: "1.2.3", calendar: calendar)
+        }
+        
+        @Test("creates JSON file with additional metadata for given habits")
+        func createsJsonFileForHabits() throws {
+            let uuid = UUID()
+            let habits: [DataExport.HabitsExportItem] = [
+                DataExport.HabitsExportItem(id: uuid, name: "1", createdAt: Date(), colour: "green", order: 0, entries: []),
+                DataExport.HabitsExportItem(id: UUID(), name: "2", createdAt: Date(), colour: "blue", order: 1, entries: [
+                    DataExport.HabitsExportItemEntry(day: "2026-05-20")
+                ]),
+            ]
+            
+            let export = try service.exportHabitsToJsonFile(with: habits)
+            
+            #expect(export.data.isEmpty == false)
+            #expect(String(data: export.data, encoding: .utf8)?.contains(uuid.uuidString) ?? false)
+        }
     }
 }
