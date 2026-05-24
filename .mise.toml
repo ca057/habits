@@ -12,7 +12,10 @@ run = [
 
 [tasks.build-beta]
 description = "Builds and publishes a new beta version of the app"
-depends = ["cert-appstore"]
+depends = [
+  "test",
+  "cert-appstore"
+]
 run = [
   # TODO: check dirty state
   # TODO: commit version change automatically and push? check if it’s the main branch
@@ -34,7 +37,7 @@ run = ["xcrun simctl get_app_container booted de.christianost.habits data"]
 [tasks.test]
 description = "Runs the tests"
 run = [
-  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0' | xcpretty && exit ${PIPESTATUS[0]}",
+  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.4.1' | xcpretty && exit ${PIPESTATUS[0]}",
 ]
 
 [settings]
