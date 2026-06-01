@@ -23,6 +23,7 @@ struct SettingsView: View {
     var importExportService: DataImportExportService = .live
 
     @State private var errorMessage = ErrorAlert()
+    @State private var habitsExportFile: DataExport.JSONFile? = nil
     @State private var showingExporter = false
     @State private var showingImporter = false
 
@@ -31,7 +32,12 @@ struct SettingsView: View {
             Form {
                 List {
                     Section("Data") {
-                        Button(action: { showingExporter = true }) {
+                        Button(action: {
+                            if let exportFile = getDataAsJsonFile() {
+                                habitsExportFile = exportFile
+                                showingExporter = true
+                            }
+                        }) {
                             Label {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Backup data")
@@ -105,9 +111,11 @@ struct SettingsView: View {
             }
             .fileExporter(
                 isPresented: $showingExporter,
-                document: getDataAsJsonFile(),
+                document: $habitsExportFile.wrappedValue,
                 contentType: .json
             ) { result in
+                habitsExportFile = nil
+
                 switch result {
                 case .success(let url):
                     print("Saved to \(url)")
