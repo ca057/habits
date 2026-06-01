@@ -163,7 +163,7 @@ struct HomeView: View {
                 }
             }
             .toolbarRole(.browser)
-            .sheet(isPresented: $showingSettings, content: { Settings() })
+            .sheet(isPresented: $showingSettings, content: { SettingsView() })
             .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
         }
     }

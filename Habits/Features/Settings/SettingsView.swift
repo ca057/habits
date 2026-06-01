@@ -16,7 +16,7 @@ fileprivate struct ErrorAlert {
     var message = ""
 }
 
-struct Settings: View {
+struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismissView
     
@@ -137,7 +137,7 @@ struct Settings: View {
     }
 }
 
-fileprivate extension Settings {
+fileprivate extension SettingsView {
     private func getHighResolutionAppIconName() -> String? {
         guard let infoPlist = Bundle.main.infoDictionary else { return nil }
         guard let bundleIcons = infoPlist["CFBundleIcons"] as? NSDictionary else { return nil }
@@ -237,7 +237,7 @@ fileprivate extension Settings {
     do {
         let previewer = try Previewer()
 
-        return Settings()
+        return SettingsView()
             .modelContainer(previewer.container)
             .tint(.primary)
     } catch {
