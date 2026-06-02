@@ -15,11 +15,11 @@ struct DataExport {
         case importFailed
     }
 
-    struct HabitsExportItemEntry: Codable {
+    struct HabitsExportItemEntry: Codable, Sendable {
         let day: String
     }
     
-    struct HabitsExportItem: Codable {
+    struct HabitsExportItem: Codable, Sendable {
         let id: UUID
         let name: String
         let createdAt: Date
@@ -28,12 +28,12 @@ struct DataExport {
         let entries: [HabitsExportItemEntry]
     }
 
-    struct HabitsExport: Codable {
+    struct HabitsExport: Codable, Sendable {
         let appVersion: String
         let exportDate: Date
         let habits: [HabitsExportItem]
     }
-    
+
     struct HabitsImportItemEntry: Codable {
         // TODO: [v2] make it a breaking change and remove the old date and merge both entries
         let date: Date?
@@ -53,8 +53,6 @@ struct DataExport {
         let colour: String
         let order: Int?
         let entries: [HabitsImportItemEntry]
-
-        // TODO: create from & to methods
     }
 
     struct HabitsImport: Codable {
@@ -62,8 +60,6 @@ struct DataExport {
         let exportDate: Date
         let habits: [HabitsImportItem]
     }
-    
-    
 
     struct JSONFile: FileDocument {
         static let readableContentTypes = [UTType.json]

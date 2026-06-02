@@ -24,6 +24,7 @@ struct SettingsView: View {
 
     @State private var errorMessage = ErrorAlert()
     @State private var habitsExportFile: DataExport.JSONFile? = nil
+    @State private var isExporting = false
     @State private var showingExporter = false
     @State private var showingImporter = false
 
@@ -32,24 +33,26 @@ struct SettingsView: View {
             Form {
                 List {
                     Section("Data") {
-                        Button(action: {
-                            if let exportFile = getDataAsJsonFile() {
-                                habitsExportFile = exportFile
-                                showingExporter = true
-                            }
-                        }) {
+                        Button(action: handleExport) {
                             Label {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("Backup data")
-                                    Text("The backup will include all habits, including archived ones.")
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Backup data")
+                                        Text("The backup will include all habits, including archived ones.")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    
+                                    if isExporting {
+                                        Spacer()
+                                        ProgressView()
+                                    }
                                 }
                             } icon: {
                                 Image(systemName: "square.and.arrow.up")
                                     .symbolRenderingMode(.hierarchical)
                             }
-                        }
+                        }.disabled(isExporting)
                         Button(action: { showingImporter = true }) {
                             Label {
                                 VStack(alignment: .leading, spacing: 4) {
@@ -112,17 +115,23 @@ struct SettingsView: View {
             .fileExporter(
                 isPresented: $showingExporter,
                 document: $habitsExportFile.wrappedValue,
-                contentType: .json
-            ) { result in
-                habitsExportFile = nil
+                contentTypes: [.json],
+                onCompletion: { result in
+                    habitsExportFile = nil
+                    isExporting = false
 
-                switch result {
-                case .success(let url):
-                    print("Saved to \(url)")
-                case .failure(let error):
-                    print("export whoopsie \(error.localizedDescription)")
+                    switch result {
+                    case .success(let url):
+                        print("Saved to \(url)")
+                    case .failure(let error):
+                        print("export whoopsie \(error.localizedDescription)")
+                    }
+                },
+                onCancellation: {
+                    habitsExportFile = nil
+                    isExporting = false
                 }
-            }
+            )
             .fileImporter(
                 isPresented: $showingImporter,
                 allowedContentTypes: [.json],
@@ -143,6 +152,24 @@ struct SettingsView: View {
             }
         }
     }
+    
+    func handleExport() {
+        Task {
+            do {
+                isExporting = true
+                
+                habitsExportFile = try await buildExportDocument(from: modelContext.container, using: importExportService)
+                
+                showingExporter = true
+            } catch {
+                errorMessage = ErrorAlert(
+                    showing: true,
+                    title: "Export your data failed",
+                    message: "Something went wrong during the export. Please try again." // TODO: original message
+                )
+            }
+        }
+    }
 }
 
 fileprivate extension SettingsView {
@@ -154,35 +181,27 @@ fileprivate extension SettingsView {
         guard let appIcon = bundleIconFiles.lastObject as? String else { return nil }
         return appIcon
     }
+    
+    nonisolated func buildExportDocument(from container: ModelContainer, using exportService: DataImportExportService) async throws -> DataExport.JSONFile {
+        let modelContext = ModelContext(container)
+        
+        let allHabitsDescriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.createdAt)])
+        let allHabits = try modelContext.fetch(allHabitsDescriptor)
 
-    func getDataAsJsonFile() -> DataExport.JSONFile? {
-        do {
-            let allHabitsDescriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.createdAt)])
-            let allHabits = try modelContext.fetch(allHabitsDescriptor)
-
-            return try importExportService.exportHabitsToJsonFile(
-                with: allHabits.map { habit in
-                    DataExport.HabitsExportItem(
-                        id: habit.id,
-                        name: habit.name,
-                        createdAt: habit.createdAt,
-                        colour: habit.colour,
-                        order: Int(habit.order),
-                        entries: habit.entry.map { entry in
-                            DataExport.HabitsExportItemEntry(day: entry.day)
-                        }
-                    )
-                }
-            )
-        } catch {
-            errorMessage = ErrorAlert(
-                showing: true,
-                title: "Export your data failed",
-                message: "Something went wrong during the export. Please try again." // TODO: original message
-            )
-            
-            return nil
-        }
+        return try exportService.exportHabitsToJsonFile(
+            with: allHabits.map { habit in
+                DataExport.HabitsExportItem(
+                    id: habit.id,
+                    name: habit.name,
+                    createdAt: habit.createdAt,
+                    colour: habit.colour,
+                    order: Int(habit.order),
+                    entries: habit.entry.map { entry in
+                        DataExport.HabitsExportItemEntry(day: entry.day)
+                    }
+                )
+            }
+        )
     }
     
     func importDataFromJsonFileUrl(_ urls: [URL]) {
