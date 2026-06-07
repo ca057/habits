@@ -37,7 +37,7 @@ run = ["xcrun simctl get_app_container booted de.christianost.habits data"]
 [tasks.test]
 description = "Runs the tests"
 run = [
-  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.4.1' | xcpretty && exit ${PIPESTATUS[0]}",
+  "xcodebuild test -project Habits.xcodeproj -scheme habitsTests -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.5' | xcpretty && exit ${PIPESTATUS[0]}",
 ]
 
 [settings]
