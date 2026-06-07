@@ -27,8 +27,6 @@ struct DaysHeader: View {
                 }
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 4)
     }
     
     init(for days: [Date]) {
@@ -76,11 +74,6 @@ fileprivate struct OverViewItem: View {
                 }
             }
         }
-        .padding(12)
-        .background(.bg.mix(with: .gray, by: 0.1))
-        .clipShape(
-            RoundedRectangle(cornerSize: CGSize(width: 8, height: 8), style: .continuous)
-        )
     }
     
     // TODO: make days a daysrange protocol to enforce that it has at least two dates
@@ -107,6 +100,7 @@ fileprivate struct OverViewItem: View {
 
 struct HomeView: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.navigation) private var navigation
     @Environment(\.modelContext) private var modelContext
 
     var habits: [Habit]
@@ -122,49 +116,65 @@ struct HomeView: View {
     
     @State private var showingSettings = false
     @State private var showingAddHabit = false
-
+        
     var body: some View {
-        ZStack {
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
-                    if !habits.isEmpty {
-                        DaysHeader(for: days)
-                        ForEach(habits, id: \.self) { habit in
-                            NavigationLink(value: habit) {
-                                OverViewItem(habit, range: days)
-                            }
-                        }
+        List {
+            Section {
+                ForEach(habits) { habit in
+                    // TODO: move the navigation into the label / white space part
+                    // Text + Spacer // .contentShape(.rect) + .onTapGesture
+                    Button {
+                        navigation.path.append(habit)
+                    } label: {
+                        OverViewItem(habit, range: days)
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(.isLink)
+                    .accessibilityLabel(habit.name)
+                    .accessibilityHint("View details of habit")
                 }
-
+                .onMove(perform: reorderHabits)
+                
                 HStack {
                     Button("New habit", systemImage: "plus") {
                         showingAddHabit = true
                     }
                     .buttonStyle(.bordered)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
                 }
-                .padding(.vertical, 8)
+                .listRowSeparator(.hidden)
+            } header: {
+                DaysHeader(for: days)
             }
-            .padding(.horizontal)
-            .background(Color(UIColor.systemGray6))
-            .scrollIndicators(.hidden)
-            .navigationTitle("Home")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .title) {
-                    Text("Home")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Settings", systemImage: "gearshape") {
-                        showingSettings = true
-                    }
+        }
+        .listStyle(.inset)
+        .scrollIndicators(.hidden)
+        .navigationTitle("Home")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .title) {
+                Text("Home")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Settings", systemImage: "gearshape") {
+                    showingSettings = true
                 }
             }
-            .toolbarRole(.browser)
-            .sheet(isPresented: $showingSettings, content: { SettingsView() })
-            .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
+        }
+        .toolbarRole(.browser)
+        .sheet(isPresented: $showingSettings, content: { SettingsView() })
+        .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
+
+    }
+
+    private func reorderHabits(from: IndexSet, to: Int) {
+        var reordered = habits
+        reordered.move(fromOffsets: from, toOffset: to)
+        reordered.enumerated().forEach { index, habit in
+            habit.order = Int16(index)
         }
     }
 }
