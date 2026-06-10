@@ -116,6 +116,19 @@ struct HomeView: View {
     
     @State private var showingSettings = false
     @State private var showingAddHabit = false
+    
+    @ToolbarContentBuilder private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .title) {
+            Text("Home")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button("Settings", systemImage: "gearshape") {
+                showingSettings = true
+            }
+        }
+    }
         
     var body: some View {
         List {
@@ -152,18 +165,7 @@ struct HomeView: View {
         .scrollIndicators(.hidden)
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .title) {
-                Text("Home")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Settings", systemImage: "gearshape") {
-                    showingSettings = true
-                }
-            }
-        }
+        .toolbar { toolbarContent }
         .toolbarRole(.browser)
         .sheet(isPresented: $showingSettings, content: { SettingsView() })
         .sheet(isPresented: $showingAddHabit, content: { AddHabitView() })
