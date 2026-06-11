@@ -13,12 +13,11 @@ run = [
 [tasks.build-beta]
 description = "Builds and publishes a new beta version of the app"
 depends = [
-  "test",
-  "cert-appstore"
+  "test"
+  # "cert-appstore"
 ]
 run = [
-  # TODO: check dirty state
-  # TODO: commit version change automatically and push? check if it’s the main branch
+  # TODO: check if it’s the main branch
   "bundle exec fastlane ios beta",
 ]
 
