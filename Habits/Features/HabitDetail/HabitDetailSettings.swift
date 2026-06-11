@@ -18,7 +18,6 @@ struct HabitDetailSettings: View {
     
     @State private var showingDeleteConfirmation = false
     @State private var showingArchiveConfirmation = false
-    @State private var showingCloseConfirmation = false
     
     private var isDirty: Bool {
         name != habit.name
@@ -53,6 +52,13 @@ struct HabitDetailSettings: View {
                                 .symbolRenderingMode(.hierarchical)
                         }
                     }
+                    .confirmationDialog(
+                        "Archive habit",
+                        isPresented: $showingArchiveConfirmation,
+                        actions: {
+                            Button("Archive", role: .destructive, action: archiveHabit)
+                        }
+                    )
 
                     Button(action: { showingDeleteConfirmation = true }) {
                         Label {
@@ -65,6 +71,13 @@ struct HabitDetailSettings: View {
                         }
                     }
                     .foregroundStyle(.red)
+                    .confirmationDialog("Confirm deletion",
+                           isPresented: $showingDeleteConfirmation,
+                           actions: {
+                                Button("Delete", role: .destructive, action: deleteHabit)
+                            },
+                           message: { Text("Do you really want to delete “\(name)”? This action cannot be undone.") }
+                    )
                 }
             }
         }
@@ -72,7 +85,7 @@ struct HabitDetailSettings: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button("Cancel", action: { attemptCloseView() })
+                Button("Cancel", action: { dismissView() })
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save", action: { saveChanges() })
@@ -80,37 +93,6 @@ struct HabitDetailSettings: View {
                     .fontWeight(isDirty ? .bold : .regular)
             }
         }
-        .confirmationDialog("Confirm deletion",
-               isPresented: $showingDeleteConfirmation,
-               actions: {
-                    Group {
-                        Button("Cancel", role: .cancel, action: {})
-                        Button("Delete", role: .destructive, action: deleteHabit)
-                    }
-                },
-               message: { Text("Do you really want to delete “\(name)”? This action cannot be undone.") }
-        )
-        .confirmationDialog(
-            "Discard changes",
-            isPresented: $showingCloseConfirmation,
-            actions: {
-                Group {
-                    Button("Cancel", role: .cancel, action: {})
-                    Button("Discard", role: .destructive, action: { dismissView() })
-                }
-            },
-            message: { Text("Do you want to discard the changes you made?") }
-        )
-        .confirmationDialog(
-            "Archive habit",
-            isPresented: $showingArchiveConfirmation,
-            actions: {
-                Group {
-                    Button("Archive", role: .destructive, action: archiveHabit)
-                    Button("Cancel", role: .cancel, action: {})
-                }
-            }
-        )
         .onAppear {
             name = habit.name
         }
@@ -130,15 +112,7 @@ struct HabitDetailSettings: View {
         navigation.path = NavigationPath()
         habit.archivedAt = Date.now
     }
-    
-    private func attemptCloseView() {
-        if isDirty {
-            showingCloseConfirmation = true
-        } else {
-            dismissView()
-        }
-    }
-    
+
     private func saveChanges() {
         habit.name = name
         
