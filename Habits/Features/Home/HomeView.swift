@@ -10,7 +10,7 @@ import SwiftData
 
 fileprivate let itemWidth = CGFloat(24)
 
-struct DaysHeader: View {
+fileprivate struct DaysHeader: View {
     private var days: [Date]
     
     var body: some View {
@@ -34,22 +34,34 @@ struct DaysHeader: View {
     }
 }
 
-fileprivate struct OverViewItem: View {
+fileprivate struct HomeViewItem: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.modelContext) private var modelContext
     
     var habit: Habit
     var days: [Date]
+    var onItemTap: () -> Void
 
     var body: some View {
         HStack(spacing: 4) {
-            Text(habit.name)
-                .font(.system(size: 14, weight: .medium))
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .padding(.bottom, 4)
-                
-            Spacer()
+            Button {
+                onItemTap()
+            } label: {
+                HStack {
+                    Text(habit.name)
+                        .font(.system(size: 14, weight: .medium))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .padding(.bottom, 4)
+                    
+                    Spacer()
+                }
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(.isLink)
+            .accessibilityLabel(habit.name)
+            .accessibilityHint("View details of habit")
 
             HStack(spacing: 2) {
                 ForEach(days, id: \.self) { day in
@@ -77,9 +89,10 @@ fileprivate struct OverViewItem: View {
     }
     
     // TODO: make days a daysrange protocol to enforce that it has at least two dates
-    init(_ habit: Habit, range days: [Date]) {
+    init(_ habit: Habit, range days: [Date], onItemTap: @escaping () -> Void) {
         self.habit = habit
         self.days = days
+        self.onItemTap = onItemTap
     }
     
     private func addEntry(for day: Date) {
@@ -134,17 +147,7 @@ struct HomeView: View {
         List {
             Section {
                 ForEach(habits) { habit in
-                    // TODO: move the navigation into the label / white space part
-                    // Text + Spacer // .contentShape(.rect) + .onTapGesture
-                    Button {
-                        navigation.path.append(habit)
-                    } label: {
-                        OverViewItem(habit, range: days)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityAddTraits(.isLink)
-                    .accessibilityLabel(habit.name)
-                    .accessibilityHint("View details of habit")
+                    HomeViewItem(habit, range: days, onItemTap: { navigation.path.append(habit) })
                 }
                 .onMove(perform: reorderHabits)
                 
