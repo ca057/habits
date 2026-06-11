@@ -239,7 +239,7 @@ struct HabitDetailView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .secondaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     showingSettings = true
                 } label: {
