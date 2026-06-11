@@ -146,10 +146,22 @@ struct HomeView: View {
     var body: some View {
         List {
             Section {
-                ForEach(habits) { habit in
-                    HomeViewItem(habit, range: days, onItemTap: { navigation.path.append(habit) })
+                if habits.isEmpty {
+                    VStack {
+                        Text("No habits yet")
+                            .font(.headline)
+                            .padding(.bottom, 4)
+                        Text("Add your first habit to track your progress.")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 48)
+                    .listRowSeparator(.hidden)
+                } else {
+                    ForEach(habits) { habit in
+                        HomeViewItem(habit, range: days, onItemTap: { navigation.path.append(habit) })
+                    }
+                    .onMove(perform: reorderHabits)
                 }
-                .onMove(perform: reorderHabits)
                 
                 HStack {
                     Button("New habit", systemImage: "plus") {
@@ -161,7 +173,9 @@ struct HomeView: View {
                 }
                 .listRowSeparator(.hidden)
             } header: {
-                DaysHeader(for: days)
+                if !habits.isEmpty {
+                    DaysHeader(for: days)
+                }
             }
         }
         .listStyle(.inset)
