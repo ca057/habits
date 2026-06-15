@@ -24,6 +24,14 @@ fileprivate struct DaysHeader: View {
                         .monospaced()
                         .foregroundStyle(.secondary)
                         .frame(width: itemWidth)
+                        .overlay {
+                            if day.compare(.isToday) {
+                                Circle()
+                                    .stroke(Color.secondary, lineWidth: 1)
+                                    .fill(.clear)
+                                    .frame(width: 16, height: 16)
+                            }
+                        }
                 }
             }
         }
@@ -180,6 +188,7 @@ struct HomeView: View {
         }
         .listStyle(.inset)
         .scrollIndicators(.hidden)
+        .scrollBounceBehavior(habits.isEmpty ? .basedOnSize : .automatic)
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }

@@ -200,16 +200,16 @@
 		AAC67B0428734CC30085F2B6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
 				AAC67B0528734CDC0085F2B6 /* ColourPicker.swift */,
-				AA09A9D22AB5FB7500999CAD /* HistoryView.swift */,
-				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
-				AAE5FBED2B35C5F10052D047 /* LazyView.swift */,
-				AA3C9B7C2B8E876C00312206 /* Pill.swift */,
-				AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */,
-				AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */,
-				AA19948D2C937B2B0059211B /* ProgressBar.swift */,
 				AAFD80D42E47449A00BF2A72 /* EntryItem.swift */,
+				AA09A9CF2AADFE4D00999CAD /* ExpandableRows.swift */,
+				AA6F58BF2B1DF9D0009BB876 /* HistoryMonthView.swift */,
+				AA09A9D22AB5FB7500999CAD /* HistoryView.swift */,
+				AAE5FBED2B35C5F10052D047 /* LazyView.swift */,
+				AA643CF92C32EB6200F0FBBC /* LTLabeledContentStyle.swift */,
+				AA7318522BFBE55400988128 /* LTTextFieldStyle.swift */,
+				AA3C9B7C2B8E876C00312206 /* Pill.swift */,
+				AA19948D2C937B2B0059211B /* ProgressBar.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -217,11 +217,11 @@
 		AADC1CD727BEF547007C47BE = {
 			isa = PBXGroup;
 			children = (
-				AAD2E33627ECD26C00389779 /* README.md */,
+				AAEC09F227FAD20F00D9B666 /* Frameworks */,
 				AADC1CE227BEF547007C47BE /* Habits */,
 				AADC1CF327BEF548007C47BE /* HabitsTests */,
 				AADC1CE127BEF547007C47BE /* Products */,
-				AAEC09F227FAD20F00D9B666 /* Frameworks */,
+				AAD2E33627ECD26C00389779 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
